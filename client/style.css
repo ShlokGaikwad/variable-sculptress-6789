@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+    font-family: "Rubik", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    position: fixed;
+    width: 100%;
+    background-color:#6A5AE0;
+    z-index: 10;
+}
+
+#nav-menu{
+    font-size:20px;
+    padding: 15px 5%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    color: white;
+}
+
+#logo-img{
+    height:50px;
+}
+
+.logo-cont{
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu{
+    flex:0.9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:10px;
+}
+
+.nav-links{
+    flex: 0.8;
+    display:flex;
+    justify-content: space-evenly;
+    gap:20px;
+}
+
+.nav-links>a{
+    text-decoration: none;
+    color: white;
+}
+
+.login-signup{
+    border-radius: 10px;
+    padding:15px;
+    background-color:transparent;
+    border: 2px solid white;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.login-signup:hover{
+    color:#6A5AE0;
+    border: 2px solid white;
+    background-color: white;
+    scale: 1.05;
+    flex-shrink: 0;
+}
+
+.login-signup:hover >a{
+    color:#6A5AE0;
+    
+}
+
+.login-signup>a{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+
+.logo-menu{
+    display: none;
+}
+
+.logo-close{
+    display: none;
+}
+
+.menu-icon{
+    height: 40px;
+}
+
+
+@media (max-width:950px){
+    #nav-menu{
+        font-size: unset;
+    }
+    .login-signup>a{
+        font-size: unset;
+    }
+    .logo-menu{
+        display: hidden;
+        justify-self: end;
+    }
+    .logo-close{
+        display: hidden;
+        justify-self: end;
+    }
+}
+
+
+@media (max-width:650px){
+    #home{
+        flex-direction:column-reverse;
+        height: unset;
+        padding-top: 70px;
+        padding-bottom: 70px;
+        gap:20px;
+    }
+    .hero-img>img{
+        min-height: unset;
+    }
+    .home-cont > h1{
+        font-size: 40px;
+    }
+    .home-cont>p{
+        line-height: 22px;
+    }
+    #about>h1{
+        font-size: 40px;
+    }
+    .about-cont>p {
+        line-height: 20px;
+        font-size: 12px;
+        letter-spacing: unset;
+    }
+    .hid{
+        display: none !important;
+    }
+    #nav-menu{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: space-between;
+    }
+    .logo-menu{
+        display: unset;
+        justify-self: end;
+    }
+    .logo-close{
+        display: unset;
+        justify-self: end;
+    }
+    .nav-links{
+        flex-direction: column;
+    }
+    .menu{
+        flex-direction: column;
+        grid-column: span 2;
+        padding: 20px;
+    }
+}
