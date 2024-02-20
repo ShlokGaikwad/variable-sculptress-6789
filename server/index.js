@@ -7,12 +7,12 @@ require("dotenv").config();
 
 const app = express();
 app.use(express.json(), cookieParser());
-app.use("/users", userRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Home page" });
 });
 
+app.use("/users", userRouter);
 app.use( "/question", questionRouter ) ;
 
 

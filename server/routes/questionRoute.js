@@ -5,7 +5,7 @@ const access = require("../middleware/access.middleware");
 
 const questionRouter = express.Router() ;
 
-questionRouter.get("/" ,  async(req,res) => {
+questionRouter.get("/" , auth , access("Admin" , "User") , async(req,res) => {
     try {
         const question = await QuestionModel.find() ;
         res.status(200).send({ "msg" : question }) ;
