@@ -161,6 +161,12 @@
     padding: 20px;
   }
   /* ===================================================== */
+
+  #contact {
+    padding-top: 25% !important;
+    height: 100% !important;
+  }
+
   #contact > h1 {
     font-size: 40px;
   }
@@ -169,8 +175,9 @@
     flex-direction: column-reverse;
   }
   .contact-form {
-    width: 100%;
+    width: 100% !important;
   }
+
   .contact-form > input {
     font-size: unset;
   }
@@ -189,12 +196,16 @@
   .contact-info > div {
     font-size: unset;
   }
+  .logo-cont {
+    justify-self: unset;
+  }
 }
 
 /* ============================================================================= */
 #contact {
   background-color: #c4d0fb;
-  padding: 8% 5%;
+  padding: 8% 4.5%;
+  height: 66vh;
 }
 
 #contact > h1 {
@@ -232,7 +243,7 @@
   color: white;
   font-size: 20px;
   border: none;
-  background-color: #6A5AE0;
+  background-color: #6a5ae0;
 }
 
 .contact-form > textarea {
