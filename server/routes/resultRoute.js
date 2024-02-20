@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middleware/auth');
+const authMiddleware = require('../middleware/auth.middleware');
 const Result = require('../models/resultModel');
 
 // Route to get results
-router.get('/user/:userId', authMiddleware, async (req, res) => {
+router.get('/:userId', authMiddleware, async (req, res) => {
   try {
     const userId = req.params.userId;
     const results = await Result.find({ userId });
