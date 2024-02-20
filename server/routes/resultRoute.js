@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middleware/auth.middleware');
+const auth = require('../middleware/auth.middleware');
 const Result = require('../models/resultModel');
+const access = require("../middleware/access.middleware");
 
 // Route to get results
-router.get('/:userId', authMiddleware, async (req, res) => {
+router.get('/:userId', auth, access("Admin" , "User") ,async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.id;
+    console.log(userId)
     const results = await Result.find({ userId });
     res.status(200).json(results);
   } catch (error) {
@@ -15,15 +17,25 @@ router.get('/:userId', authMiddleware, async (req, res) => {
   }
 });
 
-// Route to add result
-router.post('/add', authMiddleware, async (req, res) => {
-  try {
-    const { quizId, questions, totalScore, correctCount, incorrectCount } = req.body;
-    const userId = req.user.id; // From jwt auth middleware
+router.get('/', auth,access("Admin" , "User") , async (req, res) => {
+    try {
+      const results = await Result.find({ });
+      res.status(200).json(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  });
 
+// Route to add result
+router.post('/add', auth,access("Admin" , "User") , async (req, res) => {
+  try {
+    const {questions, totalScore, correctCount, incorrectCount } = req.body;
+    const userId = req.id; // From jwt auth middleware
+    console.log(userId)
+    console.log("sfgsf");
     const newResult = new Result({
       userId,
-      quizId,
       questions,
       totalScore,
       correctCount,
@@ -39,10 +51,10 @@ router.post('/add', authMiddleware, async (req, res) => {
 });
 
 // Route to delete result
-router.delete('/:resultId', authMiddleware, async (req, res) => {
+router.delete('/:resultId', auth, access("Admin" , "User") , async (req, res) => {
   try {
     const resultId = req.params.resultId;
-    const userId = req.user.id;
+    const userId = req.id;
 
     const result = await Result.findOne({ _id: resultId, userId });
 
@@ -58,10 +70,10 @@ router.delete('/:resultId', authMiddleware, async (req, res) => {
   }
 });
 
-router.patch('/update', authMiddleware, async (req, res) => {
+router.patch('/update', auth, access("Admin" , "User") , async (req, res) => {
     try {
       const { resultId, questionId, answer } = req.body;
-      const userId = req.user.id; // From jwt authmiddleware
+      const userId = req.id; // From jwt authmiddleware
   
       // questions field is an array of objects with questionId and answer
       const result = await Result.findOneAndUpdate(
