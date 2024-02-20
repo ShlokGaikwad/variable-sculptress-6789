@@ -1,5 +1,7 @@
 const express = require("express") ;
 const QuestionModel = require("../models/questionModel") ;
+const auth = require("../middleware/auth.middleware") ;
+const access = require("../middleware/access.middleware");
 
 const questionRouter = express.Router() ;
 
@@ -13,7 +15,7 @@ questionRouter.get("/" ,  async(req,res) => {
     }
 }) ;
 
-questionRouter.post("/create" , auth , roleAcess("admin") , async(req, res) => {
+questionRouter.post("/create" , auth , access("Admin") , async(req, res) => {
     try {
         res.status(201).send({ "msg" : "New question has been created" }) ;
     } catch(error) {
@@ -22,7 +24,7 @@ questionRouter.post("/create" , auth , roleAcess("admin") , async(req, res) => {
     }
 }) ;
 
-questionRouter.delete("/delete/:id" , auth , roleAcess("admin") , async(req, res) => {
+questionRouter.delete("/delete/:id" , auth , access("Admin") , async(req, res) => {
     try {
         const { questionID } = req.params.id ;
         res.status(201).send({ "msg" : `Question with id : ${questionID} has been deleted` }) ;
@@ -32,7 +34,7 @@ questionRouter.delete("/delete/:id" , auth , roleAcess("admin") , async(req, res
     }
 }) ;
 
-questionRouter.patch("/update/:id" , auth , roleAcess("admin") , async(req, res) => {
+questionRouter.patch("/update/:id" , auth , access("Admin") , async(req, res) => {
     try {
         const { questionID } = req.params.id ;
         res.status(201).send({ "msg" : `Question with id : ${questionID} has been updated` }) ;
