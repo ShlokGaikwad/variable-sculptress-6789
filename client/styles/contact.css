@@ -1,0 +1,278 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+* {
+  font-family: "Rubik", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  background-color: #6a5ae0;
+  z-index: 10;
+}
+
+#nav-menu {
+  font-size: 20px;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  color: white;
+}
+
+#logo-img {
+  height: 50px;
+}
+
+.logo-cont {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu {
+  flex: 0.9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links {
+  flex: 0.8;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.nav-links > a {
+  text-decoration: none;
+  color: white;
+}
+
+.login-signup {
+  border-radius: 10px;
+  padding: 15px;
+  background-color: transparent;
+  border: 2px solid white;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-signup:hover {
+  color: #6a5ae0;
+  border: 2px solid white;
+  background-color: white;
+  scale: 1.05;
+  flex-shrink: 0;
+}
+
+.login-signup:hover > a {
+  color: #6a5ae0;
+}
+
+.login-signup > a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+.logo-menu {
+  display: none;
+}
+
+.logo-close {
+  display: none;
+}
+
+.menu-icon {
+  height: 40px;
+}
+
+@media (max-width: 950px) {
+  #nav-menu {
+    font-size: unset;
+  }
+  .login-signup > a {
+    font-size: unset;
+  }
+  .logo-menu {
+    display: hidden;
+    justify-self: end;
+  }
+  .logo-close {
+    display: hidden;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 650px) {
+  #home {
+    flex-direction: column-reverse;
+    height: unset;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    gap: 20px;
+  }
+  .hero-img > img {
+    min-height: unset;
+  }
+  .home-cont > h1 {
+    font-size: 40px;
+  }
+  .home-cont > p {
+    line-height: 22px;
+  }
+  #about > h1 {
+    font-size: 40px;
+  }
+  .about-cont > p {
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: unset;
+  }
+  .hid {
+    display: none !important;
+  }
+  #nav-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+  }
+  .logo-menu {
+    display: unset;
+    justify-self: end;
+  }
+  .logo-close {
+    display: unset;
+    justify-self: end;
+  }
+  .nav-links {
+    flex-direction: column;
+  }
+  .menu {
+    flex-direction: column;
+    grid-column: span 2;
+    padding: 20px;
+  }
+  /* ===================================================== */
+  #contact > h1 {
+    font-size: 40px;
+  }
+  .contact-cont {
+    display: flex !important;
+    flex-direction: column-reverse;
+  }
+  .contact-form {
+    width: 100%;
+  }
+  .contact-form > input {
+    font-size: unset;
+  }
+  .contact-form > textarea {
+    font-size: unset;
+  }
+  .contact-form > button {
+    font-size: unset;
+  }
+  .contact-info > h2 {
+    font-size: 30px;
+  }
+  .contact-info > div > img {
+    height: 20px;
+  }
+  .contact-info > div {
+    font-size: unset;
+  }
+}
+
+/* ============================================================================= */
+#contact {
+  background-color: #c4d0fb;
+  padding: 8% 5%;
+}
+
+#contact > h1 {
+  font-size: 50px;
+  color: #49465f;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.contact-cont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  color: white;
+  padding-top: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 90%;
+}
+
+.contact-form > input {
+  padding: 10px 20px 10px 20px;
+  font-size: 20px;
+  border: none;
+  background-color: #efeefc;
+}
+
+.contact-form > button {
+  padding: 10px 20px 10px 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  border: none;
+  background-color: #6A5AE0;
+}
+
+.contact-form > textarea {
+  padding: 10px 20px 10px 20px;
+  font-size: 20px;
+  border: none;
+  background-color: #efeefc;
+}
+
+.contact-info > h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #49465f;
+}
+
+.contact-info > p {
+  color: #858494;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.contact-info > div {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.contact-info > div > img {
+  height: 40px;
+}
+
+#contact-email > p {
+  color: #49465f;
+}
+
+#contact-phone > span {
+  color: #49465f;
+}
+#contact-loc > span {
+  color: #49465f;
+}
