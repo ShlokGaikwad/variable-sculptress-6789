@@ -11,7 +11,7 @@ const questionSchema = new Schema({
     type: String,
     required: true
   },
-  body: {
+  description: {
     type: String,
     required: true
   },
@@ -27,7 +27,8 @@ const questionSchema = new Schema({
      type : String 
   },
   level : {
-    type : String 
+    type : String ,
+    default : "easy"
   }
 },{
     versionKey : false
