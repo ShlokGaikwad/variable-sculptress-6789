@@ -40,7 +40,7 @@ userRouter.post("/login", async (req, res) => {
     const user = await UserModel.findOne({ email });
     bcrypt.compare(password, user.password, (err, result) => {
       if (result) {
-        const token = jwt.sign({ is: user._id }, process.env.tokenCode, {
+        const token = jwt.sign({ id: user._id }, process.env.tokenCode, {
           expiresIn: "7d",
         });
         res.cookie("token", token);
