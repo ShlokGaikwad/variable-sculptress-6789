@@ -83,7 +83,6 @@
     font-size: 16px;
 }
 
-
 .logo-menu{
     display: none;
 }
@@ -95,6 +94,81 @@
 .menu-icon{
     height: 40px;
 }
+
+.babypink{
+    color: #FFD6DD;
+}
+
+.salmonpink{
+    color: #FF8FA2;
+}
+
+.hero-section{
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6A5AE0;
+    color: white;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.hero-cont{
+    flex: 0.5;
+    padding: 30px 30px 30px 0px;
+    font-size: 20px;
+}
+
+.hero-cont>h1{
+    padding-top:50px;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.hero-cont>p{
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    line-height: 25px;
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.hero-cont>button{
+    background-color: #FF8FA2;
+    border: none;
+    padding:10px 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    color: white;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.hero-cont>button>a{
+    text-decoration: none;
+    color:white;
+}
+
+.hero-cont>button:hover>a{
+    color: #FF8FA2;
+}
+
+.hero-cont>button:hover{
+    background-color:#6A5AE0;
+    border: 1px solid #FF8FA2;
+    
+}
+
+.hero-img{
+    flex:0.5;
+}
+
+.hero-img>img{
+    height:100%;
+    width:100%;
+    margin:0% -5%;
+}
+
 
 
 @media (max-width:950px){
@@ -112,34 +186,14 @@
         display: hidden;
         justify-self: end;
     }
+    .hero-img>img{
+        height:auto;
+    }
 }
 
 
 @media (max-width:650px){
-    #home{
-        flex-direction:column-reverse;
-        height: unset;
-        padding-top: 70px;
-        padding-bottom: 70px;
-        gap:20px;
-    }
-    .hero-img>img{
-        min-height: unset;
-    }
-    .home-cont > h1{
-        font-size: 40px;
-    }
-    .home-cont>p{
-        line-height: 22px;
-    }
-    #about>h1{
-        font-size: 40px;
-    }
-    .about-cont>p {
-        line-height: 20px;
-        font-size: 12px;
-        letter-spacing: unset;
-    }
+
     .hid{
         display: none !important;
     }
@@ -156,6 +210,9 @@
         display: unset;
         justify-self: end;
     }
+    .logo-cont{
+        justify-self: unset;
+    }
     .nav-links{
         flex-direction: column;
     }
@@ -163,5 +220,14 @@
         flex-direction: column;
         grid-column: span 2;
         padding: 20px;
+    }
+    .hero-cont{
+        flex:unset;
+    }
+    .hero-cont>p{
+        width: 100%;
+    }
+    .hero-img{
+        display: none;
     }
 }
