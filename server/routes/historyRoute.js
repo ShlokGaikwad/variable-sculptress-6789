@@ -6,7 +6,7 @@ const History = require('../models/historyModel');
 // Route to get history
 router.get('/user/:userId', authMiddleware, async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.id;
     const history = await History.find({ userId });
     res.status(200).json(history);
   } catch (error) {
@@ -19,7 +19,7 @@ router.get('/user/:userId', authMiddleware, async (req, res) => {
 router.post('/add', authMiddleware, async (req, res) => {
   try {
     const { resultId, languageId } = req.body;
-    const userId = req.user.id; 
+    const userId = req.id; 
 
     const newHistory = new History({
       userId,
