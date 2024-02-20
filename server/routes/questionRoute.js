@@ -11,4 +11,6 @@ questionRouter.get("/" ,  async(req,res) => {
         res.status(500).send({ "msg" : error.message }) ;
         console.log( error.message ) ;
     }
-})
+}) ;
+
+module.exports = questionRouter ;
