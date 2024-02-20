@@ -1,0 +1,32 @@
+
+    /* Update the primary color */
+    :root {
+        --primary-color: #6A5AE0;
+    }
+
+    /* Navbar styles */
+    .navbar {
+        background-color: var(--primary-color);
+    }
+
+    /* Back to top button styles */
+    .back-to-top {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+
+    /* Progress bar styles */
+    .progress-bar.bg-primary {
+        background-color: var(--primary-color);
+    }
+
+    /* Testimonials carousel navigation styles */
+    .testimonial-carousel .owl-nav i {
+        color: var(--primary-color);
+    }
+
+    /* Active portfolio filter styles */
+    #portfolio-flters li.active {
+        border-color: var(--primary-color);
+    }
+
