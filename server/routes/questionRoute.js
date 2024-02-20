@@ -7,7 +7,12 @@ const questionRouter = express.Router() ;
 
 questionRouter.get("/" , auth , access("Admin" , "User") , async(req,res) => {
     try {
-        const question = await QuestionModel.find() ;
+        const { level } = req.query;
+        const filter = {};
+        if (level) {
+            filter.level = level;
+        }
+        const question = await QuestionModel.find(filter) ;
         res.status(200).send({ "msg" : question }) ;
     } catch(error) {
         res.status(500).send({ "msg" : error.message }) ;
@@ -17,6 +22,8 @@ questionRouter.get("/" , auth , access("Admin" , "User") , async(req,res) => {
 
 questionRouter.post("/create" , auth , access("Admin") , async(req, res) => {
     try {
+        const question = new QuestionModel(req.body) ;
+        await question.save() ;
         res.status(201).send({ "msg" : "New question has been created" }) ;
     } catch(error) {
         res.status(500).send( "Internal Error" ) ;
@@ -24,9 +31,10 @@ questionRouter.post("/create" , auth , access("Admin") , async(req, res) => {
     }
 }) ;
 
-questionRouter.delete("/delete/:id" , auth , access("Admin") , async(req, res) => {
+questionRouter.delete("/:id" , auth , access("Admin") , async(req, res) => {
     try {
-        const { questionID } = req.params.id ;
+        const questionID  = req.params.id ;
+         await QuestionModel.findByIdAndDelete(questionID) ;
         res.status(201).send({ "msg" : `Question with id : ${questionID} has been deleted` }) ;
     } catch(error) {
         res.status(500).send( "Internal Error" ) ;
@@ -36,7 +44,8 @@ questionRouter.delete("/delete/:id" , auth , access("Admin") , async(req, res) =
 
 questionRouter.patch("/update/:id" , auth , access("Admin") , async(req, res) => {
     try {
-        const { questionID } = req.params.id ;
+        const  questionID  = req.params.id ;
+        await QuestionModel.findByIdAndUpdate(questionID) ;
         res.status(201).send({ "msg" : `Question with id : ${questionID} has been updated` }) ;
     } catch(error) {
         res.status(500).send( "Internal Error" ) ;
