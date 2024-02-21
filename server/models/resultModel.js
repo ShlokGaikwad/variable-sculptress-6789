@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const resultSchema = new mongoose.Schema({
+  resultTitle : {type: String, default: "Pending"},
   userId: { type: String, required: true },
   questions: [
     {

@@ -56,13 +56,13 @@ router.delete('/:resultId', auth, access("Admin" , "User") , async (req, res) =>
     const resultId = req.params.resultId;
     const userId = req.id;
 
-    const result = await Result.findOne({ _id: resultId, userId });
+    const result = await Result.findOne({ _id: resultId });
 
     if (!result) {
       return res.status(404).json({ msg: 'Quiz result not found' });
-    }
+    } 
 
-    await result.remove();
+    await result.deleteOne();
     res.status(200).json({ msg: 'Quiz result deleted successfully' });
   } catch (error) {
     console.error(error);
@@ -70,31 +70,39 @@ router.delete('/:resultId', auth, access("Admin" , "User") , async (req, res) =>
   }
 });
 
-router.patch('/update', auth, access("Admin" , "User") , async (req, res) => {
-    try {
-      const { resultId, questionId, answer } = req.body;
-      const userId = req.id; // From jwt authmiddleware
-  
-      // questions field is an array of objects with questionId and answer
-      const result = await Result.findOneAndUpdate(
-        { _id: resultId, userId, 'questions.questionId': questionId },
-        {
-          $set: {
-            'questions.$.answer': answer,
-          },
+router.patch('/update', async (req, res) => {
+  try {
+    const { resultId, questionId, answer, correctCount, incorrectCount } = req.body;
+    const userId = req.id; 
+
+    const result = await Result.findOneAndUpdate(
+      { _id: resultId}, // Check if questionId exists in the array :, 'questions.questionId': questionId 
+      {
+        $set: {
+          'questions.$.answer': answer,
         },
-        { new: true }
-      );
-  
-      if (!result) {
-        return res.status(404).json({ msg: 'Quiz result not found' });
-      }
-  
-      res.status(200).json({ msg: 'Quiz result updated successfully', result });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ msg: 'Server Error' });
+        $inc: {
+          correctCount: correctCount,
+          incorrectCount: incorrectCount,
+        },
+      },
+      { new: true }
+    );
+    console.log('resultId:', resultId);
+    console.log('questionId:', questionId);
+    console.log('Update Result:', result);
+    if (!result) {
+      console.log('Quiz result not found or questionId not found in the array');
+      return res.status(404).json({ msg: 'Quiz result not found or questionId not found in the array' });
     }
-  });
+
+    console.log('Quiz result updated successfully');
+    res.status(200).json({ msg: 'Quiz result updated successfully', result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
+
 
 module.exports = router;
