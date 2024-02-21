@@ -4,13 +4,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 /********** Template CSS **********/
-/* :root {
-    --primary: #9087E5;
-    --secondary: #FF8FA2;
-    --light: #F6F4F9;
-    --dark: #04000B;
-} */
-
+/** Template CSS **/
+:root {
+    --royal-violet: #6A5AE0;
+    --dull-lavender:#9087E5;
+    --pink-salmon: #FF8FA2;
+    --pastel-pink: #FFD6DD;
+    --hawkes-blue: #C4D0FB;
+    --mint-tulip: #C9F2E9;
+    --grey-one:#49465F;
+    --grey-two:#858494;
+    --grey-three:#CCCCCC;
+    --grey-four:#E6E6E6;
+    --grey-five:#EFEEFC;
+}
 
 *{
     font-family: "Rubik", sans-serif;
@@ -816,7 +823,7 @@
 .card button {
     width: 200px;
     padding: 10px 20px;
-    background-color: #5e2ced;
+    background-color: var(--royal-violet);
     color: #fff;
     border: none;
     border-radius: 5px;
