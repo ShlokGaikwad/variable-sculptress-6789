@@ -312,8 +312,11 @@
 
 /* ================================================================================== */
 
-body {
+/* body {
   background: #fbfbfd;
+} */
+a {
+  text-decoration: none !important;
 }
 
 .new_footer_area {
@@ -349,7 +352,7 @@ body {
 }
 .btn_get_two:hover {
   background: transparent;
-  color: #5e2ced;
+  color: #5e2ced ;
 }
 .btn_get:hover {
   color: #fff;
@@ -421,9 +424,9 @@ button:focus {
 .btn_get_two {
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: #5e2ced;
+  background: #5e2ced !important;
   border-color: #5e2ced;
-  color: #fff;
+  color: #fff !important;
 }
 
 .btn_get_two:hover {
