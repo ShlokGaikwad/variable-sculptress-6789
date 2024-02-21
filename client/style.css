@@ -1,4 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+:root {
+    --royal-violet: #6A5AE0;
+    --dull-lavender:#9087E5;
+    --pink-salmon: #FF8FA2;
+    --pastel-pink: #FFD6DD;
+    --hawkes-blue: #C4D0FB;
+    --mint-tulip: #C9F2E9;
+    --grey-one:#49465F;
+    --grey-two:#858494;
+    --grey-three:#CCCCCC;
+    --grey-four:#E6E6E6;
+    --grey-five:#EFEEFC;
+}
 
 *{
     font-family: "Rubik", sans-serif;
@@ -9,7 +22,7 @@
 .header{
     position: fixed;
     width: 100%;
-    background-color:#6A5AE0;
+    background-color:var(--royal-violet);
     z-index: 10;
 }
 
@@ -65,7 +78,7 @@
 }
 
 .login-signup:hover{
-    color:#6A5AE0;
+    color:var(--royal-violet);
     border: 2px solid white;
     background-color: white;
     scale: 1.05;
@@ -73,7 +86,7 @@
 }
 
 .login-signup:hover >a{
-    color:#6A5AE0;
+    color:var(--royal-violet);
     
 }
 
@@ -96,11 +109,11 @@
 }
 
 .babypink{
-    color: #FFD6DD;
+    color: var(--pastel-pink);
 }
 
 .salmonpink{
-    color: #FF8FA2;
+    color: var(--pink-salmon);
 }
 
 .hero-section{
