@@ -196,7 +196,7 @@ li{
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    background-color: var(--grey-three);
+    border-bottom: 1px solid var(--grey-three);
 }
 
 
