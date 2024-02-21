@@ -1,32 +1,70 @@
+/*! Custom Bootstrap.min.css with Primary & Secondary Color Palette */
 
-    /* Update the primary color */
-    :root {
-        --primary-color: #6A5AE0;
-    }
+/* Reset some Bootstrap defaults */
+body {
+    color: #333;
+}
 
-    /* Navbar styles */
-    .navbar {
-        background-color: var(--primary-color);
-    }
+/* Primary Color Palette */
+.bg-primary {
+    background-color: #6A5AE0 !important;
+}
 
-    /* Back to top button styles */
-    .back-to-top {
-        background-color: var(--primary-color);
-        color: #fff;
-    }
+.text-primary {
+    color: #6A5AE0 !important;
+}
 
-    /* Progress bar styles */
-    .progress-bar.bg-primary {
-        background-color: var(--primary-color);
-    }
+.border-primary {
+    border-color: #6A5AE0 !important;
+}
 
-    /* Testimonials carousel navigation styles */
-    .testimonial-carousel .owl-nav i {
-        color: var(--primary-color);
-    }
+/* Secondary Color Palette */
+.bg-secondary {
+    background-color: #9087E5 !important;
+}
 
-    /* Active portfolio filter styles */
-    #portfolio-flters li.active {
-        border-color: var(--primary-color);
-    }
+.text-secondary {
+    color: #9087E5 !important;
+}
 
+.border-secondary {
+    border-color: #9087E5 !important;
+}
+
+/* Additional styles */
+.fact .bi,
+.feature-item .bi {
+    color: #6A5AE0;
+}
+
+.btn-primary,
+.progress-bar.bg-primary {
+    background-color: #6A5AE0 !important;
+    border-color: #6A5AE0 !important;
+}
+
+/* Dull Lavender */
+.bg-lavender {
+    background-color: #9087E5 !important;
+}
+
+.text-lavender {
+    color: #9087E5 !important;
+}
+
+.border-lavender {
+    border-color: #9087E5 !important;
+}
+
+/* Pink Salmon */
+.bg-salmon {
+    background-color: #FF8FA2 !important;
+}
+
+.text-salmon {
+    color: #FF8FA2 !important;
+}
+
+.border-salmon {
+    border-color: #FF8FA2 !important;
+}
