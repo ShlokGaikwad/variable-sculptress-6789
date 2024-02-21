@@ -4,12 +4,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 /********** Template CSS **********/
-:root {
+/* :root {
     --primary: #9087E5;
     --secondary: #FF8FA2;
     --light: #F6F4F9;
     --dark: #04000B;
-}
+} */
 
 
 *{
@@ -236,6 +236,7 @@
     display: flex;
     margin-top: 23px;
   }
+
   .icon-1-div span,
   .icon-2-div span,
   .icon-3-div span {
@@ -491,125 +492,6 @@
   }
   
 
-  .container-3-text > h2 {
-    color: var(--Text_Black, #000);
-    text-align: center;
-    /* H2 */
-    font-family: DM Serif Display;
-    font-size: 56px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 64px;
-    padding-top: 20px;
-  }
-  .container-3-text > div {
-    color: var(--Text_Black, #000);
-    text-align: center;
-    padding-top: 29px;
-    font-family: DM Sans;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    line-height: 32px;
-    flex-shrink: 0;
-  }
-  
-  .container-3-text > div > p {
-    height: 83px;
-    width: 570px;
-  }
-  
-  .card-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 36px;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .card1 {
-    width: 370px;
-    height: 416px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    background: #fff;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
-    transition: 0.2s ease-in-out;
-  }
-  
-  .card1:hover {
-    transform: scale(0.9);
-    opacity: 0.8;
-  }
-  
-  .card-svg {
-    text-align: center;
-    padding-top: 64px;
-  }
-  svg {
-    height: 96px;
-  }
-  
-  .card-text {
-    padding-top: 54px;
-    padding-left: 30px;
-  }
-  
-  .card-text > h4 {
-    color: var(--Text_Black, #000);
-    font-family: DM Serif Display;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 32px;
-  }
-  
-  .card-text > h5 {
-    color: var(--text-black-50, rgba(0, 0, 0, 0.5));
-    padding-top: 15px;
-    font-family: DM Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    width: 306px;
-    height: 48px;
-    flex-shrink: 0;
-  }
-  
-  .line {
-    width: 338px;
-    height: 1px;
-    background: #000;
-    opacity: 0.1011;
-    margin-top: 25px;
-  }
-  
-  .card-learn {
-    display: flex;
-  }
-  
-  .card-learn > h4 {
-    padding-top: 18px;
-    color: var(--Text_Black, #000);
-    font-family: DM Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-  }
-  
-  .card-learn > svg {
-    margin-top: -16px;
-    padding-left: 5px;
-  }
-  
-.container-3 {
-    margin: 30px;
-}
 
 /* .parent {
     background-color: #6A5AE0;
@@ -894,3 +776,17 @@
   
   /*************footer End*****************/
   
+
+  /*SERVICE_CARD*/
+
+  #service-card {
+      display: flex;
+    justify-content: space-around;
+      align-items: center;
+      gap: 40px;
+  }
+
+  #service-card img {
+    width: 100%;
+    height: 200px;
+  }
