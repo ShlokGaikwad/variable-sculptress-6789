@@ -37,12 +37,14 @@
     <section id="contact">
         <h1>Contact <span class="boldtext red">Me</span> </h1>
         <div class="contact-cont">
-            <div class="contact-form">
-                <input type="text" placeholder="Your Name" />
-                <input type="text" placeholder="Email" />
-                <textarea placeholder="Message" rows="5"></textarea>
-                <button type="submit">Submit</button>
-            </div>
+            <form action="https://formspree.io/f/mbjnozop" method="POST">
+                <div class="contact-form">
+                    <input type="text" placeholder="Your Name" name="name" />
+                    <input type="email" placeholder="Email" name="email" />
+                    <textarea placeholder="Message" rows="5" name="message"></textarea>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
             <div class="contact-info">
                 <h2>Let's Connect</h2>
                 <p>Got questions or feedback? We're all ears! Reach out to us because your thoughts matter. Together,
@@ -53,6 +55,7 @@
                 <div id="contact-phone"><img src="../assets/images/phone.svg" /><span>+91 1234567890</span></div>
                 <div id="contact-loc"><img src="../assets/images/location.svg" /><span>India</span></div>
             </div>
+
         </div>
     </section>
 </body>

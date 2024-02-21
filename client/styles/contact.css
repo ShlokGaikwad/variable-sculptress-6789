@@ -109,6 +109,10 @@
     display: hidden;
     justify-self: end;
   }
+  #contact {
+    padding-top: 15% !important;
+    height: 100% !important;
+  }
 }
 
 @media (max-width: 650px) {
