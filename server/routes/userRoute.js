@@ -5,31 +5,54 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userRouter = express.Router();
 
-userRouter.post("/signup", async (req, res) => {
-  const { username, email, password, image, role, totalScore } = req.body;
+const uploadImageMiddleware = require('../middleware/uploadImage');
+
+userRouter.get("/user/:userId", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const useriimage =user.image;
+    res.status(200).json({ useriimage});
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+userRouter.post("/signup", uploadImageMiddleware, async (req, res) => {
+  const { username, email, password, role, totalScore } = req.body;
+  const imagePath = req.imagePath;  // Use req.imagePath instead of req.file.path
+
   try {
     const existingUser = await UserModel.findOne({ email });
+
     if (existingUser) {
       res
         .status(409)
-        .json({ message: "User already exists! please use different email" });
+        .json({ message: "User already exists! Please use a different email" });
     } else {
       const pass =
         /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+
       if (!pass.test(password)) {
         res.status(409).json({
           message:
-            "password should be 8 characters,one uppercase,one special character,one number",
+            "Password should be 8 characters, one uppercase, one special character, one number",
         });
       } else {
         const hashPass = await bcrypt.hash(password, 5);
-        const user = new UserModel({ ...req.body, password: hashPass });
+        const user = new UserModel({ ...req.body, password: hashPass, image: imagePath });
         await user.save();
-        res.status(200).send({ msg: "new user signup successfully", user });
+        res.status(200).send({ msg: "New user signed up successfully", user });
       }
     }
   } catch (error) {
-    // console.log(error.message);
     res.status(400).json({ message: error });
   }
 });
