@@ -3,7 +3,7 @@ const router = express.Router();
 const Language = require('../models/languageModel');
 const uploadMiddleware = require('../middleware/uploadImage');
 
-router.get('/languages', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const languages = await Language.find();
     res.status(200).json(languages); 
@@ -12,11 +12,11 @@ router.get('/languages', async (req, res) => {
   }
 });
 
-router.get('/languages/:languageId', async (req, res) => {
+router.get('/:languageId', async (req, res) => {
   const { languageId } = req.params;
 
   try {
-    const language = await Language.findOne({ languageId });
+    const language = await Language.find({_id : languageId });
 
     if (!language) {
       return res.status(404).json({ error: 'Language not found' });
@@ -28,7 +28,7 @@ router.get('/languages/:languageId', async (req, res) => {
   }
 });
 
-router.post('/languages', uploadMiddleware, async (req, res) => {
+router.post('/add', uploadMiddleware, async (req, res) => {
   const { languageTitle } = req.body;
   const languageImage = req.imagePath;
 

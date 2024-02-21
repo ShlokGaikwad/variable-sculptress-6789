@@ -14,7 +14,18 @@ router.get('/user/:userId', auth, async (req, res) => {
     res.status(500).json({ msg: 'Server Error' });
   }
 });
+// All history
+router.get('/', auth, async (req, res) => {
+  try {
+    const history = await History.find();
+    res.status(200).json(history);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
 
+module.exports = router;
 // Route to add history
 router.post('/add', auth, async (req, res) => {
   try {
