@@ -3,34 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services with Toggle Cards</title>
+<title>Services</title>
 <link rel="stylesheet" href="../styles/service.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<div class="services">
-    <div class="service" onclick="toggleCard('demo')">Get started</div>
-    <div id="demo-card" class="card">Book a demo or get help from our team of experts</div>
-    
-    <div class="service" onclick="toggleCard('contact')">Contact us</div>
-    <div id="contact-card" class="card">Find out the easiest ways to get in touch with us</div>
-    
-    <div class="service" onclick="toggleCard('help')">Help centre</div>
-    <div id="help-card" class="card">Our in-depth knowledge base</div>
-    
-    <div class="service" onclick="toggleCard('blog')">Blog</div>
-    <div id="blog-card" class="card">The latest in learning technologies and resources</div>
-    
-    <div class="service" onclick="toggleCard('bootcamps')">Onboarding bootcamps</div>
-    <div id="bootcamps-card" class="card">Join our experts to jump-start your EdApp journey</div>
-    
-    <div class="service" onclick="toggleCard('partnerships')">Partnerships</div>
-    <div id="partnerships-card" class="card">Want to do business with our business?</div>
-    
-    <div class="service" onclick="toggleCard('webinars')">Webinars</div>
-    <div id="webinars-card" class="card">See what we've got coming up</div>
-</div>
+    <!-- NAV -->
+
+    <header class="header">
+        <nav id="nav-menu">
+          <div class="logo-cont">
+            <img id="logo-img" src="../assets/images/soloLogo.svg" alt="logo">
+            <h1>Quezzo</h1>
+          </div>
+          <div class="logo-menu">
+            <img class="menu-icon" src="./assets/images/menu.svg">
+          </div>
+          <div class="logo-close hid">
+            <img class="menu-icon" src="./assets/images/close.svg">
+          </div>
+          <div class="menu hid">
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link home">Home</a>
+                <a href="./about.html" class="nav-link about">About</a>
+                <a href="./services" class="nav-link services">Services</a>
+                <a href="./contact.html" class="nav-link contact">Contact</a>
+            </div>
+            <button id="resume-button-1" class="login-signup">
+                <a href="">Login/Signup</a>
+            </button>
+        </div>
+        </nav>
+      </header>
+    <!-- NAV-ENd-->
+    <!-- <section class="hero-section">
+        <div class="hero-img">
+          <img src="../assets/images/hadder.gif" alt="hero image">
+        </div>
+        <div class="hero-cont">
+            <h1>The Best <span class="salmonpink">Quiz App</span></h1>
+            <p>Quezzo is a comprehensive online quiz learning platform designed to facilitate interactive learning experiences for individuals seeking to improve their coding skills and expand their knowledge in various programming languages and computer science concepts.</p>
+            <button><a href="./pages/about.html">About Us</a></button>
+          </div>
+      </section> -->
+       <!-- SERVICES -->
+       <div class="box-saurav">
+        <div class="image-box">
+            <img src="../assets/images/hadder.gif">
+        </div>
+        <div class="box-2">
+            <div class="box-content1">
+                <h5>Explore</h5>
+            </div>
+            <div class="content-2">
+                <h2>Our Services</h2>
+            </div>
+            <div class="content-3">
+                <big>Tailored Solutions for Your Success, Elevate Your Experience with Our
+                    Exceptional and Comprehensive Services Today</big>
+            </div>
+            <div class="icon-1-div">
+                <div class="icon-1">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span>Interactive Learning Modules</span>
+            </div>
+            <div class="icon-2-div">
+                <div class="icon-2">
+                    <i class="fa-solid fa-laptop"></i>
+                </div>
+                <span>Assessment and Progress Tracking</span>
+            </div>
+            <div class="icon-3-div">
+                <div class="icon-3">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <span>Community and Collaboration</span>
+            </div>
+            <div class="btn-srv">
+                <button class="btn-1-srv">Explore</button>
+                <button class="btn-2-srv">Learn more</button>
+            </div>
+        </div>
+    </div>
+   
+
+    <div class="services">
+        <div id="services-title">
+            <h2>Explore More with us</h2>
+        </div>
+        <div id="service-card">
+            <div class="card">
+                <img src="../assets/images/learningPath.jpg" alt="">
+                <h4>Customized Learning Paths</h4>
+                <p>Apps offer personalized learning paths tailored to each user's skill level, learning style, and goals. These paths may adapt based on performance in quizzes and exercises, ensuring that users receive content that is appropriate and challenging for their level of expertise.</p>
+                <button>Learn More</button>
+            </div>
+            <div class="card">
+                <img src="../assets/images/codeEditor.jpg" alt="">
+                <h4>Code Editor and Compiler</h4>
+                <p>Apps come equipped with an integrated code editor and compiler, allowing users to write, test, and debug code directly within the app environment.This feature enables learners to practice coding concepts in a real-world setting and receive immediate feedback on their code's correctness and efficiency.</p>
+                <button>Learn More</button>
+            </div>
+            <div class="card">
+                <img src="../assets/images/badge.jpg" alt="">
+                <h4>Certification and Badging</h4>
+                <p>Several QuizCoding apps offer certification programs or badges to recognize users' achievements and proficiency in specific programming languages or skill areas. Completing quizzes, modules, or projects may earn users certifications or badges that they can showcase on their resumes or professional profiles, enhancing their credibility and marketability as programmers.</p>
+                <button>Learn More</button>
+            </div>  
+        </div>
+        <div id="service-card">
+            <div class="card">
+                <img src="../assets/images/compition.jpg" alt="">
+                <h4>Code Challenges and Competitions</h4>
+                <p>Apps organize coding challenges and competitions where users can test their skills against others in real-time. These challenges often range from simple algorithmic problems to complex coding projects, providing users with opportunities to apply their knowledge and compete for recognition and prizes.</p>
+                <button>Learn More</button>
+            </div>
+            <div class="card">
+                <img src="../assets/images/LMS.jpg" alt="">
+                <h4>Integration with Learning Management Systems </h4>
+                <p>Offers integration with learning management systems commonly used in educational institutions and corporate training programs. This integration enables educators and administrators to track learners' progress, assign quizzes and exercises, and manage course materials within the LMS environment, streamlining the learning experience for both instructors and students.</p>
+                <button>Learn More</button>
+            </div>
+            <div class="card">
+                <img src="../assets/images/job.jpg" alt="">
+                <h4>Job Placement Assistance</h4>
+                <p>Apps go beyond technical instruction to offer career resources and job placement assistance to users. They may provide guidance on resume building, interview preparation, and networking strategies tailored to the tech industry. Additionally, some apps collaborate with employers to facilitate job matching and recruitment opportunities for skilled users seeking employment in software development roles.</p>
+                <button>Learn More</button>
+            </div>  
+        </div>
+    </div>
+
+    <div class="rectangle">
+        <div class="child-1">
+            <h5>audiam</h5>
+            <h2>Vim illum</h2>
+            <div>Unum porro audiam at vel, eu nam primis regione. Vix ad everti diceret, ei omnium regione admodum sit.
+            </div><br><br>
+            <div>Mea an decore veritus probatus. Nec ea affert verterem. Vix probo semper et, mea simul graeco.</div>
+            <button class="btn-3-srv">Explore</button>
+        </div>
+        <div class="grid-container">
+            <div class="grid-item">
+                <img src="../assets/images/heart.jpg" alt="">
+                <div>
+                    <h4>Dicat eripuit</h4>
+                    <div>Molestiae ne, esse vulputate definitiones ut est fastidii </div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="../assets/images/cam.jpg" alt="">
+                <div>
+                    <h4>Nemore facilisi </h4>
+                    <div>Erroribus vituperatoribus no</span><br><span>nobis alienum per dolor </div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="../assets/images/exit.jpg" alt="">
+                <div>
+                    <h4>Ferri aperiri</h4>
+                    <div>Nec wisi assum novum eu. At sea dolorum constituto, ad solet </div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="../assets/images/Chat.png" alt="">
+                <div>
+                    <h4>Essent ornatus</h4>
+                    <div>Exerci dissentiet comprehensam eum ne quo in tacimates</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="../assets/images/setting.jpg" alt="">
+                <div>
+                    <h4>Qui no stet</h4>
+                    <div>Ei mei fabellas gubergren, ius nostro senserit adversarium</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="../assets/images/star.jpg" alt="">
+                <div>
+                    <h4>Qualisque</h4>
+                    <div>Vix dicam dolore cu mel erat timeam scriptorem an</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- FOOTER -->
+
+    <footer class="new_footer_area bg_color">
+        <div class="new_footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s"
+                            style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                            <h3 class="f-title f_600 t_color f_size_18">Get in Touch</h3>
+                            <p>Don’t miss any updates of our Coding Quiz Challenges!</p>
+                            <form action="https://formspree.io/f/mbjnozop" class="f_subscribe_two mailchimp" method="post" novalidate="true"
+                                _lpchecked="1">
+                                <input type="text" name="email" class="form-control memail" placeholder="Email">
+                                <button class="btn btn_get btn_get_two" type="submit">Subscribe</button>
+                                <p class="mchimp-errmessage" style="display: none;"></p>
+                                <p class="mchimp-sucmessage" style="display: none;"></p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.4s"
+                            style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
+                            <h3 class="f-title f_600 t_color f_size_18">Menu</h3>
+                            <ul class="list-unstyled f_list">
+                                <li><a href="../index.html">Home</a></li>
+                                <li><a href="../pages/about.html">About</a></li>
+                                <li><a href="../pages/services.html">Services</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.6s"
+                            style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInLeft;">
+                            <h3 class="f-title f_600 t_color f_size_18">Help</h3>
+                            <ul class="list-unstyled f_list">
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Term &amp; conditions</a></li>
+                                <li><a href="#">Reporting</a></li>
+                                <li><a href="#">Documentation</a></li>
+                                <li><a href="#">Support Policy</a></li>
+                                <li><a href="#">Privacy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s"
+                            style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
+                            <h3 class="f-title f_600 t_color f_size_18">Team Solutions</h3>
+                            <div class="f_social_icon">
+                                <a href="#" class="fab fa-facebook"></a>
+                                <a href="#" class="fab fa-twitter"></a>
+                                <a href="https://www.linkedin.com/in/shlok-gaikwad-667b431a6/"
+                                    class="fab fa-linkedin"></a>
+                                <a href="#" class="fab fa-pinterest"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_bg">
+                <div class="footer_bg_one"></div>
+                <div class="footer_bg_two"></div>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-sm-7">
+                        <p class="mb-0 f_400">© Quezzo Inc.. 2024 All rights reserved.</p>
+                    </div>
+                    <div class="col-lg-6 col-sm-5 text-right">
+                        <p>Made with <i class="icon_heart"></i> &#9829; Quezzo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 <script src="script.js"></script>
 </body>
 </html>
  <script src="../script/service.js"></script>
+ <script src="https://kit.fontawesome.com/4c69a665fd.js" crossorigin="anonymous"></script>
