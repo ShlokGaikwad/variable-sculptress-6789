@@ -12,4 +12,4 @@ close.addEventListener("click",()=>{
     close.classList.toggle("hid")
     menu.classList.toggle("hid")
     open.classList.toggle("hid")
-})
+});
