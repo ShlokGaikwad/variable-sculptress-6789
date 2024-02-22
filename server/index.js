@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const cookieParser = require("cookie-parser");
 const connection = require("./config/db");
 const userRouter = require("./routes/userRoute");
@@ -10,6 +11,7 @@ const roomRouter = require("./routes/roomRoute");
 require("dotenv").config();
 
 const app = express();
+app.use(cors());
 app.use(express.json(), cookieParser());
 app.use("/users", userRouter);
 app.use("/questions",questionRouter)

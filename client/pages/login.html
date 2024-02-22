@@ -15,7 +15,7 @@
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form action="#" class="sign-in-form">
+          <form action="#" class="sign-in-form" id="signInForm">
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
@@ -25,6 +25,7 @@
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Password" />
             </div>
+            <div id="messageWrapper"> </div>
             <input type="submit" value="Login" class="btn solid" />
             <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
@@ -42,7 +43,7 @@
               </a>
             </div>
           </form>
-          <form action="#" class="sign-up-form">
+          <form action="#" class="sign-up-form" id="signUpForm">
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
@@ -57,10 +58,11 @@
               <input type="password" placeholder="Password" />
             </div>
             <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Confirm Password" />
+              <i class="fas fa-image"></i>
+              <input type="file" id="imageUpload" accept="image/*" />
             </div>
             <input type="submit" class="btn" value="Sign up" />
+            <div id="messageWrapper"> </div>
             <p class="social-text">Or Sign up with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">

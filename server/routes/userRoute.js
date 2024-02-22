@@ -49,11 +49,11 @@ userRouter.post("/signup", uploadImageMiddleware, async (req, res) => {
         const hashPass = await bcrypt.hash(password, 5);
         const user = new UserModel({ ...req.body, password: hashPass, image: imagePath });
         await user.save();
-        res.status(200).send({ msg: "New user signed up successfully", user });
+        res.status(200).send({ message: "New user signed up successfully", user });
       }
     }
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).json({ error });
   }
 });
 
@@ -75,7 +75,7 @@ userRouter.post("/login", async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).json({error });
   }
 });
 
