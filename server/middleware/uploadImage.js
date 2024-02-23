@@ -1,5 +1,7 @@
 const multer = require('multer');
 const path = require('path');
+const bcrypt = require('bcrypt');
+const UserModel = require('../models/userModel');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -31,7 +33,10 @@ const uploadMiddleware = (imageKey) => {
         return res.status(500).json({ error: 'Server error' });
       }
 
-      req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g, '/');
+      // Check if req.file exists before accessing its properties
+      if (req.file) {
+        req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g, '/');
+      }
 
       next();
     });
