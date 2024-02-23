@@ -17,8 +17,8 @@ userRouter.get("/user/:userId", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const useriimage =user.image;
-    res.status(200).json({ useriimage});
+    const { username, image } = user; 
+    res.status(200).json({ username, image });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Internal Server Error" });
@@ -64,7 +64,10 @@ userRouter.post("/login", async (req, res) => {
           expiresIn: "7d",
         });
         res.cookie("token", token);
-        res.status(200).json({ msg: "Login Successfully", token });
+        const userId = user._id;
+        res.cookie("userId", userId);
+
+        res.status(200).json({ msg: "Login Successfully", token, userId});
       } else {
         res.status(409).json({
           message: "Password incorrect! please enter correct password",
