@@ -17,6 +17,8 @@
     --grey-three:#CCCCCC;
     --grey-four:#E6E6E6;
     --grey-five:#EFEEFC;
+    --dark-maroon:#670112;
+    --light-maroon:#b26673;
 }
 
 *{
@@ -169,6 +171,16 @@
         grid-column: span 2;
         padding: 20px;
     }
+    /* =====footer start===== */
+    .footer-bg-one {
+      display:none;
+  }
+
+  .footer-bg-two {
+     display: none;
+  }
+
+  /* =====footer end===== */
 }
 /*MAIN*/
 
