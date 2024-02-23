@@ -343,13 +343,15 @@ li{
 
 .touch>form>input{
   padding: 10px;
-  border: none;
+  /* border: none; */
+  border-radius: 6px;
 }
 
 .touch>form>button{
   padding: 10px;
   background: var(--royal-violet);
   border: none;
+  border-radius: 6px;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
