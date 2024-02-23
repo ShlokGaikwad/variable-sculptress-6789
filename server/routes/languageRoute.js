@@ -28,9 +28,9 @@ router.get('/:languageId', async (req, res) => {
   }
 });
 
-router.post('/add', uploadMiddleware, async (req, res) => {
+router.post('/add', uploadMiddleware('languageImage'), async (req, res) => {
   const { languageTitle } = req.body;
-  const languageImage = req.imagePath;
+  const languageImage = req.imagePath; 
 
   try {
     const newLanguage = new Language({
@@ -40,10 +40,12 @@ router.post('/add', uploadMiddleware, async (req, res) => {
 
     await newLanguage.save();
 
-    res.status(201).json(newLanguage); 
+    res.status(201).json(newLanguage);
   } catch (error) {
+    console.error('Error:', error);
     res.status(400).json({ error: 'Bad Request' });
   }
 });
+
 
 module.exports = router;
