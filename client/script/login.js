@@ -10,24 +10,23 @@ sign_in_btn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const signInForm = document.getElementById('signInForm');
   const signUpForm = document.getElementById('signUpForm');
   const messageWrapper = document.getElementById("messageWrapper");
+  const signUpMessageWrapper = document.getElementById("signUpMessageWrapper");
 
   signInForm.addEventListener('submit', function (event) {
     event.preventDefault();
-  
+
     const email = signInForm.querySelector('input[type="text"]').value;
     const password = signInForm.querySelector('input[type="password"]').value;
-  
+
     const formData = {
       email: email,
       password: password,
     };
-  
+
     fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: {
@@ -38,75 +37,63 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(response => response.json())
       .then(data => {
         if (data.token) {
-
           localStorage.setItem('token', data.token);
-          
-          showMessage('Login Successful', 'green');
-  
+          showMessage(messageWrapper, 'Login Successful', 'green');
           setTimeout(() => {
             window.location.href = 'index.html';
-          }, 2000); 
+          }, 2000);
         } else {
-          showMessage('Login Failed. Please check your credentials.', 'red');
+          showMessage(messageWrapper, 'Login Failed. Please check your credentials.', 'red');
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        showMessage('An error occurred. Please try again later.', 'red');
+        showMessage(messageWrapper, 'An error occurred. Please try again later.', 'red');
       });
   });
-  
-  function showMessage(message, color) {
+
+  function showMessage(wrapper, message, color) {
     const messageContainer = document.createElement('p');
     messageContainer.textContent = message;
     messageContainer.style.color = color;
-  
-    const messageWrapper = document.getElementById('messageWrapper');
-    
-    messageWrapper.innerHTML = '';
-  
-    messageWrapper.appendChild(messageContainer);
-  }
-  
 
-  signUpForm.addEventListener("submit", async function (event) {
+    wrapper.innerHTML = '';
+
+    wrapper.appendChild(messageContainer);
+  }
+
+  signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const username = signUpForm.querySelector('input[type="text"]').value;
-    const email = signUpForm.querySelector('input[type="email"]').value;
-    const password = signUpForm.querySelector('input[type="password"]').value;
-    const imageFile = signUpForm.querySelector('#imageUpload').files[0];
+    const username = signUpForm.elements.username.value;
+    const email = signUpForm.elements.email.value;
+    const password = signUpForm.elements.password.value;
+    const imageFile = signUpForm.elements.imageUpload?.files[0];
 
     const formData = new FormData();
-    formData.append("username", username);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("role", "user"); // Assuming you have a default role
-    formData.append("totalScore", "0"); // Assuming you have a default score
-
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
     if (imageFile) {
-      formData.append("image", imageFile);
+      formData.append('image', imageFile);
     }
 
     try {
-      const response = await fetch("http://localhost:3000/users/signup", {
-        method: "POST",
+      const response = await fetch('http://localhost:3000/users/signup', {
+        method: 'POST',
         body: formData,
       });
 
-      const data = await response.json();
-
-      // Display the response in messageWrapper
-      messageWrapper.innerHTML = `<p>${data.message}</p>`;
+      if (response.ok) {
+        const data = await response.json();
+        showMessage(signUpMessageWrapper, data.message, 'green');
+      } else {
+        const errorData = await response.json();
+        showMessage(signUpMessageWrapper, errorData.message || 'An error occurred.', 'red');
+      }
     } catch (error) {
-      console.error("Error:", error);
-      // Handle error, display an error message in messageWrapper
-      messageWrapper.innerHTML = "<p>An error occurred. Please try again later.</p>";
+      console.error('Error:', error);
+      showMessage(signUpMessageWrapper, 'An error occurred. Please try again later.', 'red');
     }
   });
-
-  
 });
-
-
-

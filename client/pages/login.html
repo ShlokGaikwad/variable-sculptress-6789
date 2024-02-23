@@ -19,7 +19,7 @@
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
@@ -47,22 +47,22 @@
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="text" name="username" placeholder="Username" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input type="email" name="email" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" name="password" placeholder="Password" />
             </div>
             <div class="input-field">
               <i class="fas fa-image"></i>
-              <input type="file" id="imageUpload" accept="image/*" />
+              <input type="file" id="imageUpload" name="imageUpload" accept="image/*" />
             </div>
             <input type="submit" class="btn" value="Sign up" />
-            <div id="messageWrapper"> </div>
+            <div id="signUpMessageWrapper" class="message-wrapper"></div>
             <p class="social-text">Or Sign up with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -85,10 +85,9 @@
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
-            <h3>New here ?</h3>
+            <h3>Join Coding Community</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+              Sign up to participate in coding quizzes, connect with developers, and expand your coding network.
             </p>
             <button class="btn transparent" id="sign-up-btn">
               Sign up
@@ -100,8 +99,7 @@
           <div class="content">
             <h3>One of us ?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
+              Ready for a coding challenge? Log in to test your coding knowledge and skills.
             </p>
             <button class="btn transparent" id="sign-in-btn">
               Sign in
