@@ -8,6 +8,7 @@ const historyRoutes = require('./routes/historyRoute');
 const questionRouter = require("./routes/questionRoute");
 const languageRoutes = require('./routes/languageRoute');
 const roomRouter = require("./routes/roomRoute");
+const getImage = require('./routes/getImageRoute');
 require("dotenv").config();
 
 const app = express();
@@ -19,6 +20,7 @@ app.use('/results', resultRoutes);
 app.use('/history', historyRoutes);
 app.use('/languages', languageRoutes);
 app.use('/rooms',roomRouter)
+app.use('/uploads' , getImage )
 
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Home page" });
