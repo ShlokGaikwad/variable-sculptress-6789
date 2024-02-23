@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
           localStorage.setItem('token', data.token);
           showMessage(messageWrapper, 'Login Successful', 'green');
           setTimeout(() => {
-            window.location.href = 'index.html';
-          }, 2000);
+            window.location.href = '../dashboard.html';
+          }, 500);
         } else {
           showMessage(messageWrapper, 'Login Failed. Please check your credentials.', 'red');
         }
