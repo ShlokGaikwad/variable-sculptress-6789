@@ -59,18 +59,18 @@ userRouter.post("/signup", async (req, res, next) => {
       return res.status(409).json({ success: false, message: "Password should be 8 characters, one uppercase, one special character, one number" });
     }
 
-    // User signup success, proceed with image upload
+    // User signup success
     next();
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
-}, uploadMiddleware('image'), async (req, res) => {
+}, async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 5);
-    const newUser = new UserModel({ username, email, password: hashedPassword, image: req.imagePath });
+    const newUser = new UserModel({ username, email, password: hashedPassword });
     console.log(newUser);
     await newUser.save();
     
