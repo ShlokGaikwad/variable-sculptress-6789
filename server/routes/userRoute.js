@@ -27,33 +27,30 @@ userRouter.get("/user/:userId", async (req, res) => {
 
 userRouter.post("/signup", uploadImageMiddleware, async (req, res) => {
   const { username, email, password, role, totalScore } = req.body;
-  const imagePath = req.imagePath;  // Use req.imagePath instead of req.file.path
+  const imagePath = req.imagePath;
 
   try {
     const existingUser = await UserModel.findOne({ email });
 
     if (existingUser) {
-      res
-        .status(409)
-        .json({ message: "User already exists! Please use a different email" });
-    } else {
-      const pass =
-        /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
-      if (!pass.test(password)) {
-        res.status(409).json({
-          message:
-            "Password should be 8 characters, one uppercase, one special character, one number",
-        });
-      } else {
-        const hashPass = await bcrypt.hash(password, 5);
-        const user = new UserModel({ ...req.body, password: hashPass, image: imagePath });
-        await user.save();
-        res.status(200).send({ message: "New user signed up successfully", user });
-      }
+      return res.status(409).json({ success: false, message: "User already exists! Please use a different email" });
     }
+
+    const passwordRegex = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+
+    if (!passwordRegex.test(password)) {
+      return res.status(409).json({ success: false, message: "Password should be 8 characters, one uppercase, one special character, one number" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 5);
+    const newUser = new UserModel({ username, email, password: hashedPassword, role, totalScore, image: imagePath });
+
+    await newUser.save();
+    
+    res.status(200).json({ success: true, message: "New user signed up successfully", user: newUser });
   } catch (error) {
-    res.status(400).json({ error });
+    console.error(error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 
