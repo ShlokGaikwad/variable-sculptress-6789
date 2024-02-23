@@ -14,7 +14,7 @@ function toggleMenu() {
 async function fetchUserData() {
   try {
 
-      const response = await fetch(`http://localhost:3000/users/user/${userId}`); 
+      const response = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/users/user/${userId}`); 
       const data = await response.json();
 
       const username = data.username;

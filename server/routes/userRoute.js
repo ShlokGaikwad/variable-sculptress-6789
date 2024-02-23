@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userRouter = express.Router();
 
-const uploadImageMiddleware = require('../middleware/uploadImage');
+const uploadMiddleware = require('../middleware/uploadImage');
 
 userRouter.get("/user/:userId", async (req, res) => {
   const userId = req.params.userId;
@@ -25,9 +25,8 @@ userRouter.get("/user/:userId", async (req, res) => {
   }
 });
 
-userRouter.post("/signup", uploadImageMiddleware('image'), async (req, res) => {
-  const { username, email, password, role, totalScore } = req.body;
-  const imagePath = req.imagePath;
+userRouter.post("/signup", async (req, res, next) => {
+  const { username, email, password } = req.body;
 
   try {
     const existingUser = await UserModel.findOne({ email });
@@ -36,15 +35,28 @@ userRouter.post("/signup", uploadImageMiddleware('image'), async (req, res) => {
       return res.status(409).json({ success: false, message: "User already exists! Please use a different email" });
     }
 
-    const passwordRegex = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    console.log('Password:', password);
+    console.log('Regex Test Result:', passwordRegex.test(password));
 
     if (!passwordRegex.test(password)) {
       return res.status(409).json({ success: false, message: "Password should be 8 characters, one uppercase, one special character, one number" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 5);
-    const newUser = new UserModel({ username, email, password: hashedPassword, role, totalScore, image: imagePath });
+    // User signup success, proceed with image upload
+    next();
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+}, uploadMiddleware('image'), async (req, res) => {
+  const { username, email, password } = req.body;
 
+  try {
+    const hashedPassword = await bcrypt.hash(password, 5);
+    const newUser = new UserModel({ username, email, password: hashedPassword, image: req.imagePath });
+    console.log(newUser);
     await newUser.save();
     
     res.status(200).json({ success: true, message: "New user signed up successfully", user: newUser });
