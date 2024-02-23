@@ -3,14 +3,16 @@ const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
   title : {
-    type : String 
+    type : String ,
+    enum:["code","theory"],
+    required:true
   },
   questionID: {
     type: String,
     required: true,
     unique: true
   },
-  languageID: {
+  languageName: {
     type: String,
     required: true
   },
@@ -25,9 +27,6 @@ const questionSchema = new Schema({
   options: {
     type: [String],
     required: true
-  },
-  questionImage : {
-     type : String 
   },
   level : {
     type : String ,
