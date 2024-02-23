@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password: password,
     };
 
-    fetch('http://localhost:3000/users/login', {
+    fetch('https://real-gold-python-gown.cyclic.app/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/users/signup', {
+      const response = await fetch('https://real-gold-python-gown.cyclic.app/users/signup', {
         method: 'POST',
         body: formData,
       });
