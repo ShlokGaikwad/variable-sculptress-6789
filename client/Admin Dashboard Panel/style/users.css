@@ -9,13 +9,7 @@ Code written by:
 🌎link: www.youtube.com/codingdesign 
 */
 
-* {
-    margin: 0;
-    padding: 0;
 
-    box-sizing: border-box;
-    font-family: sans-serif;
-}
 @media print {
  .table, .table__body {
   overflow: visible;
@@ -28,14 +22,6 @@ Code written by:
     size: landscape;
     margin: 0; 
 }*/
-
-body {
-    min-height: 100vh;
-    background: url(images/html_table.jpg) center / cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 main.table {
     width: 82vw;
