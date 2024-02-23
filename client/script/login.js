@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password: password,
     };
 
-    fetch('https://real-gold-python-gown.cyclic.app/users/login', {
+    fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,10 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         if (data.token) {
           localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.userId);
+          console.log(data.token)
           showMessage(messageWrapper, 'Login Successful', 'green');
           setTimeout(() => {
             window.location.href = '../pages/dashboard.html';
-          }, 2000);
+          }, 1000);
         } else {
           showMessage(messageWrapper, 'Login Failed. Please check your credentials.', 'red');
         }
