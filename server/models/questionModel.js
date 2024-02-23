@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
+  title : {
+    type : String 
+  },
   questionID: {
     type: String,
     required: true,
@@ -28,7 +31,7 @@ const questionSchema = new Schema({
   },
   level : {
     type : String ,
-    default : "easy"
+    enum : ["easy","medium","hard"]
   }
 },{
     versionKey : false
