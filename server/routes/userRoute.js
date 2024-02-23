@@ -25,7 +25,7 @@ userRouter.get("/user/:userId", async (req, res) => {
   }
 });
 
-userRouter.post("/signup", uploadImageMiddleware('imagePath'), async (req, res) => {
+userRouter.post("/signup", uploadImageMiddleware('image'), async (req, res) => {
   const { username, email, password, role, totalScore } = req.body;
   const imagePath = req.imagePath;
 
