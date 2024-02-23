@@ -11,20 +11,31 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const createMulterInstance = (imageKey) => {
+  return multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+      cb(null, true);
+    },
+  }).single(imageKey);
+};
 
-const uploadMiddleware = (req, res, next) => {
-  upload.single('image')(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      return res.status(400).json({ error: 'Error uploading file' });
-    } else if (err) {
-      return res.status(500).json({ error: 'Server error' });
-    }
+const uploadMiddleware = (imageKey) => {
+  return (req, res, next) => {
+    const upload = createMulterInstance(imageKey);
 
-    req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g, '/'); // Replace backslashes with forward slashes
+    upload(req, res, function (err) {
+      if (err instanceof multer.MulterError) {
+        return res.status(400).json({ error: 'Error uploading file' });
+      } else if (err) {
+        return res.status(500).json({ error: 'Server error' });
+      }
 
-    next();
-  });
+      req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g, '/');
+
+      next();
+    });
+  };
 };
 
 module.exports = uploadMiddleware;
