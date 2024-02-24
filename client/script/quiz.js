@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function handleSubmitButtonClick() {
       optionsContainers.forEach(container => container.classList.add('locked'));
-    
+      
       const currentQuestion = questions[currentQuestionIndex];
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     
       submitButton.classList.add('disabled');
-      nextButton.classList.remove('disabled');
+      nextButton.classList.remove('disabled'); // Enable the Next button here
     }
 
     nextButton.addEventListener('click', handleNextButtonClick);
@@ -248,12 +248,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleNextButtonClick() {
       clearOptionSelection();
       optionsContainers.forEach(container => container.classList.remove('locked', 'correct', 'wrong'));
-
+      
+      // Remove all classes from the next button
+      nextButton.className = 'next-button';
+    
       currentQuestionIndex++;
-
+    
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
-        nextButton.classList.add('disabled');
       } else {
         endQuiz();
       }
