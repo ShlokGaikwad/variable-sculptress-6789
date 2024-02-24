@@ -141,6 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let questions = [];
   let selectedOptionIndex = null;
   let timerInterval;
+  let isCameraActive = false;
+  let isScreenShareActive = false;
 
   function resetTimer() {
     clearInterval(timerInterval); // Clear the existing timer interval
@@ -161,6 +163,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // function startQuizIfReady() {
+  //   if (isCameraActive && isScreenShareActive) {
+  //     startQuiz();
+  //   }
+  // }
+
   async function fetchQuestions(language) {
     try {
       const response = await fetch(
@@ -170,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (data.msg && Array.isArray(data.msg) && data.msg.length > 0) {
         questions = data.msg;
-        startQuiz();
+              startQuiz();
       } else {
         console.error(
           "No questions found or invalid response from the server:",
@@ -309,8 +317,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let language = localStorage.getItem("lang") || "";
-  language = language.toLowerCase();
-  console.log(language);
+  // console.log(language);
+  if (language === "javaScript") {
+    language = language.toLowerCase();
+  } else if (language === "C++") {
+    language = "C%2B%2B";
+  } else if (language === "HTML/CSS") {
+    language = "HTML%2FCSS";
+  }
   fetchQuestions(language);
 });
 
@@ -319,27 +333,30 @@ document.addEventListener("DOMContentLoaded", function () {
   const videoContainer = document.getElementById("video-container");
 
   // Check if getUserMedia is supported
-  // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  //   navigator.mediaDevices
-  //     .getUserMedia({ video: true })
-  //     .then(function (stream) {
-  //       // Create a video element
-  //       const videoElement = document.createElement("video");
-  //       videoElement.srcObject = stream;
-  //       videoElement.play();
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then(function (stream) {
+        // Create a video element
+        const videoElement = document.createElement("video");
+        videoElement.srcObject = stream;
+        videoElement.play();
 
-  //       // Append the video element to the container
-  //       videoContainer.appendChild(videoElement);
+        // Append the video element to the container
+        videoContainer.appendChild(videoElement);
 
-  //       // Make the video container draggable
-  //       makeDraggable(videoContainer);
-  //     })
-  //     .catch(function (error) {
-  //       console.error("Error accessing the camera:", error);
-  //     });
-  // } else {
-  //   console.error("getUserMedia is not supported");
-  // }
+        // Make the video container draggable
+        makeDraggable(videoContainer);
+
+        isCameraActive = true;
+        startQuizIfReady();
+      })
+      .catch(function (error) {
+        console.error("Error accessing the camera:", error);
+      });
+  } else {
+    console.error("getUserMedia is not supported");
+  }
 
   function makeDraggable(element) {
     let isDragging = false;
@@ -382,9 +399,12 @@ const screenShare = async () => {
     videoElement.controls = true;
 
     document.getElementById("screenShareContainer").appendChild(videoElement);
+
+    isScreenShareActive = true;
+    startQuizIfReady();
   } catch (error) {
     console.error("Error accessing screen share:", error);
   }
 };
 
-// screenShare();
+screenShare();
