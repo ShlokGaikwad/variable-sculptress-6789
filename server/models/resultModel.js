@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const resultSchema = new mongoose.Schema({
-  resultTitle : {type: String, default: "Pending"},
+  resultTitle: {
+    type: String,
+    enum: ["perfect", "good", "pending", "average", "poor"] ,
+    default: "pending"
+  },
   userId: { type: String, required: true },
   questions: [
     {
@@ -17,3 +21,5 @@ const resultSchema = new mongoose.Schema({
 const Result = mongoose.model('Result', resultSchema);
 
 module.exports = Result;
+
+

@@ -35,11 +35,7 @@ router.post('/add', auth,access("Admin" , "User") , async (req, res) => {
     console.log(userId)
     console.log("sfgsf");
     const newResult = new Result({
-      userId,
-      questions,
-      totalScore,
-      correctCount,
-      incorrectCount,
+      userId, ...req.body
     });
 
     const savedResult = await newResult.save();
@@ -106,3 +102,5 @@ router.patch('/update', async (req, res) => {
 
 
 module.exports = router;
+
+
