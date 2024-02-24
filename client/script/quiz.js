@@ -137,6 +137,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let questions = [];
   let selectedOptionIndex = null;
   let timerInterval;
+  let isCameraActive = false;
+  let isScreenShareActive = false;
 
   function resetTimer() {
     clearInterval(timerInterval); // Clear the existing timer interval
@@ -157,6 +159,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // function startQuizIfReady() {
+  //   if (isCameraActive && isScreenShareActive) {
+  //     startQuiz();
+  //   }
+  // }
+
   async function fetchQuestions(language) {
     try {
       const response = await fetch(
@@ -166,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (data.msg && Array.isArray(data.msg) && data.msg.length > 0) {
         questions = data.msg;
-        startQuiz();
+              startQuiz();
       } else {
         console.error(
           "No questions found or invalid response from the server:",
@@ -319,6 +327,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Make the video container draggable
         makeDraggable(videoContainer);
+
+        isCameraActive = true;
+        startQuizIfReady();
       })
       .catch(function (error) {
         console.error("Error accessing the camera:", error);
@@ -368,6 +379,9 @@ const screenShare = async () => {
     videoElement.controls = true;
 
     document.getElementById("screenShareContainer").appendChild(videoElement);
+
+    isScreenShareActive = true;
+    startQuizIfReady();
   } catch (error) {
     console.error("Error accessing screen share:", error);
   }
