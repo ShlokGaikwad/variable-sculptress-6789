@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function fetchQuestions(language) {
     try {
-      const response = await fetch(`http://localhost:3000/questions?lang=${language}&level=easy`);
+      const response = await fetch(`http://localhost:3000/questions?lang=${language}`);
       const data = await response.json();
 
       if (data.msg && Array.isArray(data.msg) && data.msg.length > 0) {
