@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result Page</title>
+    <link rel="stylesheet" href="../styles/result.css">
 </head>
+
 <body>
-    
+    <section class="top-section">
+        <h1 id="message">Good Job!</h1>
+        <div class="tile">
+            <img src="../assets/images/trophy.png" alt="trophy" />
+            <p>You get +<span id="score">80</span> Points</p>
+            <button>Check Correct Answer</button>
+            <img class="round-one" src="../assets/images/roundmaroon.png" alt="round">
+            <img class="round-two" src="../assets/images/roundmaroon.png" alt="round">
+        </div>
+    </section>
+    <section class="bottom-section">
+        <div class="result-cont">
+            <div class="result-card">
+                <h5>CORRECT ANSWERS</h5>
+                <p><span id="correct-answer">7 </span>&nbsp; questions</p>
+            </div>
+            <div class="result-card">
+                <h5>UNANSWERED QUESTIONS</h5>
+                <p><span id="unanswered">2</span></p>
+            </div>
+            <div class="result-card">
+                <h5>INCORRECT ANSWERS</h5>
+                <p><span id="incorrect-answer">1</span></p>
+            </div>
+        </div>
+        <button id="done-button">Done</button>
+    </section>
+    <script src="../script/result.js"></script>
 </body>
+
 </html>
