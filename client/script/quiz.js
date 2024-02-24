@@ -139,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentQuestionIndex = 0;
   let score = 0;
   let questions = [];
+  let selectedOptionIndex = null;
   let timerInterval;
 
   function resetTimer() {
@@ -209,54 +210,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function handleOptionClick(selectedIndex) {
-      const currentQuestion = questions[currentQuestionIndex];
+      clearOptionSelection();
 
-      if (currentQuestion && currentQuestion.answerIndex === selectedIndex) {
-        score++;
+      selectedOptionIndex = selectedIndex;
+      optionsContainers[selectedIndex].classList.add('selected');
+      submitButton.classList.remove('disabled');
+    }
+
+    function clearOptionSelection() {
+      if (selectedOptionIndex !== null) {
+        optionsContainers[selectedOptionIndex].classList.remove('selected', 'correct', 'wrong');
+        selectedOptionIndex = null;
+      }
+    }
+
+    submitButton.addEventListener('click', handleSubmitButtonClick);
+
+    function handleSubmitButtonClick() {
+      optionsContainers.forEach(container => container.classList.add('locked'));
+
+      const currentQuestion = questions[currentQuestionIndex];
+      if (currentQuestion && selectedOptionIndex !== null) {
+        const selectedOption = optionsContainers[selectedOptionIndex];
+
+        if (currentQuestion.answerIndex === selectedOptionIndex) {
+          selectedOption.classList.add('correct');
+          score++;
+        } else {
+          selectedOption.classList.add('wrong');
+        }
       }
 
-      disableOptions();
-      showButtons();
-    }
-
-    function disableOptions() {
-      optionsContainers.forEach(container => {
-        container.querySelectorAll('.option').forEach(option => {
-          option.style.pointerEvents = 'none';
-        });
-      });
-    }
-
-    function showButtons() {
-      submitButton.style.display = 'block';
-      nextButton.style.display = 'block';
-    }
-
-    function hideButtons() {
-      submitButton.style.display = 'none';
-      nextButton.style.display = 'none';
-    }
-
-    submitButton.addEventListener('click', () => {
-      hideButtons();
-      enableOptions();
-    });
-
-    function enableOptions() {
-      optionsContainers.forEach(container => {
-        container.querySelectorAll('.option').forEach(option => {
-          option.style.pointerEvents = 'auto';
-        });
-      });
+      submitButton.classList.add('disabled');
+      nextButton.classList.remove('disabled'); // Unlock the next button
     }
 
     nextButton.addEventListener('click', handleNextButtonClick);
 
     function handleNextButtonClick() {
+      clearOptionSelection();
+      optionsContainers.forEach(container => container.classList.remove('locked'));
+
       currentQuestionIndex++;
 
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
+        nextButton.classList.add('disabled'); // Lock the next button until the user selects an option
       } else {
         endQuiz();
       }
