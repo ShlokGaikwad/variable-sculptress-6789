@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
         if (currentQuestion.answerIndex === selectedOptionIndex) {
           selectedOption.classList.add('correct');
-          score++;
+          score+= 10;
           scoreElement.textContent = score;
         } else {
           selectedOption.classList.add('wrong');
@@ -275,3 +275,59 @@ document.addEventListener('DOMContentLoaded', function () {
   language = language.toLowerCase();
   fetchQuestions(language);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Get the video container element
+  const videoContainer = document.getElementById('video-container');
+
+  // Check if getUserMedia is supported
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function (stream) {
+              // Create a video element
+              const videoElement = document.createElement('video');
+              videoElement.srcObject = stream;
+              videoElement.play();
+
+              // Append the video element to the container
+              videoContainer.appendChild(videoElement);
+
+              // Make the video container draggable
+              makeDraggable(videoContainer);
+          })
+          .catch(function (error) {
+              console.error('Error accessing the camera:', error);
+          });
+  } else {
+      console.error('getUserMedia is not supported');
+  }
+
+  function makeDraggable(element) {
+      let isDragging = false;
+      let offsetX, offsetY;
+
+      // Add class for styling
+      element.classList.add('draggable');
+
+      // Add mousedown event listener to start dragging
+      element.addEventListener('mousedown', function (e) {
+          isDragging = true;
+          offsetX = e.clientX - element.getBoundingClientRect().left;
+          offsetY = e.clientY - element.getBoundingClientRect().top;
+      });
+
+      // Add mousemove event listener to move the element
+      document.addEventListener('mousemove', function (e) {
+          if (isDragging) {
+              element.style.left = e.clientX - offsetX + 'px';
+              element.style.top = e.clientY - offsetY + 'px';
+          }
+      });
+
+      // Add mouseup event listener to stop dragging
+      document.addEventListener('mouseup', function () {
+          isDragging = false;
+      });
+  }
+});
+
