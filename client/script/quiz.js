@@ -219,8 +219,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleOptionClick(selectedIndex) {
+      // Check if options are still selectable
+      if (optionsContainers[selectedIndex].classList.contains("locked")) {
+        return;
+      }
+    
       clearOptionSelection();
-
+    
       selectedOptionIndex = selectedIndex;
       optionsContainers[selectedIndex].classList.add("selected");
       submitButton.classList.remove("disabled");

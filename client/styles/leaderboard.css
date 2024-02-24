@@ -109,8 +109,12 @@ tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
 
-tr:nth-child(1) {
-  color: #fff;
+/* table:nth-child(1) {
+    color: #fff !important;
+  } */
+
+tr {
+  color: black !important;
 }
 
 td {
@@ -119,6 +123,7 @@ td {
   font-size: 1.4rem;
   padding: 1rem 2rem;
   position: relative;
+  /* color: black; */
 }
 
 .number {
