@@ -1,3 +1,7 @@
+let question = [] ;
+let incorrectAnswer = 0 ;
+let correctAnswerArray = [] ;
+let incorrectAnswerArray = [] ;
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
@@ -196,6 +200,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentQuestion) {
         questionCountElement.textContent = currentQuestionIndex + 1;
         questionTextElement.textContent = currentQuestion.description;
+        question.push(currentQuestion.description);
+        localStorage.setItem("questions",JSON.stringify(question));
 
         optionsContainers.forEach((container, index) => {
           const optionElement = createOptionElement(
@@ -221,8 +227,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleOptionClick(selectedIndex) {
+      // Check if options are still selectable
+      if (optionsContainers[selectedIndex].classList.contains("locked")) {
+        return;
+      }
+    
       clearOptionSelection();
-
+    
       selectedOptionIndex = selectedIndex;
       optionsContainers[selectedIndex].classList.add("selected");
       submitButton.classList.remove("disabled");
@@ -247,6 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       const currentQuestion = questions[currentQuestionIndex];
+
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
 
@@ -254,10 +266,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
           selectedOption.classList.add("correct");
+          correctAnswerArray.push(selectedOption.textContent);
           score += 10;
           scoreElement.textContent = score;
+          localStorage.setItem("correctAnswer",score);
+          
         } else {
+          incorrectAnswer += 10 ;
           selectedOption.classList.add("wrong");
+          localStorage.setItem("incorrectAnswer",incorrectAnswer);
+          incorrectAnswerArray.push(selectedOption.textContent);
           optionsContainers[currentQuestion.answerIndex].classList.add(
             "correct"
           );
@@ -284,12 +302,14 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
       } else {
+        localStorage.setItem("correctanswerArray",JSON.stringify(correctAnswerArray));
+        localStorage.setItem("incorrectanswerArray",JSON.stringify(incorrectAnswerArray));
         endQuiz();
       }
     }
 
     function endQuiz() {
-      alert(`Quiz Finished! Your Score: ${score}/${totalQuestions}`);
+      window.location.href = "../pages/result.html";
       scoreElement.textContent = score;
     }
 
