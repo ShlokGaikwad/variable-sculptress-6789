@@ -4,7 +4,7 @@ const UserModel = require("../models/userModel");
 require("dotenv").config();
 
 const auth = (req, res, next) => {
-  const token = req.cookies.token;
+  const token = req.headers.authorization?.split(" ")[1] || req.cookies.token;
   jwt.verify(token, process.env.tokenCode, async (err, decoded) => {
     const blacklistToken = await BlacklistModel.findOne({ token });
     if (blacklistToken) {
