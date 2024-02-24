@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quiz App</title>
     <link rel="stylesheet" href="../styles/quiz.css">
 </head>
 <body>
@@ -21,18 +21,16 @@
             <div class="container"></div>
             <div class="question-cont">
                 <h5> QUESTION <span id="question-count">1</span> OF 10 </h5>
-                <p>What does the acronym 'DOM' stand for in JavaScript?</p>
-                <div class="option correct">Document Object Model</div>
-                <div class="option">Data Object Model</div>
-                <div class="option">Dynamic Object Management</div>
-                <div class="option">Document Oriented Middleware</div>
-                
+                <p id="question-text"></p>
+                <div class="options" id="options-container1"></div>
+                <div class="options" id="options-container2"></div>
+                <div class="options" id="options-container3"></div>
+                <div class="options" id="options-container4"></div>
             </div>
             <div class="buttons">
-                <button>Submit</button>
-                <button>Next</button>
+                <button id="submit-button">Submit</button>
+                <button id="next-button">Next</button>
             </div>
-
         </div>
     </section>
     <script src="https://d3js.org/d3.v3.min.js"></script>

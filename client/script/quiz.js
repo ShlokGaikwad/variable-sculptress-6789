@@ -16,9 +16,6 @@ red = setInterval(() => {
 }, 1000);
 
 
-
-
-
 // ================Timer=================
 
 var width = 150,
@@ -115,8 +112,6 @@ function pulseText() {
     .attr("transform", "translate(0," + -0 + ")");
 }
 
-
-
 function arcTween(b) {
   var i = d3.interpolate({
     value: b.previous
@@ -125,15 +120,157 @@ function arcTween(b) {
     return arc(i(t));
   };
 }
-// ========end=====================
 
-// {
-//   "title": "theory",
-//   "questionID": "12",
-//   "languageName": "JavaScript",
-//   "description": "What does the acronym 'DOM' stand for in JavaScript?",
-//   "answerIndex": 2,
-//   "options": ["Document Object Model", "Data Object Model", "Dynamic Object Management", "Document Oriented Middleware"],
-//   "level": "medium"
-// }
+document.addEventListener('DOMContentLoaded', function () {
+  const questionCountElement = document.getElementById('question-count');
+  const questionTextElement = document.getElementById('question-text');
+  const optionsContainers = [
+    document.getElementById('options-container1'),
+    document.getElementById('options-container2'),
+    document.getElementById('options-container3'),
+    document.getElementById('options-container4')
+  ];
+  const buttonsContainer = document.getElementById('buttons-container');
+  const submitButton = document.getElementById('submit-button');
+  const nextButton = document.getElementById('next-button');
+  const scoreElement = document.getElementById('score');
+  const progressBar = document.querySelector('.progress');
 
+  let currentQuestionIndex = 0;
+  let score = 0;
+  let questions = [];
+  let timerInterval;
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    updateProgressBar(0);
+    timerInterval = setInterval(() => {
+      updateProgressBar();
+    }, 1000);
+  }
+
+  function updateProgressBar() {
+    const bar = document.querySelector('.progress');
+    let percentage = parseInt(bar.style.width) || 0;
+    percentage += 1;
+    if (percentage <= 100) {
+      bar.style.width = percentage + '%';
+    } else {
+      clearInterval(timerInterval);
+      handleNextButtonClick();
+    }
+  }
+
+  async function fetchQuestions(language) {
+    try {
+      const response = await fetch(`http://localhost:3000/questions?lang=${language}&level=easy`);
+      const data = await response.json();
+
+      if (data.msg && Array.isArray(data.msg) && data.msg.length > 0) {
+        questions = data.msg;
+        startQuiz();
+      } else {
+        console.error('No questions found or invalid response from the server:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+    }
+  }
+
+  function startQuiz() {
+    const totalQuestions = Math.min(10, questions.length);
+
+    function updateQuestion() {
+      resetTimer();
+      const currentQuestion = questions[currentQuestionIndex];
+
+      if (currentQuestion) {
+        questionCountElement.textContent = currentQuestionIndex + 1;
+        questionTextElement.textContent = currentQuestion.description;
+
+        optionsContainers.forEach((container, index) => {
+          const optionElement = createOptionElement(currentQuestion.options[index], index);
+          container.innerHTML = '';
+          container.appendChild(optionElement);
+        });
+      } else {
+        console.error('No question found at index:', currentQuestionIndex);
+      }
+    }
+
+    function createOptionElement(text, index) {
+      const optionElement = document.createElement('div');
+      optionElement.classList.add('option');
+      optionElement.textContent = text;
+
+      optionElement.addEventListener('click', () => handleOptionClick(index));
+
+      return optionElement;
+    }
+
+    function handleOptionClick(selectedIndex) {
+      const currentQuestion = questions[currentQuestionIndex];
+
+      if (currentQuestion && currentQuestion.answerIndex === selectedIndex) {
+        score++;
+      }
+
+      disableOptions();
+      showButtons();
+    }
+
+    function disableOptions() {
+      optionsContainers.forEach(container => {
+        container.querySelectorAll('.option').forEach(option => {
+          option.style.pointerEvents = 'none';
+        });
+      });
+    }
+
+    function showButtons() {
+      submitButton.style.display = 'block';
+      nextButton.style.display = 'block';
+    }
+
+    function hideButtons() {
+      submitButton.style.display = 'none';
+      nextButton.style.display = 'none';
+    }
+
+    submitButton.addEventListener('click', () => {
+      hideButtons();
+      enableOptions();
+    });
+
+    function enableOptions() {
+      optionsContainers.forEach(container => {
+        container.querySelectorAll('.option').forEach(option => {
+          option.style.pointerEvents = 'auto';
+        });
+      });
+    }
+
+    nextButton.addEventListener('click', handleNextButtonClick);
+
+    function handleNextButtonClick() {
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < totalQuestions) {
+        updateQuestion();
+      } else {
+        endQuiz();
+      }
+    }
+
+    function endQuiz() {
+      alert(`Quiz Finished! Your Score: ${score}/${totalQuestions}`);
+      scoreElement.textContent = score;
+    }
+
+    updateQuestion();
+  }
+
+  let language = localStorage.getItem('lang') || '';
+  language = language.toLowerCase();
+  fetchQuestions(language);
+});
