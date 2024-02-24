@@ -1,255 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./analytics.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <title>Quiz App Analytics</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            color:#858494;
-        }
-        header {
-            background-color: #6A5AE0;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-            font-size: 36px;
-        }
-        nav {
-            background-color: #fff;
-            padding: 20px;
-            text-align: left;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        nav ul li {
-            margin-bottom: 10px;
-        }
-        nav ul li a {
-            color: #333;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        nav ul li a:hover {
-            color: #7b1fa2;
-        }
-        main {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        .chart {
-            background-color: #d1c4e9;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        .chart h2 {
-            margin-top: 0;
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #6A5AE0;
-        }
-        .stats {
-            background-color: #ede7f6;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .stats h2 {
-            margin-top: 0;
-            font-size: 24px;
-            margin-bottom: 20px;
-            color:#858494;
-        }
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .stat {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .stat h3 {
-            margin-top: 0;
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #6A5AE0;
-        }
-        .stat p {
-            margin: 0;
-            font-size: 18px;
-            font-weight: bold;
-            color:#858494;
-        }
-        footer {
-            background-color:  #6A5AE0;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        footer p {
-            margin: 0;
-        }
+
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Quiz Analytics</h1>
-</header>
+    <header>
+        <h1>Quiz Analytics</h1>
+    </header>
 
-<nav>
-    <div class="logo-name">
-        <div class="logo-image">
-            <img src="../Images/Logo.svg" alt="">
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="../Images/Logo.svg" alt="">
+            </div>
+
+            <span class="logo_name">Quezzo</span>
         </div>
 
-        <span class="logo_name">Quezo</span>
-    </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="#">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Dashboard</span>
+                    </a></li>
+                <li><a href="#">
+                        <i class="uil uil-files-landscapes"></i>
+                        <span class="link-name">Content</span>
+                    </a></li>
+                <li><a href="#">
+                        <i class="uil uil-chart"></i>
+                        <span class="link-name">Analytics</span>
+                    </a></li>
+                <li><a href="#">
+                        <i class="uil uil-thumbs-up"></i>
+                        <span class="link-name">Like</span>
+                    </a></li>
+                <li><a href="#">
+                        <i class="uil uil-comments"></i>
+                        <span class="link-name">Comment</span>
+                    </a></li>
+                <li><a href="#">
+                        <i class="uil uil-share"></i>
+                        <span class="link-name">Share</span>
+                    </a></li>
+            </ul>
 
-    <div class="menu-items">
-        <ul class="nav-links">
-            <li><a href="#">
-                <i class="uil uil-estate"></i>
-                <span class="link-name">Dahsboard</span>
-            </a></li>
-            <li><a href="#">
-                <i class="uil uil-files-landscapes"></i>
-                <span class="link-name">Content</span>
-            </a></li>
-            <li><a href="#">
-                <i class="uil uil-chart"></i>
-                <span class="link-name">Analytics</span>
-            </a></li>
-            <li><a href="#">
-                <i class="uil uil-thumbs-up"></i>
-                <span class="link-name">Like</span>
-            </a></li>
-            <li><a href="#">
-                <i class="uil uil-comments"></i>
-                <span class="link-name">Comment</span>
-            </a></li>
-            <li><a href="#">
-                <i class="uil uil-share"></i>
-                <span class="link-name">Share</span>
-            </a></li>
-        </ul>
-        
-        <ul class="logout-mode">
-            <li><a href="#">
-                <i class="uil uil-signout"></i>
-                <span class="link-name">Logout</span>
-            </a></li>
+            <ul class="logout-mode">
+                <li><a href="#">
+                        <i class="uil uil-signout"></i>
+                        <span class="link-name">Logout</span>
+                    </a></li>
 
-            <li class="mode">
-                <a href="#">
-                    <i class="uil uil-moon"></i>
-                <span class="link-name">Dark Mode</span>
-            </a>
+                <li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                        <span class="link-name">Dark Mode</span>
+                    </a>
 
-            <div class="mode-toggle">
-              <span class="switch"></span>
-            </div>
-        </li>
-        </ul>
-    </div>
-</nav>
-
-
-<main>
-    <section class="chart">
-        <h2>Quiz Performance</h2>
-        <!-- Add your chart here -->
-        <p>Placeholder for chart...</p>
-    </section>
-
-    <section class="stats">
-        <h2>Quiz Stats</h2>
-        <div class="stats-container">
-            <div class="stat">
-                <h3>Total Quizzes Created</h3>
-                <p>100</p>
-            </div>
-            <div class="stat">
-                <h3>Total Quizzes Completed</h3>
-                <p>80</p>
-            </div>
-            <div class="stat">
-                <h3>Quizzes in Progress</h3>
-                <p>20</p>
-            </div>
-            <div class="stat">
-                <h3>Average Quiz Score</h3>
-                <p>75%</p>
-            </div>
-            <div class="stat">
-                <h3>Top Performing Quiz</h3>
-                <p>Quiz A - 90%</p>
-            </div>
-            <div class="stat">
-                <h3>Total Questions</h3>
-                <p>500</p>
-            </div>
-            <div class="stat">
-                <h3>Total Correct Answers</h3>
-                <p>400</p>
-            </div>
-            <div class="stat">
-                <h3>Total Incorrect Answers</h3>
-                <p>100</p>
-            </div>
-            <!-- Add more statistics as needed -->
+                    <div class="mode-toggle">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </section>
+    </nav>
 
-    <section class="users">
-        <h2>User Engagement</h2>
-        <div class="user-stats">
-            <div class="stat">
-                <h3>Total Users</h3>
-                <p>500</p>
-            </div>
-            <div class="stat">
-                <h3>Active Users (last 7 days)</h3>
-                <p>300</p>
-            </div>
-            <div class="stat">
-                <h3>New Users (last 30 days)</h3>
-                <p>100</p>
-            </div>
-        </div>
-    </section>
-</main>
 
-<footer>
-    <p>&copy; 2024 Quiz App. All rights reserved.</p>
-</footer>
+    <main>
+        <section class="chart">
+            <h2>Quiz Performance</h2>
+            <!-- Add your chart here -->
+            <p>Placeholder for chart...</p>
+        </section>
+
+        <section class="stats">
+            <h2>Quiz Stats</h2>
+            <div class="stats-container">
+                <div class="stat">
+                    <h3>Total Quizzes Created</h3>
+                    <p id="totalLanguage"></p>
+                </div>
+                <div class="stat">
+                    <h3>Total Quizzes Completed</h3>
+                    <p>80</p>
+                </div>
+                <div class="stat">
+                    <h3>Quizzes in Progress</h3>
+                    <p>20</p>
+                </div>
+                <div class="stat">
+                    <h3>Average Quiz Score</h3>
+                    <p>75%</p>
+                </div>
+                <div class="stat">
+                    <h3>Top Performing Quiz</h3>
+                    <p>Quiz A - 90%</p>
+                </div>
+                <div class="stat">
+                    <h3>Total Questions</h3>
+                    <p id="totalQuestion"></p>
+                </div>
+                <div class="stat">
+                    <h3>Total Correct Answers</h3>
+                    <p>400</p>
+                </div>
+                <div class="stat">
+                    <h3>Total Incorrect Answers</h3>
+                    <p>100</p>
+                </div>
+                <!-- Add more statistics as needed -->
+            </div>
+        </section>
+
+        <section class="users">
+            <h2>User Engagement</h2>
+            <div class="user-stats">
+                <div class="stat">
+                    <h3>Total Users</h3>
+                    <p id="totalUsers"></p>
+                </div>
+                <div class="stat">
+                    <h3>Active Users (last 7 days)</h3>
+                    <p>300</p>
+                </div>
+                <div class="stat">
+                    <h3>New Users (last 30 days)</h3>
+                    <p>100</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Quiz App. All rights reserved.</p>
+    </footer>
 
 </body>
+<script src="./analytics.js"></script>
+
 </html>
-
-<script src="../script.js"></script>
-
-
-
+<!-- <script src="../script.js"></script> -->

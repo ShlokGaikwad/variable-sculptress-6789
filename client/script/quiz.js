@@ -12,7 +12,7 @@ red = setInterval(() => {
 
     if (cnt == 100) clearInterval(red);
     bar.style.width = cnt + "%";
-    console.log(cnt);
+    // console.log(cnt);
 }, 1000);
 
 
