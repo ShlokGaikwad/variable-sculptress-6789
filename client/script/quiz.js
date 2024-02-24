@@ -140,22 +140,23 @@ document.addEventListener('DOMContentLoaded', function () {
   let timerInterval;
 
   function resetTimer() {
-    clearInterval(timerInterval);
-    updateProgressBar(0);
-    timerInterval = setInterval(updateProgressBar, 1000);
+    clearInterval(timerInterval); // Clear the existing timer interval
+    timePassed = 0; // Reset the time passed
+    updateProgressBar(); // Start a new timer interval
   }
 
   function updateProgressBar() {
-    const bar = document.querySelector('.progress');
-    let percentage = parseInt(bar.style.width) || 0;
-    percentage += 1;
-    if (percentage <= 100) {
-      bar.style.width = percentage + '%';
-    } else {
-      clearInterval(timerInterval);
-      handleNextButtonClick();
-    }
+  const bar = document.querySelector('.progress');
+  let percentage = parseInt(bar.style.width) || 0;
+  percentage += 1;
+
+  if (percentage <= 100) {
+    bar.style.width = percentage + '%';
+  } else {
+    handleNextButtonClick(); // Move to the next question automatically
+    resetTimer(); // Reset the timer for the next question
   }
+}
 
   async function fetchQuestions(language) {
     try {
@@ -233,6 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentQuestion.answerIndex === selectedOptionIndex) {
           selectedOption.classList.add('correct');
           score++;
+          scoreElement.textContent = score;
         } else {
           selectedOption.classList.add('wrong');
           optionsContainers[currentQuestion.answerIndex].classList.add('correct');
@@ -251,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       // Remove all classes from the next button
       nextButton.className = 'next-button';
-    
+      resetTimer();
       currentQuestionIndex++;
     
       if (currentQuestionIndex < totalQuestions) {
