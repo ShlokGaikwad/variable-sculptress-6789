@@ -250,7 +250,7 @@ body{
   right: 10px;
   width: 160px;
   height: 120px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
   overflow: hidden;
 }
 
