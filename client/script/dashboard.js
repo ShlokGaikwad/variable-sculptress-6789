@@ -24,7 +24,7 @@ async function fetchUserData() {
       const userImageElement = document.getElementById('user-image');
 
       usernameElement.textContent = username;
-      userImageElement.src = image;
+      userImageElement.src = `https://variable-sculptress-6789-e41a.onrender.com/${image}`;
   } catch (error) {
       console.error('Error fetching user data:', error);
   }
