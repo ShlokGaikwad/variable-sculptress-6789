@@ -215,39 +215,6 @@ document.addEventListener('DOMContentLoaded', function () {
         score++;
       }
 
-      disableOptions();
-      showButtons();
-    }
-
-    function disableOptions() {
-      optionsContainers.forEach(container => {
-        container.querySelectorAll('.option').forEach(option => {
-          option.style.pointerEvents = 'none';
-        });
-      });
-    }
-
-    function showButtons() {
-      submitButton.style.display = 'block';
-      nextButton.style.display = 'block';
-    }
-
-    function hideButtons() {
-      submitButton.style.display = 'none';
-      nextButton.style.display = 'none';
-    }
-
-    submitButton.addEventListener('click', () => {
-      hideButtons();
-      enableOptions();
-    });
-
-    function enableOptions() {
-      optionsContainers.forEach(container => {
-        container.querySelectorAll('.option').forEach(option => {
-          option.style.pointerEvents = 'auto';
-        });
-      });
     }
 
     nextButton.addEventListener('click', handleNextButtonClick);
