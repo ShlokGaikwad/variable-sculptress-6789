@@ -5,19 +5,25 @@ const access = require("../middleware/access.middleware");
 
 const questionRouter = express.Router();
 
-questionRouter.get("/", auth, access("Admin", "User"), async (req, res) => {
-  try {
-    const { level } = req.query;
-    const filter = {};
-    if (level) {
-      filter.level = level;
+questionRouter.get("/", async (req, res) => {
+    try {
+        const { level, lang } = req.query;
+        const filter = {};
+
+        if (level) {
+            filter.level = level;
+        }
+
+        if (lang) {
+            filter.languageName = lang;
+        }
+
+        const question = await QuestionModel.find(filter);
+        res.status(200).send({ "msg": question });
+    } catch (error) {
+        res.status(500).send({ "msg": error.message });
+        console.log(error.message);
     }
-    const question = await QuestionModel.find(filter);
-    res.status(200).send(question);
-  } catch (error) {
-    res.status(500).send({ msg: error.message });
-    console.log(error.message);
-  }
 });
 
 questionRouter.post("/create", auth, access("Admin"), async (req, res) => {

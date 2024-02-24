@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quiz App</title>
     <link rel="stylesheet" href="../styles/quiz.css">
 </head>
 <body>
@@ -27,12 +27,18 @@
                 <div class="option selected">Dynamic Object Management</div>
                 <div class="option">Document Oriented Middleware</div>
                 
+                <p id="question-text"></p>
+                <div class="options" id="options-container1"></div>
+                <div class="options" id="options-container2"></div>
+                <div class="options" id="options-container3"></div>
+                <div class="options" id="options-container4"></div>
             </div>
             <div class="buttons">
+                <button id="submit-button">Submit</button>
+                <button id="next-button">Next</button>
                 <button class="submit-button disabled" id="submit-button">Submit</button>
                 <button class="next-button" id="next-button">Next</button>
             </div>
-
         </div>
     </section>
     <script src="https://d3js.org/d3.v3.min.js"></script>
