@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', function () {
       password,
     };
   
-    if (imageFile) {
-      requestData.image = imageFile;
-    }
+    // if (imageFile) {
+    //   requestData.image = imageFile;
+    // }
   
     try {
       const response = await fetch('https://variable-sculptress-6789-e41a.onrender.com/users/signup', {

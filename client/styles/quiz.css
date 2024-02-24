@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+/********** Template CSS **********/
+:root {
+    --royal-violet: #6A5AE0;
+    --dull-lavender:#9087E5;
+    --pink-salmon: #FF8FA2;
+    --pastel-pink: #FFD6DD;
+    --hawkes-blue: #C4D0FB;
+    --mint-tulip: #C9F2E9;
+    --grey-one:#49465F;
+    --grey-two:#858494;
+    --grey-three:#CCCCCC;
+    --grey-four:#E6E6E6;
+    --grey-five:#EFEEFC;
+    --dark-maroon:#670112;
+    --light-maroon:#b26673;
+    --mid-yellow:#ff9b57;
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+*{
+    font-family: "Rubik", sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+
+body{
+    background-color: var(--royal-violet);
+}
+
+.quiz{
+    padding: 5%;
+}
+
+.top-part{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.tile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.tile>img{
+    height: 30px;
+}
+
+.user-tile{
+    background-color: var(--dull-lavender);
+}
+
+.score-tile{
+    background-color: var(--mid-yellow);
+}
+
+.progress-container{
+    flex: 0.6;
+}
+
+.bottom-part{
+    border-radius: 20px;
+    background-color: white;
+    height: 30vh;
+}
+
+.progress-container {
+    width: 90%;
+    background-color: white;
+    height: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+  }
+  .text {
+    color: white;
+  }
+  .progress {
+    height: 60%;
+    background-color: var(--pink-salmon);
+    width: 0%;
+    border-radius: 10px;
+    transition: all 1s;
+  }
+
+
+.container {
+  margin: auto;
+  width: 400px;
+}
+
+.path--background {
+  fill: rgb(34, 213, 201);
+  stroke: #fff;
+  stroke-width: 0px;
+}
+
+.pulse {
+  fill: rgb(255, 74, 74) !important;
+}
+
+.path--foreground {
+  fill: #eee;
+  stroke: #eee;
+  stroke-width: 2px;
+}
+
+.label {
+  font: 90px "Open Sans";
+  font-weight: 900;
+  text-anchor: middle;
+  fill: rgb(34, 213, 201);
+}

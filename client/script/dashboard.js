@@ -42,6 +42,21 @@ function fetchData() {
             data.forEach(language => {
                 const langCard = document.createElement('div');
                 langCard.className = 'lang-card';
+                // console.log(language)
+                langCard.dataset.id=language._id
+
+                langCard.addEventListener("click",()=>{
+                    putLangIntoLocal(language.languageTitle);
+                    proceedButton.disabled=false;
+                    proceedButton.classList.remove("disabled");
+                    let allCards= document.querySelectorAll(".lang-card");
+                    langCard.classList.add('selected');
+                    allCards.forEach((otherCard)=>{
+                        if(otherCard.dataset.id!=language._id){
+                            otherCard.classList.remove('selected');
+                        }
+                    })
+                })
 
                 const img = document.createElement('img');
                 img.src = `https://variable-sculptress-6789-e41a.onrender.com/${language.languageImage}`;
@@ -54,9 +69,12 @@ function fetchData() {
                 langContainer.appendChild(langCard);
             });
 
-            proceedButton.disabled = false;
         })
         .catch(error => console.error('Error fetching data:', error));
+}
+
+function putLangIntoLocal(lang){
+    localStorage.setItem("lang",lang);
 }
 
 open.addEventListener("click", () => {
@@ -68,7 +86,12 @@ close.addEventListener("click", () => {
 });
 
 proceedButton.addEventListener("click", () => {
-  toggleMenu();
+//   toggleMenu();
+    if(!proceedButton.classList.contains("disabled")){
+        window.location.href="../pages/quiz.html"
+    }
 });
+
+//iffe to disable the button on each refresh
 
 fetchData();
