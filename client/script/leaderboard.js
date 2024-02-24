@@ -3,7 +3,7 @@ const main = document.getElementById("leaderboard");
 const fetchData = async () => {
   try {
     let res = await fetch(
-      `http://localhost:3000/users/user?sort=totalScore&order=desc`
+      `${url}/users/user?sort=totalScore&order=desc`
     );
     let data = await res.json();
     console.log(data);
