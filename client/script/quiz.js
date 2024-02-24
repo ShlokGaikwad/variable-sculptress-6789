@@ -124,12 +124,9 @@ function arcTween(b) {
 document.addEventListener('DOMContentLoaded', function () {
   const questionCountElement = document.getElementById('question-count');
   const questionTextElement = document.getElementById('question-text');
-  const optionsContainers = [
-    document.getElementById('options-container1'),
-    document.getElementById('options-container2'),
-    document.getElementById('options-container3'),
-    document.getElementById('options-container4')
-  ];
+  const optionsContainers = Array.from({ length: 4 }, (_, index) =>
+    document.getElementById(`options-container${index + 1}`)
+  );
   const buttonsContainer = document.getElementById('buttons-container');
   const submitButton = document.getElementById('submit-button');
   const nextButton = document.getElementById('next-button');
@@ -145,9 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function resetTimer() {
     clearInterval(timerInterval);
     updateProgressBar(0);
-    timerInterval = setInterval(() => {
-      updateProgressBar();
-    }, 1000);
+    timerInterval = setInterval(updateProgressBar, 1000);
   }
 
   function updateProgressBar() {
@@ -228,34 +223,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function handleSubmitButtonClick() {
       optionsContainers.forEach(container => container.classList.add('locked'));
-
+    
       const currentQuestion = questions[currentQuestionIndex];
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
-
+    
+        selectedOption.classList.remove('selected', 'correct', 'wrong');
+    
         if (currentQuestion.answerIndex === selectedOptionIndex) {
           selectedOption.classList.add('correct');
           score++;
         } else {
           selectedOption.classList.add('wrong');
+          optionsContainers[currentQuestion.answerIndex].classList.add('correct');
         }
       }
-
+    
       submitButton.classList.add('disabled');
-      nextButton.classList.remove('disabled'); // Unlock the next button
+      nextButton.classList.remove('disabled');
     }
 
     nextButton.addEventListener('click', handleNextButtonClick);
 
     function handleNextButtonClick() {
       clearOptionSelection();
-      optionsContainers.forEach(container => container.classList.remove('locked'));
+      optionsContainers.forEach(container => container.classList.remove('locked', 'correct', 'wrong'));
 
       currentQuestionIndex++;
 
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
-        nextButton.classList.add('disabled'); // Lock the next button until the user selects an option
+        nextButton.classList.add('disabled');
       } else {
         endQuiz();
       }
