@@ -1,10 +1,9 @@
 const url = "https://variable-sculptress-6789-e41a.onrender.com";
 const main = document.getElementById("leaderboard");
+
 const fetchData = async () => {
   try {
-    let res = await fetch(
-      `${url}/users/user?sort=totalScore&order=desc`
-    );
+    let res = await fetch(`${url}/users/user?sort=totalScore&order=desc`);
     let data = await res.json();
     console.log(data);
     appendScore(data);
@@ -15,13 +14,13 @@ const fetchData = async () => {
 
 fetchData();
 
-function createCard(item) {
-  const i = 0;
+function createCard(item, index) {
+  //   const i = 0;
   const table = document.createElement("table");
   const tr = document.createElement("tr");
   const tdIdx = document.createElement("td");
   tdIdx.className = "number";
-//   tdIdx.innerHTML = i++;
+  tdIdx.innerHTML = index + 1;
 
   const name = document.createElement("td");
   name.className = "name";
@@ -37,8 +36,10 @@ function createCard(item) {
     "https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true";
   img.alt = "medal";
 
-  if (tdIdx.innerHTML === 1) {
+  if (tdIdx.innerHTML === "1") {
     score.append(img);
+  } else if (tdIdx.innerHTML === "2") {
+    // score.append("");
   }
 
   table.append(tr);
@@ -49,7 +50,10 @@ function createCard(item) {
 
 function appendScore(data) {
   main.innerHTML = "";
-  data.map((item) => {
-    main.append(createCard(item));
+  const ribbion = document.createElement("div");
+  ribbion.className = "ribbon";
+  main.append(ribbion);
+  data.forEach((item, index) => {
+    main.append(createCard(item, index));
   });
 }
