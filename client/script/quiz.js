@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function fetchQuestions(language) {
     try {
       const response = await fetch(
-        `https://variable-sculptress-6789-e41a.onrender.com/questions?lang=${language}&level=easy`
+        `https://variable-sculptress-6789-e41a.onrender.com/questions?lang=${language}`
       );
       const data = await response.json();
 
