@@ -37,7 +37,7 @@ body{
 }
 
 .quiz{
-    padding: 5%;
+    padding:30px;
 }
 
 .top-part{
@@ -78,43 +78,43 @@ body{
 .bottom-part{
     border-radius: 20px;
     background-color: white;
-    height: 30vh;
+    padding: 30px;
+    text-align: center;
 }
 
 .progress-container {
-    width: 90%;
-    background-color: white;
-    height: 10px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    padding: 2px;
-  }
-  .text {
-    color: white;
-  }
-  .progress {
-    height: 60%;
-    background-color: var(--pink-salmon);
-    width: 0%;
-    border-radius: 10px;
-    transition: all 1s;
-  }
+  width: 90%;
+  background-color: white;
+  height: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+.text {
+  color: white;
+}
+.progress {
+  height: 60%;
+  background-color: var(--pink-salmon);
+  width: 0%;
+  border-radius: 10px;
+  transition: all 1s;
+}
 
 
 .container {
   margin: auto;
-  width: 400px;
+  
 }
-
 .path--background {
-  fill: rgb(34, 213, 201);
+  fill: var(--dull-lavender);
   stroke: #fff;
   stroke-width: 0px;
 }
 
 .pulse {
-  fill: rgb(255, 74, 74) !important;
+  fill: var(--pink-salmon) !important;
 }
 
 .path--foreground {
@@ -124,8 +124,63 @@ body{
 }
 
 .label {
-  font: 90px "Open Sans";
+  font: 20px;
   font-weight: 900;
   text-anchor: middle;
-  fill: rgb(34, 213, 201);
+  fill: var(--dull-lavender);
+}
+
+.question-cont{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-cont>h5{
+  color: var(--grey-two);
+  letter-spacing: 1px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.question-cont>p{
+  color: var(--grey-one);
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+.question-cont>div{
+  padding: 20px;
+  border: 1px solid var(--grey-two);
+  border-radius: 20px;
+  margin-bottom: 10px;
+  min-width:400px;
+  cursor: pointer;
+}
+
+.buttons{
+  margin-top: 20px;
+  
+}
+
+.buttons>button{
+  padding:10px;
+  width: 200px;
+  border-radius: 20px;
+  margin-right: 30px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+@media (max-width:650px){
+  .question-cont>p{
+    margin-bottom: 20px;
+  }
+
+  .question-cont>div{
+    min-width: unset;
+    width: 100%;
+  }
 }

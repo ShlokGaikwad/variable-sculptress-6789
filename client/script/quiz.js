@@ -21,8 +21,8 @@ red = setInterval(() => {
 
 // ================Timer=================
 
-var width = 400,
-  height = 400,
+var width = 150,
+  height = 150,
   timePassed = 0,
   timeLimit = 30;
 
@@ -35,13 +35,13 @@ var fields = [{
 }];
 
 var nilArc = d3.svg.arc()
-  .innerRadius(width / 3 - 133)
-  .outerRadius(width / 3 - 133)
+  .innerRadius(width / 3 - 33)
+  .outerRadius(width / 3 - 33)
   .startAngle(0)
   .endAngle(2 * Math.PI);
 
 var arc = d3.svg.arc()
-  .innerRadius(width / 3 - 55)
+  .innerRadius(width / 3 - 10)
   .outerRadius(width / 3 - 25)
   .startAngle(0)
   .endAngle(function(d) {
@@ -101,8 +101,8 @@ function pulseText() {
   label.classed("pulse", true);
 
   if ((timeLimit - timePassed) >= 0) {
-    label.style("font-size", "120px")
-      .attr("transform", "translate(0," + +4 + ")")
+    label.style("font-size", "20px")
+      .attr("transform", "translate(0," + +8 + ")")
       .text(function(d) {
         return d.size - d.value;
       });
@@ -111,34 +111,11 @@ function pulseText() {
   label.transition()
     .ease("elastic")
     .duration(900)
-    .style("font-size", "90px")
-    .attr("transform", "translate(0," + -10 + ")");
+    .style("font-size", "25px")
+    .attr("transform", "translate(0," + -0 + ")");
 }
 
-function destroyTimer() {
-  label.transition()
-    .ease("back")
-    .duration(700)
-    .style("opacity", "0")
-    .style("font-size", "5")
-    .attr("transform", "translate(0," + -40 + ")")
-    .each("end", function() {
-      field.selectAll("text").remove()
-    });
 
-  path.transition()
-    .ease("back")
-    .duration(700)
-    .attr("d", nilArc);
-
-  back.transition()
-    .ease("back")
-    .duration(700)
-    .attr("d", nilArc)
-    .each("end", function() {
-      field.selectAll("path").remove()
-    });
-}
 
 function arcTween(b) {
   var i = d3.interpolate({
@@ -149,3 +126,14 @@ function arcTween(b) {
   };
 }
 // ========end=====================
+
+// {
+//   "title": "theory",
+//   "questionID": "12",
+//   "languageName": "JavaScript",
+//   "description": "What does the acronym 'DOM' stand for in JavaScript?",
+//   "answerIndex": 2,
+//   "options": ["Document Object Model", "Data Object Model", "Dynamic Object Management", "Document Oriented Middleware"],
+//   "level": "medium"
+// }
+
