@@ -12,7 +12,7 @@ red = setInterval(() => {
 
     if (cnt == 100) clearInterval(red);
     bar.style.width = cnt + "%";
-    console.log(cnt);
+    // console.log(cnt);
 }, 1000);
 
 
@@ -136,4 +136,3 @@ function arcTween(b) {
 //   "options": ["Document Object Model", "Data Object Model", "Dynamic Object Management", "Document Oriented Middleware"],
 //   "level": "medium"
 // }
-
