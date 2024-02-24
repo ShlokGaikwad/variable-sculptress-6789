@@ -95,3 +95,74 @@ proceedButton.addEventListener("click", () => {
 //iffe to disable the button on each refresh
 
 fetchData();
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to calculate relative time
+    function timeAgo(date) {
+        const currentDate = new Date();
+        const previousDate = new Date(date);
+        const timeDifference = currentDate - previousDate;
+        const seconds = Math.floor(timeDifference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (days > 0) {
+            return `${days} day${days > 1 ? 's' : ''} ago`;
+        } else if (hours > 0) {
+            return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+        } else if (minutes > 0) {
+            return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        } else {
+            return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+        }
+    }
+
+    // Get user ID and token from local storage
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    // Get DOM elements
+    const timeContainer = document.getElementById('timeContainer');
+    const recentQuizElement = document.getElementById('recentquiz');
+    const seeResultsButton = document.getElementById('see-results');
+
+    if (userId && token) {
+        // Fetch user history data
+        fetch(`http://localhost:3000/history/user/${userId}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+        .then(response => response.json())
+        .then(historyData => {
+            console.log('History Data:', historyData);
+
+            if (historyData.length > 0) {
+                const latestHistory = historyData[historyData.length - 1];
+                
+                // Format and display the recent quiz date
+                const date = new Date(latestHistory.date);
+                const formattedDate = date.toLocaleDateString();
+                timeContainer.textContent = timeAgo(latestHistory.date);
+
+                // Add event listener to see results button
+                seeResultsButton.addEventListener('click', function () {
+                    console.log('See Results button clicked');
+                    window.location.href = 'results.html';
+                });
+
+            } else {
+                console.log('No history data found for the user');
+                timeContainer.textContent = "No recent data found";
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching history data:', error);
+            // Add error handling logic
+        });
+    } else {
+        console.log('User ID or token not found in local storage');
+        // Add logic for when user ID or token is not found
+    }
+});
