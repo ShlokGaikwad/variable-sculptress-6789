@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/profile.css">
+</head>
+<body>
+    <section class="top-section">
+        <img src="../assets/images/arrow-left-white.png" alt="back-button">
+        <h1>Profile</h1>
+        <img src="../assets/images/setting-white.png" alt="setting">
+    </section>
+    <section class="bottom-section">
+        <img src="../assets/images/boy.png" alt="">
+        <h1>Yuvraj Singh</h1>
+        <div class="user-info">
+            <div>
+                <img src="../assets/images/star.png" alt="star">
+                <p>Points</p>
+                <h5 id="total-points">420</h5>
+            </div>
+            <div class="line">|</div>
+            <div>
+                <img src="../assets/images/world.png" alt="world">
+                <p>Rank</p>
+                <h5 id="rank">420</h5>
+            </div>
+            <div class="line">|</div>
+            <div>
+                <img src="../assets/images/quiz-grey.png" alt="quiz">
+                <p>Quiz</p>
+                <h5 id="quiz-count">420</h5>
+            </div>
+        </div>
+        <div class="tabs-opt">
+            <div id="badges" class="tab selected">
+                <p>Badges</p>
+            </div>
+            <div id="stats" class="tab ">
+                <p>Stats</p>
+            </div>
+            <div id="leaderboard" class="tab">
+                <p>Leaderboard</p>
+            </div>
+        </div>
+        <div class="badges">
+            <div class="badge">
+                <img src="../assets/badges/Iron-1.png" alt="Iron-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Bronze-1.png" alt="Bronze-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Silver-1.png" alt="Silver-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Gold-1.png" alt="Gold-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Platinum-1.png" alt="Platinum-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Diamond-1.png" alt="Diamond-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Ascendant-1.png" alt="Ascendant-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Immortal-1.png" alt="Immortal-1">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+            <div class="badge">
+                <img src="../assets/badges/Radiant.png" alt="Radiant">
+                <div class="cover"><img src="../assets/images/lock.png" alt="lock"></div>
+            </div>
+        </div>
+        <div class="stats hid">
+            <div class="tile">
+                <div>You have Answered a total of <span>25 questions</span></div>
+                <div class="prog">
+                    <span class="questions-cont" id="questions-count">25</span>/30
+                    <div>Questions Answered</div>
+                </div>
+            </div>
+            <div class="graph">
+            </div>
+        </div>
+        <div class="leaderboard hid">
+            <a href="#">See All Rankings</a>
+            <div class="leader-card">
+                <div class="leader-cont">
+                    <span class="leader-rank" id="leader-rank">1</span>
+                    <img src="../assets/images/ganjaboy.png" alt="ganja">
+                </div>
+                <div class="leader-details">
+                    <p id="username">Shlok Gaikwad</p>
+                    <p><span id="user-score">200 </span> Points</p>
+                </div>
+                <img src="../assets/medals/gold-medal.png" alt="">
+            </div>
+            <div class="leader-card">
+                <div class="leader-cont">
+                    <span class="leader-rank" id="leader-rank">1</span>
+                    <img src="../assets/images/ganjaboy.png" alt="ganja">
+                </div>
+                <div class="leader-details">
+                    <p id="username">Shlok Gaikwad</p>
+                    <p><span id="user-score">200 </span> Points</p>
+                </div>
+                <img src="../assets/medals/silver-medal.png" alt="">
+            </div>
+            <div class="leader-card">
+                <div class="leader-cont">
+                    <span class="leader-rank" id="leader-rank">1</span>
+                    <img src="../assets/images/ganjaboy.png" alt="ganja">
+                </div>
+                <div class="leader-details">
+                    <p id="username">Shlok Gaikwad</p>
+                    <p><span id="user-score">200 </span> Points</p>
+                </div>
+                <img src="../assets/medals/bronze-medal.png" alt="">
+            </div>
+            <div class="leader-card">
+                <div class="leader-cont">
+                    <span class="leader-rank" id="leader-rank">1</span>
+                    <img src="../assets/images/ganjaboy.png" alt="ganja">
+                </div>
+                <div class="leader-details">
+                    <p id="username">Shlok Gaikwad</p>
+                    <p><span id="user-score">200 </span> Points</p>
+                </div>
+                <!-- <img src="../assets/medals/gold-medal.png" alt=""> -->
+            </div>
+            <div class="leader-card">
+                <div class="leader-cont">
+                    <span class="leader-rank" id="leader-rank">1</span>
+                    <img src="../assets/images/ganjaboy.png" alt="ganja">
+                </div>
+                <div class="leader-details">
+                    <p id="username">Shlok Gaikwad</p>
+                    <p><span id="user-score">200 </span> Points</p>
+                </div>
+                <!-- <img src="../assets/medals/gold-medal.png" alt=""> -->
+            </div>
+        </div>
+    </section>
+    
+    <script src="../script/profile.js"></script>
+</body>
+</html>
