@@ -7,12 +7,8 @@ const resultSchema = new mongoose.Schema({
     default: "pending"
   },
   userId: { type: String, required: true },
-  questions: [
-    {
-      questionId: { type: String},
-      answer: { type: Number}, 
-    },
-  ],
+  questions: [],
+  answers: [],
   totalScore: { type: Number,  default: 0 },
   correctCount: { type: Number,  default: 0 },
   incorrectCount: { type: Number, default: 0 },

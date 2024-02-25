@@ -134,17 +134,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const progressBar = document.querySelector(".progress");
   const videoContainer = document.getElementById("video-container");
 
-  let model={
-    userId:localStorage.getItem("userId"),
-    resultTitle:"good",
-    question:[
-
-    ],
-    totalScore:0,
-    correctCount:0,
-    incorrectCount:0,
-  }
-
   let currentQuestionIndex = 0;
   let score = 0;
   let questions = [];
@@ -531,18 +520,15 @@ function endQuiz() {
   }
   startQuizIfReady();
   
-// Add this function to submit results
 async function submitResults() {
   const resultData = {
     userId: localStorage.getItem("userId"),
     resultTitle: calculateResultTitle(score),
-    questions: question.map((q) => ({
-      questionId: q._id,
-      answer: selectedOptionIndex === null ? -1 : selectedOptionIndex,
-    })),
+    questions: [],
+    answers: [],
     totalScore: score,
-    correctCount: model.correctCount,
-    incorrectCount: model.incorrectCount,
+    correctCount: "",
+    incorrectCount: ""
   };
   const token = localStorage.getItem('token');
   console.log(resultData);
@@ -565,9 +551,6 @@ async function submitResults() {
     console.error('Error submitting results:', error);
   }
 }
-
-
-
 
 // Add a function to calculate result title based on the score
 function calculateResultTitle(score) {
