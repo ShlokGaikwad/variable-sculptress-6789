@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     timePassed = 0;
     updateProgressBar();
   }
-
+  
   // Update Progress Bar function
   function updateProgressBar() {
     let bar = document.querySelector(".progress");
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     shuffleQuestions();
-
+    
     // Update Question function
     function updateQuestion() {
       resetTimer();
@@ -347,7 +347,31 @@ document.addEventListener("DOMContentLoaded", async function () {
   fetchQuestions(language);
 
   // Check if getUserMedia is supported
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  function askForScreenShareReady() {
+    return new Promise((resolve) => {
+      const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
+      resolve(isReady);
+    });
+  }
+
+  // Check if getUserMedia and screen sharing are supported
+  function askForScreenShareReady() {
+    return new Promise((resolve) => {
+      const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
+      resolve(isReady);
+    });
+  }
+
+  // Check if getUserMedia and screen sharing are supported
+  function askForScreenShareReady() {
+    return new Promise((resolve) => {
+      const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
+      resolve(isReady);
+    });
+  }
+
+  // Function to access camera
+  async function accessCamera() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       const videoElement = document.createElement("video");
@@ -357,13 +381,53 @@ document.addEventListener("DOMContentLoaded", async function () {
       makeDraggable(videoContainer);
       isCameraActive = true;
     } catch (error) {
-      console.error("Error accessing the camera:", error);
+      console.error("Error accessing camera:", error);
       alert("Camera access denied. Please allow camera access and reload the page to start the quiz.");
       location.reload();
     }
+  }
+
+  // Function to access screen share
+  async function accessScreenShare() {
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      const videoElement = document.createElement("video");
+      videoElement.srcObject = stream;
+      videoElement.autoplay = true;
+      videoElement.controls = true;
+      document.getElementById("screenShareContainer").appendChild(videoElement);
+      isScreenShareActive = true;
+    } catch (error) {
+      console.error("Error accessing screen share:", error);
+      alert("Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz.");
+      location.reload();
+    }
+  }
+
+  // Check if getUserMedia and screen sharing are supported
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && navigator.mediaDevices.getDisplayMedia) {
+    try {
+      // Ask for screen share readiness
+      const isScreenShareReady = await askForScreenShareReady();
+
+      if (isScreenShareReady) {
+        // Access camera
+        await accessCamera();
+
+        // Access screen share
+        await accessScreenShare();
+      } else {
+        alert("Screen share canceled. Please reload the page when you are ready.");
+        location.reload();
+      }
+    } catch (error) {
+      console.error("Error accessing camera or screen share:", error);
+      alert("Camera or screen sharing access denied. Please allow access and reload the page to start the quiz.");
+      location.reload();
+    }
   } else {
-    console.error("getUserMedia is not supported");
-    alert("Camera not supported. Please use a browser that supports camera access and reload the page to start the quiz.");
+    console.error("getUserMedia or screen sharing is not supported");
+    alert("Camera or screen sharing not supported. Please use a browser that supports camera and screen sharing access and reload the page to start the quiz.");
     location.reload();
   }
 
