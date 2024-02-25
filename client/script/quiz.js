@@ -76,7 +76,7 @@ var path = field.append("path").attr("class", "path path--foreground");
 
 var label = field.append("text").attr("class", "label").attr("dy", ".35em");
 
-(function update() {
+function update() {
   field.each(function (d) {
     (d.previous = d.value), (d.value = d.update(timePassed));
   });
@@ -91,7 +91,7 @@ var label = field.append("text").attr("class", "label").attr("dy", ".35em");
 
   if (timePassed <= timeLimit) setTimeout(update, 1000 - (timePassed % 1000));
   else destroyTimer();
-})();
+};
 
 function pulseText() {
   back.classed("pulse", true);
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   async function fetchQuestions(language) {
     try {
       const response = await fetch(
-        `https://variable-sculptress-6789-e41a.onrender.com/questions?lang=${language}`
+        `https://variable-sculptress-6789-e41a.onrender.com/questions`
       );
       const data = await response.json();
 
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // Start Quiz function
   function startQuiz() {
-    const totalQuestions = Math.min(10, questions.length);
+    const totalQuestions = Math.min(questions.length - 1, questions.length);
 
     // Shuffle Questions
     function shuffleQuestions() {
@@ -416,6 +416,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Access screen share
         await accessScreenShare();
+
+        await update();
       } else {
         alert("Screen share canceled. Please reload the page when you are ready.");
         location.reload();
