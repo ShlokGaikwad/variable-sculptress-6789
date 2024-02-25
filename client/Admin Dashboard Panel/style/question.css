@@ -179,3 +179,9 @@ select.formbold-form-input,
 .formbold-w-45 {
   width: 45%;
 }
+
+/*SECTION */
+
+#language-list {
+   margin-left: 400px;
+}

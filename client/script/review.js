@@ -13,12 +13,12 @@ const questions = JSON.parse(localStorage.getItem("questions")) ;
  quizName.textContent = localStorage.getItem("lang");
 
 questions.forEach((question,index)=>{
-     let card = createQuestion(question);
+     let card = createQuestion(question,index);
      questionsDiv.append(card);
 });
 
-function createQuestion(question){
-    console.log(question);
+function createQuestion(question,index){
+    // console.log(question,index);
     let questionSet = document.createElement("div");
     questionSet.classList.add("question-set");
 

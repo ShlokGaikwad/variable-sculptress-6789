@@ -291,9 +291,12 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       const currentQuestion = questions[currentQuestionIndex];
-
+      console.log("currentQuestions",currentQuestion);
+      console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
+      
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
+        console.log("Your Answer :",selectedOption.textContent);
 
         selectedOption.classList.remove("selected", "correct", "wrong");
 
