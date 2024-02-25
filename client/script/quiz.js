@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-let question = [] ;
-let questionDetail = [] ;
-let incorrectAnswer = 0 ;
-=======
 let question = [];
 let incorrectAnswer = 0;
->>>>>>> b83bc2a3d5633a75901df5c5c2d72ea9cfb0e632
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
