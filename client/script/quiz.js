@@ -284,12 +284,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       const currentQuestion = questions[currentQuestionIndex];
       console.log("currentQuestions",currentQuestion);
       console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
-      rightAnswer.push(currentQuestion.options[currentQuestion.answerIndex]);
+      rightAnswer.push(currentQuestion.options[currentQuestion.answerIndex]); 
   
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
         console.log("Your Answer :",selectedOption.textContent);
-        userAnswer.push(selectedOption.textContent)
+        userAnswer.push(selectedOption.textContent) || "" ;
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
@@ -527,21 +527,23 @@ function endQuiz() {
     }
   }
   startQuizIfReady();
-  
 async function submitResults() {
   const resultData = {
     userId: localStorage.getItem("userId"),
     resultTitle: calculateResultTitle(score),
-    questions: [],
-    answers: [],
+    questions: question,
+    answers: userAnswer,
     totalScore: score,
-    correctCount: "",
-    incorrectCount: ""
+    correctCount: localStorage.getItem("correctAnswer") / 10,
+    incorrectCount: localStorage.getItem("incorrectAnswer") / 10
+
   };
+  console.log(typeof parseInt(localStorage.getItem("correctAnswer") / 10))
+
   const token = localStorage.getItem('token');
   console.log(resultData);
   try {
-    const response = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/results/add`, {
+    const response = await fetch(`http://localhost:3000/results/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
