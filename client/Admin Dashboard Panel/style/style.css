@@ -43,7 +43,7 @@
 
 body {
   min-height: 100vh;
-  background-color: var(--primary-color);
+  /* background-color: var(--primary-color); */
 }
 body.dark {
   --primary-color: #3a3b3c;
