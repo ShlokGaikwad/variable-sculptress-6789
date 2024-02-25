@@ -50,6 +50,7 @@ body{
 
 .top-section>img{
     height: 50px;
+    cursor: pointer;
 }
 
 .bottom-section{

@@ -31,3 +31,4 @@ leaderboard.addEventListener("click",()=>{
     badgesSection.classList.add("hid");
     leaderboardSection.classList.remove("hid");
 })
+
