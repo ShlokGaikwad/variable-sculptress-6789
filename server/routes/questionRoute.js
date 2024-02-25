@@ -64,3 +64,21 @@ questionRouter.patch("/update/:id", auth, access("Admin"), async (req, res) => {
 });
 
 module.exports = questionRouter;
+
+
+
+{
+  "title" : "code",
+  "questionID" : "163",
+  "languageName" : "Java",
+  "answerIndex" : 3,
+  "options" : [
+"Greater than 50",
+
+"String",
+"Less ' or equal to 50",
+"String"
+  ],
+  "level" : "medium",
+  "description" : "What's the odsfhsdghtggdh"
+}
