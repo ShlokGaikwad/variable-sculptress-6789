@@ -3,7 +3,6 @@ const correctAnswerCount = document.getElementById("correct-answer-count");
 const correctAnswerCount2 =document.getElementById("correct-answer-count-2");
 const quizName = document.getElementById("quiz-name");
 const questionsDiv = document.getElementById("questions-div");
-const ResultDowload = document.getElementById("dashboard-button");
 
 //RESULT//
 
@@ -104,10 +103,10 @@ function createQuestion(question,index){
     
 }
 
-ResultDowload.addEventListener("click",async()=>{
-    try{
-         console.log("Result Download has been clicked");
-    }catch(error){
-        console.log(error);
-    }
-})
+
+const newButton = document.createElement("button");
+newButton.textContent = "Download Result"; 
+newButton.id = "new-button"; 
+
+document.body.appendChild(newButton);
+
