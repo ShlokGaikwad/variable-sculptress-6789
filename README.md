@@ -9,9 +9,9 @@ This project is a comprehensive quiz application designed to provide users with 
 Fullstack
 
 ## Deployed App
-- Frontend: [Link to deployed frontend](https://deployed-site.whatever)
-- Backend: [Link to deployed backend](https://deployed-site.whatever)
-- Database: [Link to deployed database](https://deployed-site.whatever)
+- Frontend: [Link to deployed frontend](https://app.netlify.com/sites/extraordinary-shortbread-e22426/deploys/65dbb03f64c4cf284de9bf8b)
+- Backend: [Link to deployed backend](https://variable-sculptress-6789-e41a.onrender.com))
+- Database: [Link to deployed database](mongodb+srv://masai:****@cluster0.rkxhwns.mongodb.net/quizApp?retryWrites=true&w=majority)
 
 ## Directory Structure
 variable-sculptress-6789
