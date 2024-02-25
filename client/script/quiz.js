@@ -1,6 +1,7 @@
-let question = [] ;
-let questionDetail = [] ;
-let incorrectAnswer = 0 ;
+let question = [];
+let rightAnswer = [] ;
+let userAnswer = [] ;
+let incorrectAnswer = 0;
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
@@ -294,10 +295,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       const currentQuestion = questions[currentQuestionIndex];
       console.log("currentQuestions",currentQuestion);
       console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
+      rightAnswer.push(currentQuestion.options[currentQuestion.answerIndex]);
   
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
         console.log("Your Answer :",selectedOption.textContent);
+        userAnswer.push(selectedOption.textContent)
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
@@ -334,8 +337,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         updateQuestion();
       } else {
         localStorage.setItem("questions", JSON.stringify(question));
+        localStorage.setItem("userAnswer",JSON.stringify(userAnswer));
+        localStorage.setItem("rightAnswer",JSON.stringify(rightAnswer));
         localStorage.setItem("incorrectAnswer", incorrectAnswer);
         localStorage.setItem("correctAnswer", score);
+
+        console.log("RightAnswer :",rightAnswer);
+        console.log("UserAnswer",userAnswer)
         // ghtyjjydydty
         endQuiz();
       }

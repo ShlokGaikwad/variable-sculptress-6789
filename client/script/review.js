@@ -6,7 +6,7 @@ const questionsDiv = document.getElementById("questions-div");
 
 //RESULT//
 
-const userId = localStorage.getItem("userId") ;
+const userName = localStorage.getItem("name") ;
 const Total_Score_Obtained =  localStorage.getItem("correctAnswer");
 const Wrong_Answer =  localStorage.getItem("incorrectAnswer");
 const Language =  localStorage.getItem("lang");
@@ -14,7 +14,8 @@ const Total_No_of_Questions = parseInt(localStorage.getItem("Total_NO_Questions:
 const Total_Marks = Total_No_of_Questions * 10 ;
 
 console.log(
-    `userId: ${userId}\n` +
+    ` Hello, ${userName}\n` +
+    `Here is your perfomance details :\n` +
     `Language: ${Language}\n` +
     `Total_Score_Obtained: ${Total_Score_Obtained}\n` +
     `Wrong_Answer: ${Wrong_Answer}\n` +
