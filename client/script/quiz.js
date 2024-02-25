@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   async function fetchQuestions(language) {
     try {
       const response = await fetch(
-        `https://variable-sculptress-6789-e41a.onrender.com/questions`
+        `https://variable-sculptress-6789-e41a.onrender.com/questions?lang=${language}`
       );
       const data = await response.json();
 
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // Start Quiz function
   function startQuiz() {
-    const totalQuestions = Math.min(questions.length - 1, questions.length);
+    const totalQuestions = Math.min(10, questions.length);
 
     // Shuffle Questions
     function shuffleQuestions() {
