@@ -346,11 +346,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     // End Quiz function
-    function endQuiz() {
-      
-      window.location.href = "../pages/result.html";
-      scoreElement.textContent = score;
-    }
+function endQuiz() {
+  submitResults();
+  // window.location.href = "../pages/result.html";
+  scoreElement.textContent = score;
+}
 
     updateQuestion();
   }
@@ -535,4 +535,57 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
   startQuizIfReady();
   
+// Add this function to submit results
+async function submitResults() {
+  const resultData = {
+    userId: localStorage.getItem("userId"),
+    resultTitle: calculateResultTitle(score),
+    questions: question.map((q) => ({
+      questionId: q._id,
+      answer: selectedOptionIndex === null ? -1 : selectedOptionIndex,
+    })),
+    totalScore: score,
+    correctCount: model.correctCount,
+    incorrectCount: model.incorrectCount,
+  };
+  const token = localStorage.getItem('token');
+  console.log(resultData);
+  try {
+    const response = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/results/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(resultData),
+    });
+
+    if (response.ok) {
+      console.log('Results submitted successfully');
+    } else {
+      console.error('Failed to submit results:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error submitting results:', error);
+  }
+}
+
+
+
+
+// Add a function to calculate result title based on the score
+function calculateResultTitle(score) {
+  if (score === 100) {
+    return 'perfect';
+  } else if (score >= 70) {
+    return 'good';
+  } else if (score >= 50) {
+    return 'pending';
+  } else if (score >= 30) {
+    return 'average';
+  } else {
+    return 'poor';
+  }
+}
+
 });
