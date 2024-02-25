@@ -1,9 +1,5 @@
-
-// Initialize variables
-let question = [];
-let incorrectAnswer = 0;
-let correctAnswerArray = [];
-let incorrectAnswerArray = [];
+let question = [] ;
+let incorrectAnswer = 0 ;
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
@@ -208,8 +204,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         questionCountElement.textContent = currentQuestionIndex + 1;
         questionTextElement.textContent = currentQuestion.description;
         question.push(currentQuestion.description);
-        localStorage.setItem("questions", JSON.stringify(question));
-
         // Check if the question has a code field
         if (currentQuestion.code) {
           const codeContainer = document.getElementById('codeContainer');
@@ -278,23 +272,25 @@ document.addEventListener("DOMContentLoaded", async function () {
       optionsContainers.forEach((container) => container.classList.add("locked"));
 
       const currentQuestion = questions[currentQuestionIndex];
-
+      console.log("currentQuestions",currentQuestion);
+      console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
+      
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
+        console.log("Your Answer :",selectedOption.textContent);
+
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
           selectedOption.classList.add("correct");
-          correctAnswerArray.push(selectedOption.textContent);
           score += 10;
           scoreElement.textContent = score;
-          localStorage.setItem("correctAnswer", score);
         } else {
           incorrectAnswer += 10;
           selectedOption.classList.add("wrong");
-          localStorage.setItem("incorrectAnswer", incorrectAnswer);
-          incorrectAnswerArray.push(selectedOption.textContent);
-          optionsContainers[currentQuestion.answerIndex].classList.add("correct");
+          optionsContainers[currentQuestion.answerIndex].classList.add(
+            "correct"
+          );
         }
       }
 
@@ -318,8 +314,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
       } else {
-        localStorage.setItem("correctanswerArray", JSON.stringify(correctAnswerArray));
-        localStorage.setItem("incorrectanswerArray", JSON.stringify(incorrectAnswerArray));
+        localStorage.setItem("questions", JSON.stringify(question));  
+        localStorage.setItem("incorrectAnswer",incorrectAnswer);
+        localStorage.setItem("correctAnswer",score);
         endQuiz();
       }
     });
@@ -348,90 +345,93 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // Check if getUserMedia is supported
   function askForScreenShareReady() {
-    return new Promise((resolve) => {
+    return new Promise(function (resolve) {
       const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
       resolve(isReady);
     });
   }
-
-  // Check if getUserMedia and screen sharing are supported
-  function askForScreenShareReady() {
-    return new Promise((resolve) => {
-      const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
-      resolve(isReady);
-    });
-  }
-
-  // Check if getUserMedia and screen sharing are supported
-  function askForScreenShareReady() {
-    return new Promise((resolve) => {
-      const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
-      resolve(isReady);
-    });
-  }
-
+  
   // Function to access camera
-  async function accessCamera() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const videoElement = document.createElement("video");
-      videoElement.srcObject = stream;
-      videoElement.play();
-      videoContainer.appendChild(videoElement);
-      makeDraggable(videoContainer);
-      isCameraActive = true;
-    } catch (error) {
-      console.error("Error accessing camera:", error);
-      alert("Camera access denied. Please allow camera access and reload the page to start the quiz.");
-      location.reload();
-    }
+  function accessCamera() {
+    return new Promise(function (resolve, reject) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          const videoElement = document.createElement("video");
+          videoElement.srcObject = stream;
+          videoElement.play();
+          videoContainer.appendChild(videoElement);
+          makeDraggable(videoContainer);
+          isCameraActive = true;
+          resolve();
+        })
+        .catch(function (error) {
+          console.error("Error accessing camera:", error);
+          alert("Camera access denied. Please allow camera access and reload the page to start the quiz.");
+          location.reload();
+          reject(error);
+        });
+    });
   }
-
+  
   // Function to access screen share
-  async function accessScreenShare() {
-    try {
-      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-      const videoElement = document.createElement("video");
-      videoElement.srcObject = stream;
-      videoElement.autoplay = true;
-      videoElement.controls = true;
-      document.getElementById("screenShareContainer").appendChild(videoElement);
-      isScreenShareActive = true;
-    } catch (error) {
-      console.error("Error accessing screen share:", error);
-      alert("Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz.");
-      location.reload();
-    }
+  function accessScreenShare() {
+    return new Promise(function (resolve, reject) {
+      navigator.mediaDevices.getDisplayMedia({ video: true })
+        .then(function (stream) {
+          const videoElement = document.createElement("video");
+          videoElement.srcObject = stream;
+          videoElement.autoplay = true;
+          videoElement.controls = true;
+          document.getElementById("screenShareContainer").appendChild(videoElement);
+          isScreenShareActive = true;
+          resolve();
+        })
+        .catch(function (error) {
+          console.error("Error accessing screen share:", error);
+          alert("Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz.");
+          location.reload();
+          reject(error);
+        });
+    });
   }
-
+  
   // Check if getUserMedia and screen sharing are supported
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && navigator.mediaDevices.getDisplayMedia) {
-    try {
-      // Ask for screen share readiness
-      const isScreenShareReady = await askForScreenShareReady();
-
-      if (isScreenShareReady) {
-        // Access camera
-        await accessCamera();
-
-        // Access screen share
-        await accessScreenShare();
-
-        await update();
-      } else {
-        alert("Screen share canceled. Please reload the page when you are ready.");
+    // Ask for screen share readiness
+    askForScreenShareReady()
+      .then(function (isScreenShareReady) {
+        if (isScreenShareReady) {
+          // Access camera
+          accessCamera()
+            .then(function () {
+              // Access screen share
+              return accessScreenShare();
+            })
+            .then(function () {
+              // Update
+              return update();
+            })
+            .catch(function (error) {
+              console.error("Error accessing camera, screen share, or updating:", error);
+              alert("Error accessing camera, screen share, or updating. Please allow access and reload the page to start the quiz.");
+              location.reload();
+            });
+        } else {
+          alert("Screen share canceled. Please reload the page when you are ready.");
+          location.reload();
+        }
+      })
+      .catch(function (error) {
+        console.error("Error asking for screen share readiness:", error);
+        alert("Error asking for screen share readiness. Please reload the page to start the quiz.");
         location.reload();
-      }
-    } catch (error) {
-      console.error("Error accessing camera or screen share:", error);
-      alert("Camera or screen sharing access denied. Please allow access and reload the page to start the quiz.");
-      location.reload();
-    }
+      });
   } else {
     console.error("getUserMedia or screen sharing is not supported");
     alert("Camera or screen sharing not supported. Please use a browser that supports camera and screen sharing access and reload the page to start the quiz.");
     location.reload();
   }
+  
 
   // Make Draggable function
   function makeDraggable(element) {

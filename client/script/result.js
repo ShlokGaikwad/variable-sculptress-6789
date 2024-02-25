@@ -3,9 +3,16 @@ const correctAnswer = document.getElementById("correct-answer");
 const unanswered = document.getElementById("unanswered");
 const incorrectAnswer = document.getElementById("incorrect-answer");
 
-const correctAns = localStorage.getItem("correctAnswer");
-const incorrectAns = localStorage.getItem("incorrectAnswer");
+const correctAns = localStorage.getItem("correctAnswer") / 10;
+const incorrectAns = localStorage.getItem("incorrectAnswer") / 10;
 
-correctAnswer.innerHTML = correctAns / 10;
-incorrectAnswer.innerHTML = incorrectAns / 10;
-unanswered.innerHTML = Math.abs(correctAns - incorrectAns)/10;
+correctAnswer.innerHTML = correctAns ;
+incorrectAnswer.innerHTML = incorrectAns ;
+
+let totalAttemptedQuestion = (correctAns + incorrectAns ) ;
+unanswered.innerHTML = Math.abs(10 - totalAttemptedQuestion ) ;
+
+checkAnswer.addEventListener("click",()=>{
+    window.location.href="../pages/review.html"
+})
+
