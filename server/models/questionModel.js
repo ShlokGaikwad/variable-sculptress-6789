@@ -32,7 +32,8 @@ const questionSchema = new Schema({
     enum : ["easy","medium","hard"]
   },
    code : {
-    type : String
+    type : String,
+    default : ""
   }
 },{
     versionKey : false
