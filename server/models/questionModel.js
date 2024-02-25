@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const questionSchema = new Schema({
   title : {
     type : String ,
-    enum:["code","theory"],
-    required:true
+    enum:["code","theory","codeblock"]
   },
   questionID: {
     type: String,
