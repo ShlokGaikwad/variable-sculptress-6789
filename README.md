@@ -12,10 +12,9 @@ Fullstack
 - Database: [Link to deployed database](https://deployed-site.whatever)
 
 ## Directory Structure
-my-app/
-├─ backend/
-├─ frontend/
-│ ├─ ...
+variable-sculptress-6789
+├─ server/
+├─ client/
 
 ## Features
 List out the key features of your application.
@@ -25,17 +24,50 @@ List out the key features of your application.
 - Multi-level sorting of users
 - CRUD operations for questions and rooms
 - Multi-level user access control
+- Implemented role-based access control to differentiate between user roles.
 
-## Design Decisions or Assumptions
-List your design decisions & assumptions.
-- Assumption: Users will require authentication to access quiz-related features.
-- Design Decision: Implemented token-based authentication for secure user access.
-- Assumption: Admins will have additional privileges for managing questions and rooms.
-- Design Decision: Implemented role-based access control to differentiate between user roles.
+## Technology Stack
+- Node.js: Server-side JavaScript runtime environment.
+- Express.js: Web application framework for Node.js.
+- MongoDB: NoSQL database used for data storage.
+- bcrypt: Library for hashing passwords.
+- jwt: Library for generating JSON Web Tokens.
+- multer: Middleware for handling file uploads.
+
+  ## API Endpoints
+
+### User Endpoints
+- `GET /api/user/:userId` - Retrieve user details by user ID.
+- `GET /api/user` - Retrieve list of users, with optional sorting and limiting.
+- `POST /api/signup` - User signup with validation.
+- `POST /api/login` - User login with authentication.
+- `GET /api/logout` - User logout with token blacklisting.
+
+### Question Endpoints
+- `GET /api/questions` - Retrieve questions with optional filtering by level and language.
+- `POST /api/questions/create` - Create a new question (requires admin access).
+- `DELETE /api/questions/:id` - Delete a question by ID (requires admin access).
+- `PATCH /api/questions/update/:id` - Update a question by ID (requires admin access).
+
+### Room Endpoints
+- `POST /api/rooms` - Create a new room.
+- `GET /api/rooms` - Retrieve all rooms.
+
+### Result Endpoints
+- `GET /api/results/:userId` - Retrieve results by user ID.
+- `GET /api/results` - Retrieve all results.
+- `POST /api/results/add` - Add a new result.
+- `DELETE /api/results/:resultId` - Delete a result by result ID.
+- `PATCH /api/results/update` - Update a result.
+
+### Language Endpoints
+- `GET /api/languages` - Retrieve all languages.
+- `GET /api/languages/:languageId` - Retrieve a language by ID.
+- `POST /api/languages/add` - Add a new language.
+
 
 ## Installation & Getting Started
 Detailed instructions on how to install, configure, and get the project running. For BE/FS projects, guide the reviewer on how to check MongoDB schema etc.
 ```bash
-npm install my-project
-cd my-project
-npm start
+cd server
+npm run server
