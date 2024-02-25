@@ -1,6 +1,6 @@
 # Project Title : Queezo Coding App
 
-![Project Logo](../../client/assests/images/login.png)
+![Project Logo](client/assets/images/login.png)
 
 ## Introduction
 This project is a comprehensive quiz application designed to provide users with an engaging platform to test their knowledge across various subjects. It encompasses features for user authentication, quiz creation, management, and taking, as well as result tracking and performance analysis.
@@ -9,9 +9,9 @@ This project is a comprehensive quiz application designed to provide users with 
 Fullstack
 
 ## Deployed App
-- Frontend: [Link to deployed frontend](https://deployed-site.whatever)
-- Backend: [Link to deployed backend](https://deployed-site.whatever)
-- Database: [Link to deployed database](https://deployed-site.whatever)
+- Frontend: [Link to deployed frontend](https://65dbb03f64c4cf284de9bf8b--extraordinary-shortbread-e22426.netlify.app/)
+- Backend: [Link to deployed backend](https://variable-sculptress-6789-e41a.onrender.com)
+- Database: [Link to deployed database](mongodb+srv://masai:****@cluster0.rkxhwns.mongodb.net/quizApp?retryWrites=true&w=majority)
 
 ## Directory Structure
 variable-sculptress-6789
