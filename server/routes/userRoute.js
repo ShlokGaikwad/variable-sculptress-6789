@@ -17,8 +17,8 @@ userRouter.get("/user/:userId", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const { username, image } = user;
-    res.status(200).json({ username, image });
+    const { username, image ,totalScore} = user;
+    res.status(200).json({ username, image,totalScore });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Internal Server Error" });
