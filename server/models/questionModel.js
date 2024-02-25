@@ -30,6 +30,9 @@ const questionSchema = new Schema({
   level : {
     type : String ,
     enum : ["easy","medium","hard"]
+  },
+   code : {
+    type : String
   }
 },{
     versionKey : false

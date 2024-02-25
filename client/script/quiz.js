@@ -192,17 +192,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function startQuiz() {
     const totalQuestions = Math.min(10, questions.length);
-
+    function shuffleQuestions() {
+      for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+      }
+    }
+  
+    shuffleQuestions();
     function updateQuestion() {
       resetTimer();
       const currentQuestion = questions[currentQuestionIndex];
-
+    
       if (currentQuestion) {
         questionCountElement.textContent = currentQuestionIndex + 1;
         questionTextElement.textContent = currentQuestion.description;
         question.push(currentQuestion.description);
-        localStorage.setItem("questions",JSON.stringify(question));
-
+        localStorage.setItem("questions", JSON.stringify(question));
+    
+        // Check if the question has a code field
+        if (currentQuestion.code) {
+          // Create a div element to hold the code
+          const codeContainer = document.getElementById('codeContainer');
+    
+          // Create a pre element
+          const preElement = document.createElement('pre');
+    
+          // Create a code element and set its class and inner text
+          const codeElement = document.createElement('code');
+          const languageClass = `language-${language.toLowerCase()}`;
+          codeElement.className = languageClass;
+          codeElement.textContent = currentQuestion.code;
+    
+          // Append the code element to the pre element
+          preElement.appendChild(codeElement);
+    
+          // Append the pre element to the code container
+          codeContainer.innerHTML = ""; // Clear existing content
+          codeContainer.appendChild(preElement);
+    
+          // Apply Prism syntax highlighting
+          Prism.highlightElement(codeElement);
+        }
+    
         optionsContainers.forEach((container, index) => {
           const optionElement = createOptionElement(
             currentQuestion.options[index],
@@ -215,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("No question found at index:", currentQuestionIndex);
       }
     }
+    
 
     function createOptionElement(text, index) {
       const optionElement = document.createElement("div");
@@ -293,20 +326,25 @@ document.addEventListener("DOMContentLoaded", function () {
       optionsContainers.forEach((container) =>
         container.classList.remove("locked", "correct", "wrong")
       );
-
+    
+      // Clear the code container
+      const codeContainer = document.getElementById('codeContainer');
+      codeContainer.innerHTML = '';
+    
       // Remove all classes from the next button
       nextButton.className = "next-button";
       resetTimer();
       currentQuestionIndex++;
-
+    
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
       } else {
-        localStorage.setItem("correctanswerArray",JSON.stringify(correctAnswerArray));
-        localStorage.setItem("incorrectanswerArray",JSON.stringify(incorrectAnswerArray));
+        localStorage.setItem("correctanswerArray", JSON.stringify(correctAnswerArray));
+        localStorage.setItem("incorrectanswerArray", JSON.stringify(incorrectAnswerArray));
         endQuiz();
       }
     }
+    
 
     function endQuiz() {
       window.location.href = "../pages/result.html";
