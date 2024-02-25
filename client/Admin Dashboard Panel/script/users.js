@@ -205,7 +205,7 @@ const downloadFile = function (data, fileType, fileName = '') {
 }
 
 
-fetch('https://variable-sculptress-6789-e41a.onrender.com/users/user')
+fetch('http://localhost:3000/users/user')
         .then(response => response.json())
         .then(data => {
             const tableBody = document.getElementById('table-body');
