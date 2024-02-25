@@ -1,4 +1,5 @@
 let question = [] ;
+let questionDetail = [] ;
 let incorrectAnswer = 0 ;
 let cnt = 0;
 let per = 0;
@@ -274,11 +275,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       const currentQuestion = questions[currentQuestionIndex];
       console.log("currentQuestions",currentQuestion);
       console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
-      
+  
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
         console.log("Your Answer :",selectedOption.textContent);
-
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
