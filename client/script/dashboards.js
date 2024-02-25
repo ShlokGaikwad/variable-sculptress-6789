@@ -50,7 +50,7 @@ const createCard = (item) => {
   });
 
   let langImg = document.createElement("img");
-  langImg.src = `http://localhost:3000/${item.languageImage}`;
+  langImg.src = `${url}/${item.languageImage}`;
 
   let name = document.createElement("p");
   name.innerHTML = item.languageTitle;
@@ -77,7 +77,7 @@ proceedButton.addEventListener("click", () => {
 
 async function fetchUserData() {
   try {
-    const response = await fetch(`http://localhost:3000/users/user/${userId}`);
+    const response = await fetch(`${url}/users/user/${userId}`);
     const data = await response.json();
     const username = data.username;
     const points = data.totalScore;

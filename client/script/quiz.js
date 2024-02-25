@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 let question = [] ;
 let questionDetail = [] ;
 let incorrectAnswer = 0 ;
+=======
+let question = [];
+let incorrectAnswer = 0;
+>>>>>>> b83bc2a3d5633a75901df5c5c2d72ea9cfb0e632
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
@@ -88,7 +93,7 @@ function update() {
 
   if (timePassed <= timeLimit) setTimeout(update, 1000 - (timePassed % 1000));
   else destroyTimer();
-};
+}
 
 function pulseText() {
   back.classed("pulse", true);
@@ -134,6 +139,17 @@ document.addEventListener("DOMContentLoaded", async function () {
   const progressBar = document.querySelector(".progress");
   const videoContainer = document.getElementById("video-container");
 
+  let model={
+    userId:localStorage.getItem("userId"),
+    resultTitle:"good",
+    question:[
+
+    ],
+    totalScore:0,
+    correctCount:0,
+    incorrectCount:0,
+  }
+
   let currentQuestionIndex = 0;
   let score = 0;
   let questions = [];
@@ -148,7 +164,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     timePassed = 0;
     updateProgressBar();
   }
-  
+
   // Update Progress Bar function
   function updateProgressBar() {
     let bar = document.querySelector(".progress");
@@ -175,7 +191,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         questions = data.msg;
         startQuiz();
       } else {
-        console.error("No questions found or invalid response from the server:", data);
+        console.error(
+          "No questions found or invalid response from the server:",
+          data
+        );
       }
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -195,7 +214,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     shuffleQuestions();
-    
+
     // Update Question function
     function updateQuestion() {
       resetTimer();
@@ -204,12 +223,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (currentQuestion) {
         questionCountElement.textContent = currentQuestionIndex + 1;
         questionTextElement.textContent = currentQuestion.description;
-        question.push(currentQuestion.description);
+        // question.push(currentQuestion.description);
         // Check if the question has a code field
         if (currentQuestion.code) {
-          const codeContainer = document.getElementById('codeContainer');
-          const preElement = document.createElement('pre');
-          const codeElement = document.createElement('code');
+          const codeContainer = document.getElementById("codeContainer");
+          const preElement = document.createElement("pre");
+          const codeElement = document.createElement("code");
           const languageClass = `language-${language.toLowerCase()}`;
           codeElement.className = languageClass;
           codeElement.textContent = currentQuestion.code;
@@ -270,15 +289,32 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Handle Submit Button Click function
     submitButton.addEventListener("click", () => {
-      optionsContainers.forEach((container) => container.classList.add("locked"));
+      optionsContainers.forEach((container) =>
+        container.classList.add("locked")
+      );
 
       const currentQuestion = questions[currentQuestionIndex];
+<<<<<<< HEAD
       console.log("currentQuestions",currentQuestion);
       console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
   
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
         console.log("Your Answer :",selectedOption.textContent);
+=======
+      console.log(currentQuestion)
+      console.log("currentQuestions", currentQuestion);
+      // question.push({currentQuestion._id,});
+      console.log(
+        "Right answer",
+        currentQuestion.options[currentQuestion.answerIndex]
+      );
+
+      if (currentQuestion && selectedOptionIndex !== null) {
+        const selectedOption = optionsContainers[selectedOptionIndex];
+        console.log("Your Answer :", selectedOption.textContent);
+
+>>>>>>> b83bc2a3d5633a75901df5c5c2d72ea9cfb0e632
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
@@ -305,8 +341,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         container.classList.remove("locked", "correct", "wrong")
       );
 
-      const codeContainer = document.getElementById('codeContainer');
-      codeContainer.innerHTML = '';
+      const codeContainer = document.getElementById("codeContainer");
+      codeContainer.innerHTML = "";
       nextButton.className = "next-button";
       resetTimer();
       currentQuestionIndex++;
@@ -314,9 +350,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
       } else {
-        localStorage.setItem("questions", JSON.stringify(question));  
-        localStorage.setItem("incorrectAnswer",incorrectAnswer);
-        localStorage.setItem("correctAnswer",score);
+        localStorage.setItem("questions", JSON.stringify(question));
+        localStorage.setItem("incorrectAnswer", incorrectAnswer);
+        localStorage.setItem("correctAnswer", score);
         endQuiz();
       }
     });
@@ -333,7 +369,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Get language from localStorage
   let language = localStorage.getItem("lang") || "";
   if (language === "javaScript") {
-    language = "JavaScript"
+    language = "JavaScript";
   } else if (language === "C++") {
     language = "C%2B%2B";
   } else if (language === "HTML/CSS") {
@@ -346,15 +382,18 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Check if getUserMedia is supported
   function askForScreenShareReady() {
     return new Promise(function (resolve) {
-      const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
+      const isReady = confirm(
+        "Are you ready to share your screen? Click OK when ready."
+      );
       resolve(isReady);
     });
   }
-  
+
   // Function to access camera
   function accessCamera() {
     return new Promise(function (resolve, reject) {
-      navigator.mediaDevices.getUserMedia({ video: true })
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
         .then(function (stream) {
           const videoElement = document.createElement("video");
           videoElement.srcObject = stream;
@@ -366,37 +405,48 @@ document.addEventListener("DOMContentLoaded", async function () {
         })
         .catch(function (error) {
           console.error("Error accessing camera:", error);
-          alert("Camera access denied. Please allow camera access and reload the page to start the quiz.");
+          alert(
+            "Camera access denied. Please allow camera access and reload the page to start the quiz."
+          );
           location.reload();
           reject(error);
         });
     });
   }
-  
+
   // Function to access screen share
   function accessScreenShare() {
     return new Promise(function (resolve, reject) {
-      navigator.mediaDevices.getDisplayMedia({ video: true })
+      navigator.mediaDevices
+        .getDisplayMedia({ video: true })
         .then(function (stream) {
           const videoElement = document.createElement("video");
           videoElement.srcObject = stream;
           videoElement.autoplay = true;
           videoElement.controls = true;
-          document.getElementById("screenShareContainer").appendChild(videoElement);
+          document
+            .getElementById("screenShareContainer")
+            .appendChild(videoElement);
           isScreenShareActive = true;
           resolve();
         })
         .catch(function (error) {
           console.error("Error accessing screen share:", error);
-          alert("Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz.");
+          alert(
+            "Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz."
+          );
           location.reload();
           reject(error);
         });
     });
   }
-  
+
   // Check if getUserMedia and screen sharing are supported
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && navigator.mediaDevices.getDisplayMedia) {
+  if (
+    navigator.mediaDevices &&
+    navigator.mediaDevices.getUserMedia &&
+    navigator.mediaDevices.getDisplayMedia
+  ) {
     // Ask for screen share readiness
     askForScreenShareReady()
       .then(function (isScreenShareReady) {
@@ -412,26 +462,36 @@ document.addEventListener("DOMContentLoaded", async function () {
               return update();
             })
             .catch(function (error) {
-              console.error("Error accessing camera, screen share, or updating:", error);
-              alert("Error accessing camera, screen share, or updating. Please allow access and reload the page to start the quiz.");
+              console.error(
+                "Error accessing camera, screen share, or updating:",
+                error
+              );
+              alert(
+                "Error accessing camera, screen share, or updating. Please allow access and reload the page to start the quiz."
+              );
               location.reload();
             });
         } else {
-          alert("Screen share canceled. Please reload the page when you are ready.");
+          alert(
+            "Screen share canceled. Please reload the page when you are ready."
+          );
           location.reload();
         }
       })
       .catch(function (error) {
         console.error("Error asking for screen share readiness:", error);
-        alert("Error asking for screen share readiness. Please reload the page to start the quiz.");
+        alert(
+          "Error asking for screen share readiness. Please reload the page to start the quiz."
+        );
         location.reload();
       });
   } else {
     console.error("getUserMedia or screen sharing is not supported");
-    alert("Camera or screen sharing not supported. Please use a browser that supports camera and screen sharing access and reload the page to start the quiz.");
+    alert(
+      "Camera or screen sharing not supported. Please use a browser that supports camera and screen sharing access and reload the page to start the quiz."
+    );
     location.reload();
   }
-  
 
   // Make Draggable function
   function makeDraggable(element) {
@@ -461,7 +521,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Screen Share function
   const screenShare = async () => {
     try {
-      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+      });
       const videoElement = document.createElement("video");
       videoElement.srcObject = stream;
       videoElement.autoplay = true;
@@ -470,7 +532,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       isScreenShareActive = true;
     } catch (error) {
       console.error("Error accessing screen share:", error);
-      alert("Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz.");
+      alert(
+        "Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz."
+      );
       location.reload();
     }
   };
@@ -481,5 +545,4 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
   startQuizIfReady();
-
 });
