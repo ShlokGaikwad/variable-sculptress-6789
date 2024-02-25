@@ -1,7 +1,9 @@
-let question = [] ;
-let incorrectAnswer = 0 ;
-let correctAnswerArray = [] ;
-let incorrectAnswerArray = [] ;
+
+// Initialize variables
+let question = [];
+let incorrectAnswer = 0;
+let correctAnswerArray = [];
+let incorrectAnswerArray = [];
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
@@ -123,18 +125,17 @@ function arcTween(b) {
     return arc(i(t));
   };
 }
-
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const questionCountElement = document.getElementById("question-count");
   const questionTextElement = document.getElementById("question-text");
   const optionsContainers = Array.from({ length: 4 }, (_, index) =>
     document.getElementById(`options-container${index + 1}`)
   );
-  const buttonsContainer = document.getElementById("buttons-container");
   const submitButton = document.getElementById("submit-button");
   const nextButton = document.getElementById("next-button");
   const scoreElement = document.getElementById("score");
   const progressBar = document.querySelector(".progress");
+  const videoContainer = document.getElementById("video-container");
 
   let currentQuestionIndex = 0;
   let score = 0;
@@ -144,31 +145,28 @@ document.addEventListener("DOMContentLoaded", function () {
   let isCameraActive = false;
   let isScreenShareActive = false;
 
+  // Reset Timer function
   function resetTimer() {
-    clearInterval(timerInterval); // Clear the existing timer interval
-    timePassed = 0; // Reset the time passed
-    updateProgressBar(); // Start a new timer interval
+    clearInterval(timerInterval);
+    timePassed = 0;
+    updateProgressBar();
   }
 
+  // Update Progress Bar function
   function updateProgressBar() {
-    const bar = document.querySelector(".progress");
+    let bar = document.querySelector(".progress");
     let percentage = parseInt(bar.style.width) || 0;
     percentage += 1;
 
     if (percentage <= 100) {
       bar.style.width = percentage + "%";
     } else {
-      handleNextButtonClick(); // Move to the next question automatically
-      resetTimer(); // Reset the timer for the next question
+      handleNextButtonClick();
+      resetTimer();
     }
   }
 
-  // function startQuizIfReady() {
-  //   if (isCameraActive && isScreenShareActive) {
-  //     startQuiz();
-  //   }
-  // }
-
+  // Fetch Questions from Server
   async function fetchQuestions(language) {
     try {
       const response = await fetch(
@@ -178,63 +176,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (data.msg && Array.isArray(data.msg) && data.msg.length > 0) {
         questions = data.msg;
-              startQuiz();
+        startQuiz();
       } else {
-        console.error(
-          "No questions found or invalid response from the server:",
-          data
-        );
+        console.error("No questions found or invalid response from the server:", data);
       }
     } catch (error) {
       console.error("Error fetching questions:", error);
     }
   }
 
+  // Start Quiz function
   function startQuiz() {
     const totalQuestions = Math.min(10, questions.length);
+
+    // Shuffle Questions
     function shuffleQuestions() {
       for (let i = questions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [questions[i], questions[j]] = [questions[j], questions[i]];
       }
     }
-  
+
     shuffleQuestions();
+
+    // Update Question function
     function updateQuestion() {
       resetTimer();
       const currentQuestion = questions[currentQuestionIndex];
-    
+
       if (currentQuestion) {
         questionCountElement.textContent = currentQuestionIndex + 1;
         questionTextElement.textContent = currentQuestion.description;
         question.push(currentQuestion.description);
         localStorage.setItem("questions", JSON.stringify(question));
-    
+
         // Check if the question has a code field
         if (currentQuestion.code) {
-          // Create a div element to hold the code
           const codeContainer = document.getElementById('codeContainer');
-    
-          // Create a pre element
           const preElement = document.createElement('pre');
-    
-          // Create a code element and set its class and inner text
           const codeElement = document.createElement('code');
           const languageClass = `language-${language.toLowerCase()}`;
           codeElement.className = languageClass;
           codeElement.textContent = currentQuestion.code;
-    
-          // Append the code element to the pre element
           preElement.appendChild(codeElement);
-    
-          // Append the pre element to the code container
-          codeContainer.innerHTML = ""; // Clear existing content
+          codeContainer.innerHTML = "";
           codeContainer.appendChild(preElement);
-    
-          // Apply Prism syntax highlighting
           Prism.highlightElement(codeElement);
         }
-    
+
         optionsContainers.forEach((container, index) => {
           const optionElement = createOptionElement(
             currentQuestion.options[index],
@@ -247,8 +236,8 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("No question found at index:", currentQuestionIndex);
       }
     }
-    
 
+    // Create Option Element function
     function createOptionElement(text, index) {
       const optionElement = document.createElement("div");
       optionElement.classList.add("option");
@@ -259,19 +248,20 @@ document.addEventListener("DOMContentLoaded", function () {
       return optionElement;
     }
 
+    // Handle Option Click function
     function handleOptionClick(selectedIndex) {
-      // Check if options are still selectable
       if (optionsContainers[selectedIndex].classList.contains("locked")) {
         return;
       }
-    
+
       clearOptionSelection();
-    
+
       selectedOptionIndex = selectedIndex;
       optionsContainers[selectedIndex].classList.add("selected");
       submitButton.classList.remove("disabled");
     }
 
+    // Clear Option Selection function
     function clearOptionSelection() {
       if (selectedOptionIndex !== null) {
         optionsContainers[selectedOptionIndex].classList.remove(
@@ -283,18 +273,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    submitButton.addEventListener("click", handleSubmitButtonClick);
-
-    function handleSubmitButtonClick() {
-      optionsContainers.forEach((container) =>
-        container.classList.add("locked")
-      );
+    // Handle Submit Button Click function
+    submitButton.addEventListener("click", () => {
+      optionsContainers.forEach((container) => container.classList.add("locked"));
 
       const currentQuestion = questions[currentQuestionIndex];
 
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
-
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
@@ -302,40 +288,33 @@ document.addEventListener("DOMContentLoaded", function () {
           correctAnswerArray.push(selectedOption.textContent);
           score += 10;
           scoreElement.textContent = score;
-          localStorage.setItem("correctAnswer",score);
-          
+          localStorage.setItem("correctAnswer", score);
         } else {
-          incorrectAnswer += 10 ;
+          incorrectAnswer += 10;
           selectedOption.classList.add("wrong");
-          localStorage.setItem("incorrectAnswer",incorrectAnswer);
+          localStorage.setItem("incorrectAnswer", incorrectAnswer);
           incorrectAnswerArray.push(selectedOption.textContent);
-          optionsContainers[currentQuestion.answerIndex].classList.add(
-            "correct"
-          );
+          optionsContainers[currentQuestion.answerIndex].classList.add("correct");
         }
       }
 
       submitButton.classList.add("disabled");
-      nextButton.classList.remove("disabled"); // Enable the Next button here
-    }
+      nextButton.classList.remove("disabled");
+    });
 
-    nextButton.addEventListener("click", handleNextButtonClick);
-
-    function handleNextButtonClick() {
+    // Handle Next Button Click function
+    nextButton.addEventListener("click", () => {
       clearOptionSelection();
       optionsContainers.forEach((container) =>
         container.classList.remove("locked", "correct", "wrong")
       );
-    
-      // Clear the code container
+
       const codeContainer = document.getElementById('codeContainer');
       codeContainer.innerHTML = '';
-    
-      // Remove all classes from the next button
       nextButton.className = "next-button";
       resetTimer();
       currentQuestionIndex++;
-    
+
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
       } else {
@@ -343,9 +322,9 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("incorrectanswerArray", JSON.stringify(incorrectAnswerArray));
         endQuiz();
       }
-    }
-    
+    });
 
+    // End Quiz function
     function endQuiz() {
       window.location.href = "../pages/result.html";
       scoreElement.textContent = score;
@@ -354,8 +333,8 @@ document.addEventListener("DOMContentLoaded", function () {
     updateQuestion();
   }
 
+  // Get language from localStorage
   let language = localStorage.getItem("lang") || "";
-  // console.log(language);
   if (language === "javaScript") {
     language = language.toLowerCase();
   } else if (language === "C++") {
@@ -363,54 +342,44 @@ document.addEventListener("DOMContentLoaded", function () {
   } else if (language === "HTML/CSS") {
     language = "HTML%2FCSS";
   }
-  fetchQuestions(language);
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Get the video container element
-  const videoContainer = document.getElementById("video-container");
+  // Fetch Questions
+  fetchQuestions(language);
 
   // Check if getUserMedia is supported
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then(function (stream) {
-        // Create a video element
-        const videoElement = document.createElement("video");
-        videoElement.srcObject = stream;
-        videoElement.play();
-
-        // Append the video element to the container
-        videoContainer.appendChild(videoElement);
-
-        // Make the video container draggable
-        makeDraggable(videoContainer);
-
-        isCameraActive = true;
-        startQuizIfReady();
-      })
-      .catch(function (error) {
-        console.error("Error accessing the camera:", error);
-      });
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const videoElement = document.createElement("video");
+      videoElement.srcObject = stream;
+      videoElement.play();
+      videoContainer.appendChild(videoElement);
+      makeDraggable(videoContainer);
+      isCameraActive = true;
+    } catch (error) {
+      console.error("Error accessing the camera:", error);
+      alert("Camera access denied. Please allow camera access and reload the page to start the quiz.");
+      location.reload();
+    }
   } else {
     console.error("getUserMedia is not supported");
+    alert("Camera not supported. Please use a browser that supports camera access and reload the page to start the quiz.");
+    location.reload();
   }
 
+  // Make Draggable function
   function makeDraggable(element) {
     let isDragging = false;
     let offsetX, offsetY;
 
-    // Add class for styling
     element.classList.add("draggable");
 
-    // Add mousedown event listener to start dragging
     element.addEventListener("mousedown", function (e) {
       isDragging = true;
       offsetX = e.clientX - element.getBoundingClientRect().left;
       offsetY = e.clientY - element.getBoundingClientRect().top;
     });
 
-    // Add mousemove event listener to move the element
     document.addEventListener("mousemove", function (e) {
       if (isDragging) {
         element.style.left = e.clientX - offsetX + "px";
@@ -418,31 +387,33 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Add mouseup event listener to stop dragging
     document.addEventListener("mouseup", function () {
       isDragging = false;
     });
   }
-});
 
-const screenShare = async () => {
-  try {
-    const stream = await navigator.mediaDevices.getDisplayMedia({
-      video: true,
-    });
-    const videoElement = document.createElement("video");
+  // Screen Share function
+  const screenShare = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      const videoElement = document.createElement("video");
+      videoElement.srcObject = stream;
+      videoElement.autoplay = true;
+      videoElement.controls = true;
+      document.getElementById("screenShareContainer").appendChild(videoElement);
+      isScreenShareActive = true;
+    } catch (error) {
+      console.error("Error accessing screen share:", error);
+      alert("Screen sharing access denied. Please allow screen sharing access and reload the page to start the quiz.");
+      location.reload();
+    }
+  };
 
-    videoElement.srcObject = stream;
-    videoElement.autoplay = true;
-    videoElement.controls = true;
-
-    document.getElementById("screenShareContainer").appendChild(videoElement);
-
-    isScreenShareActive = true;
-    startQuizIfReady();
-  } catch (error) {
-    console.error("Error accessing screen share:", error);
+  function startQuizIfReady() {
+    if (isCameraActive && isScreenShareActive) {
+      fetchQuestions(language);
+    }
   }
-};
+  startQuizIfReady();
 
-screenShare();
+});
