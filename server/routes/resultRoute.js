@@ -4,7 +4,44 @@ const auth = require('../middleware/auth.middleware');
 const Result = require('../models/resultModel');
 const access = require("../middleware/access.middleware");
 
-// Route to get results
+
+/**
+ * @swagger
+ * tags:
+ *   name: Results
+ *   description: API operations related to quiz results
+ */
+
+/**
+ * @swagger
+ * /results/{userId}:
+ *   get:
+ *     tags: [Results]
+ *     summary: Get quiz results by user ID
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the user to get quiz results for.
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               - result1
+ *               - result2
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example:
+ *               msg: Internal Server Error
+ */
 router.get('/:userId', auth, access("Admin" , "User") ,async (req, res) => {
   try {
     const userId = req.id;
@@ -17,6 +54,30 @@ router.get('/:userId', auth, access("Admin" , "User") ,async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /results:
+ *   get:
+ *     tags: [Results]
+ *     summary: Get all quiz results
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               - result1
+ *               - result2
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example:
+ *               msg: Internal Server Error
+ */
 router.get('/', auth,access("Admin" , "User") , async (req, res) => {
     try {
       const results = await Result.find({ });
@@ -28,6 +89,34 @@ router.get('/', auth,access("Admin" , "User") , async (req, res) => {
   });
 
 // Route to add result
+
+/**
+ * @swagger
+ * /results/add:
+ *   post:
+ *     tags: [Results]
+ *     summary: Add a new quiz result
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             questions: [{}]
+ *             totalScore: 100
+ *             correctCount: 10
+ *             incorrectCount: 5
+ *     responses:
+ *       201:
+ *         description: Quiz result added successfully
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example:
+ *               msg: Internal Server Error
+ */
 router.post('/add', auth,access("Admin" , "User") , async (req, res) => {
   try {
     const {questions, totalScore, correctCount, incorrectCount } = req.body;
@@ -47,6 +136,31 @@ router.post('/add', auth,access("Admin" , "User") , async (req, res) => {
 });
 
 // Route to delete result
+/**
+ * @swagger
+ * /results/{resultId}:
+ *   delete:
+ *     tags: [Results]
+ *     summary: Delete a quiz result by ID
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: resultId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the quiz result to be deleted.
+ *     responses:
+ *       200:
+ *         description: Quiz result deleted successfully
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example:
+ *               msg: Internal Server Error
+ */
 router.delete('/:resultId', auth, access("Admin" , "User") , async (req, res) => {
   try {
     const resultId = req.params.resultId;
@@ -66,6 +180,34 @@ router.delete('/:resultId', auth, access("Admin" , "User") , async (req, res) =>
   }
 });
 
+/**
+ * @swagger
+ * /results/update:
+ *   patch:
+ *     tags: [Results]
+ *     summary: Update a quiz result
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             resultId: "resultId"
+ *             questionId: "questionId"
+ *             answer: 1
+ *             correctCount: 1
+ *             incorrectCount: 1
+ *     responses:
+ *       200:
+ *         description: Quiz result updated successfully
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example:
+ *               msg: Internal Server Error
+ */
 router.patch('/update', async (req, res) => {
   try {
     const { resultId, questionId, answer, correctCount, incorrectCount } = req.body;
