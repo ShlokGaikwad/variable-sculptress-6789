@@ -1,9 +1,5 @@
-
-// Initialize variables
-let question = [];
-let incorrectAnswer = 0;
-let correctAnswerArray = [];
-let incorrectAnswerArray = [];
+let question = [] ;
+let incorrectAnswer = 0 ;
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
@@ -208,8 +204,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         questionCountElement.textContent = currentQuestionIndex + 1;
         questionTextElement.textContent = currentQuestion.description;
         question.push(currentQuestion.description);
-        localStorage.setItem("questions", JSON.stringify(question));
-
         // Check if the question has a code field
         if (currentQuestion.code) {
           const codeContainer = document.getElementById('codeContainer');
@@ -278,23 +272,25 @@ document.addEventListener("DOMContentLoaded", async function () {
       optionsContainers.forEach((container) => container.classList.add("locked"));
 
       const currentQuestion = questions[currentQuestionIndex];
-
+      console.log("currentQuestions",currentQuestion);
+      console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
+      
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
+        console.log("Your Answer :",selectedOption.textContent);
+
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
           selectedOption.classList.add("correct");
-          correctAnswerArray.push(selectedOption.textContent);
           score += 10;
           scoreElement.textContent = score;
-          localStorage.setItem("correctAnswer", score);
         } else {
           incorrectAnswer += 10;
           selectedOption.classList.add("wrong");
-          localStorage.setItem("incorrectAnswer", incorrectAnswer);
-          incorrectAnswerArray.push(selectedOption.textContent);
-          optionsContainers[currentQuestion.answerIndex].classList.add("correct");
+          optionsContainers[currentQuestion.answerIndex].classList.add(
+            "correct"
+          );
         }
       }
 
@@ -318,8 +314,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (currentQuestionIndex < totalQuestions) {
         updateQuestion();
       } else {
-        localStorage.setItem("correctanswerArray", JSON.stringify(correctAnswerArray));
-        localStorage.setItem("incorrectanswerArray", JSON.stringify(incorrectAnswerArray));
+        localStorage.setItem("questions", JSON.stringify(question));  
+        localStorage.setItem("incorrectAnswer",incorrectAnswer);
+        localStorage.setItem("correctAnswer",score);
         endQuiz();
       }
     });

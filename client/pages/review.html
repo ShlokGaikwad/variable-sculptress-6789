@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../styles/review.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
 </head>
 <body>
     <section class="top-section">
@@ -13,54 +14,28 @@
             <div class="quiz-cont">
                 <div>
                     <h5>QUIZ NAME</h5>
-                    <p>Javascript</p>
+                    <p id="quiz-name"></p>
                 </div>
                 <div class="puzzle-div">
                     <img src="../assets/images/puzzle.png" alt="puzzle">
                 </div>
             </div>
             <div class="quiz-res">
-                <div><span class="correct-answer-count">8</span>/10</div>
-                <p>You Answered <span>8</span> out of 10 questions</p>
+                <div><span class="correct-answer-count"  id="correct-answer-count"></span>/10</div>
+                <p>You Answered <span id="correct-answer-count-2"></span> out of 10 questions</p>
             </div>
         </div>
         <img class="round-one" src="../assets/images/round.png" alt="">
     </section>
     <section class="bottom-section">
         <h1>Your Answers</h1>
-        <div class="questions">
+        <div class="questions" id="questions-div">
             <div class="question-set">
-                <p><span class="question-count">1</span>What does the acronym 'DOM' stand for in JavaScript?</p>
-                <p >Your Answer: <span class="incorrect" id="user-answer">Something</span></p>
-                <p > Correct Answer :<span class="correct" id="correct-answer">Something </span> </p>
-            </div>
-            <div class="question-set">
-                <p><span class="question-count">1</span>What does the acronym 'DOM' stand for in JavaScript?</p>
-                <p >Your Answer: <span class="incorrect" id="user-answer">Something</span></p>
-                <p > Correct Answer :<span class="correct" id="correct-answer">Something </span> </p>
-            </div>
-            <div class="question-set">
-                <p><span class="question-count">1</span>What does the acronym 'DOM' stand for in JavaScript?</p>
-                <p >Your Answer: <span class="incorrect" id="user-answer">Something</span></p>
-                <p > Correct Answer :<span class="correct" id="correct-answer">Something </span> </p>
-            </div>
-            <div class="question-set">
-                <p><span class="question-count">1</span>What does the acronym 'DOM' stand for in JavaScript?</p>
-                <p >Your Answer: <span class="incorrect" id="user-answer">Something</span></p>
-                <p > Correct Answer :<span class="correct" id="correct-answer">Something </span> </p>
-            </div>
-            <div class="question-set">
-                <p><span class="question-count">1</span>What does the acronym 'DOM' stand for in JavaScript?</p>
-                <p >Your Answer: <span class="incorrect" id="user-answer">Something</span></p>
-                <p > Correct Answer :<span class="correct" id="correct-answer">Something </span> </p>
-            </div>
-            <div class="question-set">
-                <p><span class="question-count">1</span>What does the acronym 'DOM' stand for in JavaScript?</p>
+                <p ><span class="question-count">1</span>What does the acronym 'DOM' stand for in JavaScript?</p>
                 <p >Your Answer: <span class="incorrect" id="user-answer">Something</span></p>
                 <p > Correct Answer :<span class="correct" id="correct-answer">Something </span> </p>
             </div>
         </div>
-        <button id="dashboard-button">Dashboard</button>
         <img class="round-two" src="../assets/images/round.png" alt="">
     </section>
     <script src="../script/review.js"></script>
