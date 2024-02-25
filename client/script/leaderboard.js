@@ -57,3 +57,22 @@ function appendScore(data) {
     main.append(createCard(item, index));
   });
 }
+
+function putLangIntoLocal(lang){
+  localStorage.setItem("lang",lang);
+}
+
+open.addEventListener("click", () => {
+  toggleMenu();
+});
+
+close.addEventListener("click", () => {
+  toggleMenu();
+});
+
+proceedButton.addEventListener("click", () => {
+//   toggleMenu();
+  if(!proceedButton.classList.contains("disabled")){
+      window.location.href="../pages/quiz.html"
+  }
+});

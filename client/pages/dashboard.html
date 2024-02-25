@@ -1,72 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles/dashboard.css" />
-  </head>
-  <body>
-    <!-- ----------nav start-------------------->
-    <header class="header">
-      <nav id="nav-menu">
-        <div class="logo-cont">
-          <img id="logo-img" src="../assets/images/soloLogo.svg" alt="logo" />
-          <h1>Quezzo</h1>
-        </div>
-        <div class="logo-menu">
-          <img class="menu-icon" src="../assets/images/menu.svg" />
-        </div>
-        <div class="logo-close hid">
-          <img class="menu-icon" src="../assets/images/close.svg" />
-        </div>
-        <div class="menu hid">
-          <div class="nav-links">
-            <a href="#" class="nav-link home">Home</a>
-            <a href="./pages/about.html" class="nav-link about">About</a>
-            <a href="./pages/services.html" class="nav-link services"
-              >Services</a
-            >
-            <a href="./pages/contact.html" class="nav-link contact">Contact</a>
-          </div>
-          <button id="resume-button-1" class="login-signup">
-            <a href="#">
-              <img id="user-image" src="../assets/images/boy.png" />Hello,
-              <span id="username">Username</span></a
-            >
-          </button>
-        </div>
-      </nav>
-    </header>
-    <!-- ---------------nav end------------- -->
-    <section class="hero">
-      <div class="recent">
-        <h3>Recent Quiz</h3>
-        <div class="recent-cont">
-          <img src="../assets/images/quiz.png" />
-          <div id="recentquiz"></div>
-          <div id="timeContainer"></div>
-        </div>
-        <button id="see-results">See Results</button>
-        <img class="round-img" src="../assets/images/boystand.png" alt="round">
-      </div>
-      <div class="multi">
-        <h3>Featured</h3>
-        <p>Take part in challenges with friends or other players</p>
-        <button>Mutiplayer Mode</button>
-        <img src="../assets/images/round.png" class="round-one" alt="">
-        <img src="../assets/images/round.png" class="round-two" alt="">
-        <img src="../assets/images/ganjaboy.png" class="ganja-three" alt="">
-      </div>
-    </section>
-    <section class="quiz">
-      <h1>Quiz Topics</h1>
-      <div class="lang-container" id="lang-container">
-      </div>
-      <button class="disabled proceed-button" id="proceed-button" disabled="true">Proceed</button>
-  </section>  
 
-    <!-- <footer class="footer">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="../styles/dashboard.css" />
+</head>
+
+<body>
+  <!-- ----------nav start-------------------->
+  <header class="header">
+    <nav id="nav-menu">
+      <div class="logo-cont">
+        <img id="logo-img" src="../assets/images/soloLogo.svg" alt="logo" />
+        <h1>Quezzo</h1>
+      </div>
+      <div class="logo-menu">
+        <img class="menu-icon" src="../assets/images/menu.svg" />
+      </div>
+      <div class="logo-close hid">
+        <img class="menu-icon" src="../assets/images/close.svg" />
+      </div>
+      <div class="menu hid">
+        <div class="nav-links">
+          <a href="#" class="nav-link home">Home</a>
+          <a href="./pages/about.html" class="nav-link about">About</a>
+          <a href="./pages/services.html" class="nav-link services">Services</a>
+          <a href="./pages/contact.html" class="nav-link contact">Contact</a>
+        </div>
+        <button id="resume-button-1" class="login-signup">
+          <a href="./profile.html">
+            <img id="user-image" src="../assets/images/boy.png" />Hello,
+            <span id="username">Username</span></a>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <!-- ---------------nav end------------- -->
+  <section class="hero">
+    <div class="recent">
+      <h3>Recent Quiz</h3>
+      <div class="recent-cont">
+        <img src="../assets/images/quiz.png" />
+        <div id="recentquiz"></div>
+        <div id="timeContainer"></div>
+      </div>
+      <button id="see-results">See Results</button>
+      <img class="round-img" src="../assets/images/boystand.png" alt="round">
+    </div>
+    <div class="multi">
+      <h3>Featured</h3>
+      <p>Take part in challenges with friends or other players</p>
+      <button>Mutiplayer Mode</button>
+      <img src="../assets/images/round.png" class="round-one" alt="">
+      <img src="../assets/images/round.png" class="round-two" alt="">
+      <img src="../assets/images/ganjaboy.png" class="ganja-three" alt="">
+    </div>
+  </section>
+  <section class="quiz">
+    <h1>Quiz Topics</h1>
+    <div class="lang-container" id="lang-container">
+    </div>
+    <button class="disabled proceed-button" id="proceed-button" disabled="true">Proceed</button>
+  </section>
+
+  <!-- <footer class="footer">
         <div class="touch">
             <h3 class="">Get in Touch</h3>
             <p>Don't miss any updates of our Coding Quiz Challenges!</p>
@@ -111,6 +110,8 @@
             <div class="footer-bg-two"></div>
         </div>
     </footer> -->
-    <script src="../script/dashboard.js"></script>
-  </body>
+  <!-- <script src="../script/dashboard.js"></script> -->
+  <script src="../script/dashboards.js"></script>
+</body>
+
 </html>
