@@ -294,27 +294,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       );
 
       const currentQuestion = questions[currentQuestionIndex];
-<<<<<<< HEAD
       console.log("currentQuestions",currentQuestion);
       console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
   
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
         console.log("Your Answer :",selectedOption.textContent);
-=======
-      console.log(currentQuestion)
-      console.log("currentQuestions", currentQuestion);
-      // question.push({currentQuestion._id,});
-      console.log(
-        "Right answer",
-        currentQuestion.options[currentQuestion.answerIndex]
-      );
-
-      if (currentQuestion && selectedOptionIndex !== null) {
-        const selectedOption = optionsContainers[selectedOptionIndex];
-        console.log("Your Answer :", selectedOption.textContent);
-
->>>>>>> b83bc2a3d5633a75901df5c5c2d72ea9cfb0e632
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
