@@ -63,6 +63,7 @@ correctAnswerCount.textContent = correctAns / 10 ;
 correctAnswerCount2.textContent = correctAns / 10 ;
 
 const questions = JSON.parse(localStorage.getItem("questions")) ;
+console.log(questions)
 localStorage.setItem("Total_NO_Questions:",questions.length);
  quizName.textContent = localStorage.getItem("lang");
 
@@ -72,7 +73,6 @@ questions.forEach((question,index)=>{
 });
 
 function createQuestion(question,index){
-    // console.log(question,index);
     let questionSet = document.createElement("div");
     questionSet.classList.add("question-set");
 
@@ -93,7 +93,7 @@ function createQuestion(question,index){
     let correctAnswer = document.createElement("p");
     correctAnswer.textContent = "Correct Answer : " ;
     let span2 = document.createElement("span");
-    span2.textContent = "Adding interactivity to web pages"
+    span2.textContent = "something Else"
     span2.classList.add("correct-answer");
     correctAnswer.append(span2);
 
