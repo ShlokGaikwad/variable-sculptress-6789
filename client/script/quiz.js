@@ -157,7 +157,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   let timerInterval;
   let isCameraActive = false;
   let isScreenShareActive = false;
-
+  let question = [];
+  let incorrectAnswer = 0;
   // Reset Timer function
   function resetTimer() {
     clearInterval(timerInterval);
@@ -220,13 +221,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       resetTimer();
       const currentQuestion = questions[currentQuestionIndex];
 
-      if (currentQuestion) {
+      if (currentQuestion != "") {
         questionCountElement.textContent = currentQuestionIndex + 1;
         questionTextElement.textContent = currentQuestion.description;
-        // question.push(currentQuestion.description);
+        question.push(currentQuestion.description);
         // Check if the question has a code field
+        const codeContainer = document.getElementById("codeContainer");
+        codeContainer.classList.add("hid");
         if (currentQuestion.code) {
-          const codeContainer = document.getElementById("codeContainer");
+          codeContainer.classList.remove("hid");
           const preElement = document.createElement("pre");
           const codeElement = document.createElement("code");
           const languageClass = `language-${language.toLowerCase()}`;
@@ -338,12 +341,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         localStorage.setItem("questions", JSON.stringify(question));
         localStorage.setItem("incorrectAnswer", incorrectAnswer);
         localStorage.setItem("correctAnswer", score);
+        // ghtyjjydydty
         endQuiz();
       }
     });
 
     // End Quiz function
     function endQuiz() {
+      
       window.location.href = "../pages/result.html";
       scoreElement.textContent = score;
     }
@@ -530,4 +535,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
   startQuizIfReady();
+  
 });
