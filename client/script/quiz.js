@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Get language from localStorage
   let language = localStorage.getItem("lang") || "";
   if (language === "javaScript") {
-    language = language.toLowerCase();
+    language = "JavaScript"
   } else if (language === "C++") {
     language = "C%2B%2B";
   } else if (language === "HTML/CSS") {
