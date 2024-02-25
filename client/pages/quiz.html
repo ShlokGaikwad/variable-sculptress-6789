@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App</title>
     <link rel="stylesheet" href="../styles/quiz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
-  <style>
-    pre {
-      background-color: #f4f4f4;
-      padding: 10px;
-      border: 1px solid #ddd;
-      white-space: pre-wrap;
-    }
-  </style>
+    <style>
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
 </head>
+
 <body>
     <div class="floating-container" id="screenShareContainer"></div>
 
     <section class="quiz">
         <div class="top-part">
             <div class="tile user-tile">
-                <span id="user-count">1</span><img src="../assets/images/avatar.png"/>
+                <span id="user-count">1</span><img src="../assets/images/avatar.png" />
             </div>
             <div class="progress-container">
                 <div class="progress"></div>
@@ -31,15 +33,15 @@
         <div class="bottom-part">
             <div class="container"></div>
             <div class="question-cont">
-                    <h5> QUESTION <span id="question-count">1</span> OF 10 </h5>
+                <h5> QUESTION <span id="question-count">1</span> OF 10 </h5>
                 <!-- <p>What does the acronym 'DOM' stand for in JavaScript?</p>
                 <div class="option correct">Document Object Model</div>
                 <div class="option wrong">Data Object Model</div>
                 <div class="option selected">Dynamic Object Management</div>
                 <div class="option">Document Oriented Middleware</div> -->
-                
+
                 <p id="question-text"></p>
-                <div id="codeContainer"></div>
+                <div id="codeContainer" class="hid"></div>
 
                 <div class="options" id="options-container1"></div>
                 <div class="options" id="options-container2"></div>
@@ -54,11 +56,13 @@
         </div>
         <div id="video-container" class="floating-container"></div>
 
-        
+
     </section>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="../script/quiz.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-java.min.js"></script>
+    <!-- <script src="../script/quizCode.js"></script> -->
 </body>
+
 </html>
