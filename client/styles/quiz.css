@@ -232,6 +232,10 @@ body{
 
 /* .correct */
 
+.hid{
+  display: none;
+}
+
 @media (max-width:650px){
   .question-cont>p{
     margin-bottom: 20px;

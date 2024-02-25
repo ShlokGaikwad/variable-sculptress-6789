@@ -121,6 +121,7 @@ function arcTween(b) {
     return arc(i(t));
   };
 }
+
 document.addEventListener("DOMContentLoaded", async function () {
   const questionCountElement = document.getElementById("question-count");
   const questionTextElement = document.getElementById("question-text");
