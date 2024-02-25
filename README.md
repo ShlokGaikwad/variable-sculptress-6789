@@ -1,6 +1,6 @@
 # Project Title : Queezo Coding App
 
-![Project Logo](client/assests/images/login.png)
+![Project Logo](./client/assests/images/login.png)
 
 ## Introduction
 This project is a comprehensive quiz application designed to provide users with an engaging platform to test their knowledge across various subjects. It encompasses features for user authentication, quiz creation, management, and taking, as well as result tracking and performance analysis.
