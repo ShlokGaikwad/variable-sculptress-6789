@@ -10,7 +10,7 @@ Fullstack
 
 ## Deployed App
 - Frontend: [Link to deployed frontend](https://65dbb03f64c4cf284de9bf8b--extraordinary-shortbread-e22426.netlify.app/)
-- Backend: [Link to deployed backend](https://variable-sculptress-6789-e41a.onrender.com))
+- Backend: [Link to deployed backend](https://variable-sculptress-6789-e41a.onrender.com)
 - Database: [Link to deployed database](mongodb+srv://masai:****@cluster0.rkxhwns.mongodb.net/quizApp?retryWrites=true&w=majority)
 
 ## Directory Structure
