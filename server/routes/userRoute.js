@@ -29,7 +29,7 @@ userRouter.get("/user", async (req, res) => {
   try {
     const sortOpt = req.query.sort || "totalScore";
     const sortOrder = req.query.order === "desc" ? -1 : 1;
-    const limit = parseInt(req.query.limit) || 6;
+    const limit = parseInt(req.query.limit);
     const users = await UserModel.find()
       .sort({ [sortOpt]: sortOrder })
       .limit(limit);
