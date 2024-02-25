@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger'); 
 const connection = require("./config/db");
 const userRouter = require("./routes/userRoute");
 const resultRoutes = require('./routes/resultRoute');
@@ -21,7 +23,9 @@ app.use('/history', historyRoutes);
 app.use('/languages', languageRoutes);
 app.use('/rooms',roomRouter)
 app.use('/uploads' , getImage )
+app.use('/api-docs', swaggerUi.serve);
 
+app.get('/api-docs', swaggerUi.setup(swaggerSpec));
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Home page" });
 });

@@ -6,7 +6,40 @@ const jwt = require("jsonwebtoken");
 const userRouter = express.Router();
 
 const uploadMiddleware = require("../middleware/uploadImage");
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: API operations related to users
+ */
 
+/**
+ * @swagger
+ * /user/{userId}:
+ *   get:
+ *     tags: [Users]
+ *     summary: Get user by ID
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID of the user to get
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               username: "JohnDoe"
+ *               image: "profile.jpg"
+ *               totalScore: 100
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ */
 userRouter.get("/user/:userId", async (req, res) => {
   const userId = req.params.userId;
 
@@ -25,6 +58,29 @@ userRouter.get("/user/:userId", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /user:
+ *   get:
+ *     tags: [Users]
+ *     summary: Get all users
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               - username: "JohnDoe"
+ *                 image: "profile.jpg"
+ *                 totalScore: 100
+ *               - username: "JaneDoe"
+ *                 image: "avatar.jpg"
+ *                 totalScore: 150
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ */
 userRouter.get("/user", async (req, res) => {
   try {
     const sortOpt = req.query.sort || "totalScore";
@@ -42,7 +98,55 @@ userRouter.get("/user", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     tags: [Users]
+ *     summary: Create a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             username: "JohnDoe"
+ *             email: "john@example.com"
+ *             password: "Password123@"
+ *     responses:
+ *       '200':
+ *         description: User signed up successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: "New user signed up successfully"
+ *               user:
+ *                 username: "JohnDoe"
+ *                 email: "john@example.com"
+ *                 password: "$2b$05$..."
+ *                 image: ""
+ *                 totalScore: 0
+ *       '409':
+ *         description: User already exists or invalid password format
+ *         content:
+ *           application/json:
+ *             examples:
+ *               conflict:
+ *                 value:
+ *                   success: false
+ *                   message: "User already exists! Please use a different email"
+ *               passwordError:
+ *                 value:
+ *                   success: false
+ *                   message: "Password should be 8 characters, one uppercase, one special character, one number"
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Internal Server Error"
+ */
 userRouter.post(
   "/signup",
   async (req, res, next) => {
@@ -108,6 +212,35 @@ userRouter.post(
   }
 );
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     tags: [Users]
+ *     summary: Log in as a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             email: "john@example.com"
+ *             password: "Password123@"
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             example:
+ *               msg: "Login Successfully"
+ *               token: "eyJhbGciOiJIUzI1NiIsIn..."
+ *               userId: "607d2e17f40a3e4f98bd1414"
+ *       400:
+ *         description: Invalid credentials or server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Error details"
+ */
 userRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -134,7 +267,26 @@ userRouter.post("/login", async (req, res) => {
 });
 
 userRouter.get("/sort");
-
+/**
+ * @swagger
+ * /logout:
+ *   get:
+ *     tags: [Users]
+ *     summary: Log out the current user
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         content:
+ *           application/json:
+ *             example:
+ *               msg: "Logout Successfully"
+ *       400:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Error details"
+ */
 userRouter.get("/logout", async (req, res) => {
   const token = req.cookies.token;
   try {
