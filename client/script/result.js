@@ -13,7 +13,6 @@ let totalAttemptedQuestion = (correctAns + incorrectAns ) ;
 unanswered.innerHTML = Math.abs(10 - totalAttemptedQuestion ) ;
 
 checkAnswer.addEventListener("click",()=>{
-    console.log("called button");
     window.location.href="../pages/review.html"
 })
 
