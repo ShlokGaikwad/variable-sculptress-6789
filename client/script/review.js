@@ -1,113 +1,52 @@
-let count  = 1 ;
-const correctAnswerCount = document.getElementById("correct-answer-count");
-const correctAnswerCount2 =document.getElementById("correct-answer-count-2");
-const quizName = document.getElementById("quiz-name");
-const questionsDiv = document.getElementById("questions-div");
-
-//RESULT//
-
-const userName = localStorage.getItem("name") ;
-const Total_Score_Obtained =  localStorage.getItem("correctAnswer");
-const Wrong_Answer =  localStorage.getItem("incorrectAnswer");
-const Language =  localStorage.getItem("lang");
-const Total_No_of_Questions = parseInt(localStorage.getItem("Total_NO_Questions:"), 10);
-const Total_Marks = Total_No_of_Questions * 10 ;
-
-console.log(
-    ` Hello, ${userName}\n` +
-    `Here is your perfomance details :\n` +
-    `Language: ${Language}\n` +
-    `Total_Score_Obtained: ${Total_Score_Obtained}\n` +
-    `Wrong_Answer: ${Wrong_Answer}\n` +
-    `Total_No_of_Questions: ${Total_No_of_Questions}\n` +
-    `Total_Marks: ${Total_Marks}`
-);
-
-if(Total_Score_Obtained >= 30 && Total_Score_Obtained < 50){
-    console.log(`Badges : Silver`);
-}else if(Total_Score_Obtained >= 50 && Total_Score_Obtained < 70){
-    console.log(`Badges : Gold`);
-}else if(Total_Score_Obtained >= 70 && Total_Score_Obtained < 90){
-    console.log(`Badges : Platinum`);
-}else if(Total_Score_Obtained >= 90){
-    console.log(`Badges : Diamond`);
-}else{
-    console.log(`Badges : Broonze`);
-}
-
-/*
-Result :
-
-userId : localStorage.getItem("userId") ;
-Total_Score_Obtained :  localStorage.getItem("correctAnswer");
-Wrong_Answer :  localStorage.getItem("incorrectAnswer");
-Language :  localStorage.getItem("lang");
-Total_No_of_Questions : localstorage.getItem("Total_NO_Questions :");
-Total_Marks : Total_No_of_Questions * 10 ;
-Badges : 
-          if(Total_Score_Obtained >= 30 && Total_Score_Obtained < 50){
-               "Silver" 
-          }else if(Total_Score_Obtained >= 50 && Total_Score_Obtained < 70){
-                "Gold"
-          }else if(Total_Score_Obtained >= 70 && Total_Score_Obtained < 90){
-                "Platinum"
-          }else if(Total_Score_Obtained >= 90){
-                "Diamond"
-          }else{
-            "Broonze"
+document.addEventListener("DOMContentLoaded", function () {
+    const storedResultsData = localStorage.getItem("resultData");
+  
+    if (storedResultsData) {
+      try {
+        const resultData = JSON.parse(storedResultsData);
+  
+        // Assuming correctCount is the count of correct answers
+        const correctCount = resultData.correctCount;
+  
+        // Update the correct-answer-count element
+        const correctAnswerCountElement = document.getElementById("correct-answer-count");
+        correctAnswerCountElement.textContent = correctCount;
+  
+        // Update the correct-answer-count-2 element
+        const correctAnswerCount2Element = document.getElementById("correct-answer-count-2");
+        correctAnswerCount2Element.textContent = correctCount;
+  
+        const questionsDiv = document.getElementById("questions-div");
+  
+        for (let i = 0; i < resultData.questions.length; i++) {
+          const cardContainer = document.createElement("div");
+          cardContainer.classList.add("question-set");
+  
+          const questionCount = document.createElement("p");
+          questionCount.innerHTML = `<span class="question-count">${i + 1}</span>${resultData.questions[i]}`;
+  
+          const userAnswer = resultData.answers[i] || ""; // Ensure userAnswer is defined
+          const userAnswerElement = document.createElement("p");
+          userAnswerElement.innerHTML = `Your Answer: <span class="${userAnswer.trim() === (resultData.correctAnswers[i] || "").trim() ? 'correct' : 'incorrect'}">${userAnswer}</span>`;
+  
+          const correctAnswer = document.createElement("p");
+          correctAnswer.innerHTML = `Correct Answer: <span class="correct">${resultData.correctAnswers[i]}</span>`;
+  
+          cardContainer.appendChild(questionCount);
+          cardContainer.appendChild(userAnswerElement);
+          cardContainer.appendChild(correctAnswer);
+  
+          if (userAnswer === resultData.correctAnswers[i]) {
+            cardContainer.classList.add("green-color");
           }
- */
-
-const correctAns = localStorage.getItem("correctAnswer") ;
-correctAnswerCount.textContent = correctAns / 10 ;
-
-correctAnswerCount2.textContent = correctAns / 10 ;
-
-const questions = JSON.parse(localStorage.getItem("questions")) ;
-console.log(questions)
-localStorage.setItem("Total_NO_Questions:",questions.length);
- quizName.textContent = localStorage.getItem("lang");
-
-questions.forEach((question,index)=>{
-     let card = createQuestion(question,index);
-     questionsDiv.append(card);
-});
-
-function createQuestion(question,index){
-    let questionSet = document.createElement("div");
-    questionSet.classList.add("question-set");
-
-    let questionName = document.createElement("p");
-    let questionCount = document.createElement("span");
-    questionCount.classList.add("question-count");
-    questionCount.textContent = count++ ;
-    let questionTitle = document.createElement("span");
-    questionTitle.textContent = question ;
-    questionName.append(questionCount,questionTitle);
-
-    let yourAnswer = document.createElement("p");
-    yourAnswer.textContent = "Your Answer : "
-    let span = document.createElement("span");
-    span.textContent = "Adding interactivity to web pages";
-    yourAnswer.append(span);
-
-    let correctAnswer = document.createElement("p");
-    correctAnswer.textContent = "Correct Answer : " ;
-    let span2 = document.createElement("span");
-    span2.textContent = "something Else"
-    span2.classList.add("correct-answer");
-    correctAnswer.append(span2);
-
-    questionSet.append(questionName,yourAnswer,correctAnswer);
-
-    return questionSet ;
-    
-}
-
-
-const newButton = document.createElement("button");
-newButton.textContent = "Download Result"; 
-newButton.id = "new-button"; 
-
-document.body.appendChild(newButton);
-
+  
+          questionsDiv.appendChild(cardContainer);
+        }
+      } catch (error) {
+        console.error("Error processing data:", error);
+      }
+    } else {
+      console.error("No data found in localStorage");
+    }
+  });
+  

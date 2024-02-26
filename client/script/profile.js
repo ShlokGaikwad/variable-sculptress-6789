@@ -124,3 +124,61 @@ const appendLeaderboard = (data) => {
       mainLeaderboard.append(createLeaderboardCard(item, index));
     });
 };
+/////////////////////////////badges rendering////////////
+document.addEventListener('DOMContentLoaded', async () => {
+  const url = "https://variable-sculptress-6789-e41a.onrender.com";
+
+  const userId = localStorage.getItem("userId");
+
+  const userData = await fetchUserData(userId);
+
+  const initialScore = userData.totalScore;
+  const badgesArray = document.querySelectorAll('.badges .badge');
+
+  badgesArray.forEach(async badge => {
+    const badgeCover = badge.querySelector('.cover');
+    const requiredScore = getRequiredScore(badge); 
+    if (initialScore >= requiredScore) {
+      badgeCover.classList.remove('cover');
+    } else {
+      badgeCover.classList.add('cover');
+    }
+  });
+});
+
+async function fetchUserData(userId) {
+  try {
+    const res = await fetch(`${url}/users/user/${userId}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function getRequiredScore(badgeElement) {
+  const badgeImage = badgeElement.querySelector('img');
+  const badgeType = badgeImage.alt;
+
+  switch (badgeType) {
+    case 'Iron-1':
+      return 100;
+    case 'Bronze-1':
+      return 200; 
+    case 'Silver-1':
+      return 400; 
+    case 'Gold-1':
+      return 450; 
+    case 'Platinum-1':
+      return 1000; 
+    case 'Diamond-1':
+      return 2000; 
+    case 'Ascendant-1':
+      return 50000; 
+    case 'Radiant':
+      return 98000;
+    default:
+      return 0; 
+  }
+}
+
