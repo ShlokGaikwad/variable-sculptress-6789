@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
   
         // Assuming correctCount is the count of correct answers
         const correctCount = resultData.correctCount;
-  
+
+        const quizName = document.getElementById("quiz-name");
+        quizName.innerText=localStorage.getItem("lang");
+
         // Update the correct-answer-count element
         const correctAnswerCountElement = document.getElementById("correct-answer-count");
         correctAnswerCountElement.textContent = correctCount;
