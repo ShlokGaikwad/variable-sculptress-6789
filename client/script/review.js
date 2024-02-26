@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const storedResultsData = localStorage.getItem("resultData");
-  
+
+    const dashboardButton = document.getElementById("dashboard-button");
+    dashboardButton.addEventListener("click",()=>{
+      window.location.href="../pages/dashboard.html"
+    })
+
     if (storedResultsData) {
       try {
         const resultData = JSON.parse(storedResultsData);

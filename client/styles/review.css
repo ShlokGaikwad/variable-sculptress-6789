@@ -153,11 +153,10 @@ li{
 .questions{
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
   gap: 20px;
   color: white;
-
 }
 
 .question-set{
@@ -165,6 +164,8 @@ li{
   border-radius: 20px;
   padding: 30px;
   z-index: 10;
+  cursor: pointer;
+  width: 500px;
 }
 
 .question-set>p{
@@ -235,6 +236,10 @@ li{
     font-size: 30px;
   }
   
+  .question-set{
+    width: 100%;
+  }
+
   .question-set>p{
     font-size: unset;
   }
