@@ -1,6 +1,5 @@
 let question = [];
 let rightAnswer = [] ;
-let userAnswer = [] ;
 let incorrectAnswer = 0;
 let cnt = 0;
 let per = 0;
@@ -124,6 +123,7 @@ function arcTween(b) {
   };
 }
 document.addEventListener("DOMContentLoaded", async function () {
+  let userAnswer = Array.from({ length: 10 }, () => "-"); 
   const questionCountElement = document.getElementById("question-count");
   const questionTextElement = document.getElementById("question-text");
   const optionsContainers = Array.from({ length: 4 }, (_, index) =>
@@ -255,12 +255,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (optionsContainers[selectedIndex].classList.contains("locked")) {
         return;
       }
-
+    
       clearOptionSelection();
-
-      selectedOptionIndex = selectedIndex;
-      optionsContainers[selectedIndex].classList.add("selected");
-      submitButton.classList.remove("disabled");
+    
+      if (selectedIndex !== null) {
+        selectedOptionIndex = selectedIndex;
+        optionsContainers[selectedIndex].classList.add("selected");
+        submitButton.classList.remove("disabled");
+      } else {
+        // User skipped the question, store an empty string
+        userAnswer[currentQuestionIndex] = "-";      }
     }
 
     // Clear Option Selection function
@@ -289,7 +293,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
         console.log("Your Answer :",selectedOption.textContent);
-        userAnswer.push(selectedOption.textContent) || "" ;
+        userAnswer[currentQuestionIndex] = selectedOption.textContent; 
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
@@ -341,7 +345,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // End Quiz function
 function endQuiz() {
   submitResults();
-  // window.location.href = "../pages/result.html";
+  window.location.href = "../pages/result.html";
   scoreElement.textContent = score;
 }
 
@@ -533,13 +537,14 @@ async function submitResults() {
     resultTitle: calculateResultTitle(score),
     questions: question,
     answers: userAnswer,
+    correctAnswers : rightAnswer,
     totalScore: score,
     correctCount: localStorage.getItem("correctAnswer") / 10,
     incorrectCount: localStorage.getItem("incorrectAnswer") / 10
 
   };
   console.log(typeof parseInt(localStorage.getItem("correctAnswer") / 10))
-
+  localStorage.setItem("resultData", JSON.stringify(resultData));
   const token = localStorage.getItem('token');
   console.log(resultData);
   try {
