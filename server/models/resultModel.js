@@ -7,12 +7,15 @@ const resultSchema = new mongoose.Schema({
     default: "pending"
   },
   userId: { type: String, required: true },
-  questions: [{ type: String }], // Array of strings for questions
-  answers: [{ type: String }],   // Array of strings for answers
+  questions: [{ type: String }], 
+  answers: [{ type: String }], 
   correctAnswers: [{ type: String }], 
   totalScore: { type: Number, default: 0 },
   correctCount: { type: String, default: 0 },
   incorrectCount: { type: String, default: 0 },
+  date: { type: Date, default: Date.now }
+},{
+  versionKey : false 
 });
 
 const Result = mongoose.model('Result', resultSchema);
