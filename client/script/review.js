@@ -1,13 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     const storedResultsData = localStorage.getItem("resultData");
-  
+
+    const dashboardButton = document.getElementById("dashboard-button");
+    dashboardButton.addEventListener("click",()=>{
+      window.location.href="../pages/dashboard.html"
+    })
+
     if (storedResultsData) {
       try {
         const resultData = JSON.parse(storedResultsData);
   
         // Assuming correctCount is the count of correct answers
         const correctCount = resultData.correctCount;
-  
+
+        const quizName = document.getElementById("quiz-name");
+        quizName.innerText=localStorage.getItem("lang");
+
         // Update the correct-answer-count element
         const correctAnswerCountElement = document.getElementById("correct-answer-count");
         correctAnswerCountElement.textContent = correctCount;
