@@ -44,12 +44,32 @@ body{
     justify-content: space-between;
     align-items: center;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     margin-bottom: 150px;
 }
 
 .top-section>img{
-    height: 50px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.logout{
+    border-radius: 20px;
+    border: 2px solid var(--mid-red);
+    background-color: var(--mid-red);
+    /* background-color: white; */
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout:hover{
+    scale: 1.05;
+    color: var(--mid-red);
+    background-color: white;
 }
 
 .bottom-section{
@@ -143,7 +163,12 @@ body{
     position: relative;
     height: 100px;
     padding: 20px 20px 0px 20px;
-    
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.badge:hover{
+    scale: 1.05;;
 }
 
 .badge>img{
@@ -161,11 +186,13 @@ body{
     background-color: var(--grey-two);
     opacity: 0.7;
     border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    padding: 5px;
 }
 
 .cover>img{
     height: 70%;
-    width: 70%;
 }
 
 .hid{
@@ -226,6 +253,7 @@ body{
     padding: 30px;
     border-radius: 20px;
     margin-top: 20px;
+    cursor: pointer;
 }
 
 .leader-card>div>img{
@@ -281,10 +309,10 @@ body{
     .tabs-opt{
         width: 100%;
     }
-    .badge{
+    /* .badge{
         height: 50px;
         width: 50px;
-    }
+    } */
     .stats{
         width: 100%;
     }

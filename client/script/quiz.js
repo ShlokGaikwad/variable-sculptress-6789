@@ -565,6 +565,27 @@ async function submitResults() {
   } catch (error) {
     console.error('Error submitting results:', error);
   }
+  const userId = localStorage.getItem('userId');
+  try {
+    const userResponse = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/users/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({ totalScore: Number(localStorage.getItem("totalScoreOfUser")) + Number(score) }),
+    });
+
+    if (userResponse.ok) {
+      console.log('User totalScore updated successfully');
+    } else {
+      console.error('Failed to update user totalScore:', userResponse.statusText);
+    }
+  } catch (userError) {
+    console.error('Error updating user totalScore:', userError);
+  }
+  localStorage.setItem("totalScoreOfUser", Number(localStorage.getItem("totalScoreOfUser")) + Number(score)   );
+
 }
 
 // Add a function to calculate result title based on the score

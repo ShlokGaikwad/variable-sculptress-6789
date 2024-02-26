@@ -6,8 +6,16 @@ const badgesSection = document.querySelector(".badges");
 const leaderboardSection = document.querySelector(".leaderboard");
 const username = document.getElementById("username");
 const point = document.getElementById("total-points");
-const mainLeaderboard = document.getElementById("mainLeaderboard");
+const mainLeaderboard = document.getElementById("leader-container");
 const rank = document.getElementById("rank");
+const quizCount = document.getElementById("quiz-count");
+const backButton = document.getElementById("back-button");
+const logoutButton = document.getElementById("logout-button");
+const statsQuizCount = document.getElementById("stats-question-count");
+const totalQuizCount =document.getElementById("total-questions-count");
+const answeredQuizCount = document.getElementById("total-answered")
+let userData;
+let userQuiz;
 var a = document.createElement("a");
 a.href = "#";
 
@@ -43,12 +51,49 @@ leaderboard.addEventListener("click", () => {
   leaderboardSection.classList.remove("hid");
 });
 
+backButton.addEventListener("click",()=>{
+  window.history.back();
+})
+
+logoutButton.addEventListener("click",()=>{
+  window.location.href="../index.html"
+})
+
+function updateRank(data){
+  const userId = localStorage.getItem("userId");
+  let ranking;
+  data.forEach((ele,idx)=>{
+    if(ele._id==userId){
+      ranking=idx+1;
+    }
+  })
+  rank.innerText=ranking
+}
+
+
+function updateQuizCount(data){
+  quizCount.innerText=data.length;
+}
+
+function updateStats(data){
+  statsQuizCount.innerText=data.length*10;
+  totalQuizCount.innerText=data.length*10;
+  let totalAnswer=0;
+  data.forEach((ele)=>{
+    console.log(ele.correctCount);
+    totalAnswer+=Number(ele.correctCount)
+  })
+  answeredQuizCount.innerText=totalAnswer
+}
+
 const fetchData = async (endpoint) => {
   try {
     const res = await fetch(
-      `${url}/${endpoint}?sort=totalScore&order=desc&limit=3`
+      `${url}/${endpoint}?sort=totalScore&order=desc`
     );
     const data = await res.json();
+    userData = data
+    updateRank(data);
     console.log(data);
     appendLeaderboard(data);
   } catch (error) {
@@ -56,12 +101,27 @@ const fetchData = async (endpoint) => {
   }
 };
 
-const fetchRank = () => {
-  try {
-  } catch (error) {
-    console.log(error);
-  }
-};
+const fetchQuiz =async () => {
+  try{
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token")
+  const res = await fetch(`${url}/results/${userId}`,{
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":`Bearer ${token} `
+    }
+  });
+  const data = await res.json();
+  userQuiz = data;
+  updateQuizCount(data);
+  updateStats(data)
+  console.log(data);
+} catch (error) {
+  console.log(error);
+}
+}
+
+fetchQuiz()
 
 fetchData("users/user");
 
@@ -119,7 +179,9 @@ const appendLeaderboard = (data) => {
   mainLeaderboard.innerHTML = "";
   a.innerHTML = "See All Rankings";
   data.forEach((item, index) => {
-    mainLeaderboard.append(createLeaderboardCard(item, index));
+    if(index<3){
+      mainLeaderboard.append(createLeaderboardCard(item, index));
+    }
   });
 };
 /////////////////////////////badges rendering////////////
@@ -173,11 +235,11 @@ function getRequiredScore(badgeElement) {
     case "Diamond-1":
       return 2000;
     case "Ascendant-1":
-      return 50000;
+      return 5000;
     case "Immortal-1":
-      return 70000;
+      return 7000;
     case "Radiant":
-      return 98000;
+      return 9800;
     default:
       return 0;
   }

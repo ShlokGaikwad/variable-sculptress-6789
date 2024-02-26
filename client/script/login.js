@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (data.token) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.userId);
+          localStorage.setItem('totalScoreOfUser', data.totalScore);
           console.log(data.token)
           showMessage(messageWrapper, 'Login Successful', 'green');
           setTimeout(() => {
