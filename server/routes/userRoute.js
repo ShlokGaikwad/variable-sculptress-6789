@@ -50,8 +50,8 @@ userRouter.get("/user/:userId", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const { username, image ,totalScore} = user;
-    res.status(200).json({ username, image,totalScore });
+    const { username, image, totalScore } = user;
+    res.status(200).json({ username, image, totalScore });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Internal Server Error" });
@@ -253,14 +253,27 @@ userRouter.post("/login", async (req, res) => {
         res.cookie("token", token);
         const userId = user._id;
         res.cookie("userId", userId);
-
-        res.status(200).json({ msg: "Login Successfully", token, userId });
+        const { totalScore } = user;
+        res.status(200).json({ msg: "Login Successfully", token, userId , totalScore });
       } else {
         res.status(409).json({
           message: "Password incorrect! please enter correct password",
         });
       }
     });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
+userRouter.patch("/:id", uploadMiddleware("image"), async (req, res) => {
+  const { id } = req.params;
+  const { image } = req.body;
+  try {
+    const user = await UserModel.findByIdAndUpdate({ _id: id }, req.body, {
+      image: req.imagePath,
+    });
+    res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -297,5 +310,7 @@ userRouter.get("/logout", async (req, res) => {
     res.status(400).json({ message: error });
   }
 });
+
+
 
 module.exports = userRouter;
