@@ -112,6 +112,7 @@ li{
 }
 
 .login-signup>a>img{
+    border-radius: 100;
     height: 40px;
     margin-right: 10px;
 }
