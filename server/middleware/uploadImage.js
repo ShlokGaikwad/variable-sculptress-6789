@@ -37,7 +37,7 @@ const uploadMiddleware = (imageKey) => {
       // Check if req.file exists before accessing its properties
       if (req.file) {
         console.log("req.file",req.file);
-        req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g,'/');
+          req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g,'/');
       }
 
       next();
