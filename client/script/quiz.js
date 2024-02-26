@@ -548,7 +548,7 @@ async function submitResults() {
   const token = localStorage.getItem('token');
   console.log(resultData);
   try {
-    const response = await fetch(`http://localhost:3000/results/add`, {
+    const response = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/results/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
