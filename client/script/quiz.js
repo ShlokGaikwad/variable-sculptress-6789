@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-let question = [] ;
-let questionDetail = [] ;
-let incorrectAnswer = 0 ;
-=======
 let question = [];
+let rightAnswer = [] ;
 let incorrectAnswer = 0;
->>>>>>> b83bc2a3d5633a75901df5c5c2d72ea9cfb0e632
 let cnt = 0;
 let per = 0;
 red = setInterval(() => {
@@ -128,6 +123,7 @@ function arcTween(b) {
   };
 }
 document.addEventListener("DOMContentLoaded", async function () {
+  let userAnswer = Array.from({ length: 10 }, () => "-"); 
   const questionCountElement = document.getElementById("question-count");
   const questionTextElement = document.getElementById("question-text");
   const optionsContainers = Array.from({ length: 4 }, (_, index) =>
@@ -138,17 +134,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const scoreElement = document.getElementById("score");
   const progressBar = document.querySelector(".progress");
   const videoContainer = document.getElementById("video-container");
-
-  let model={
-    userId:localStorage.getItem("userId"),
-    resultTitle:"good",
-    question:[
-
-    ],
-    totalScore:0,
-    correctCount:0,
-    incorrectCount:0,
-  }
 
   let currentQuestionIndex = 0;
   let score = 0;
@@ -270,12 +255,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (optionsContainers[selectedIndex].classList.contains("locked")) {
         return;
       }
-
+    
       clearOptionSelection();
-
-      selectedOptionIndex = selectedIndex;
-      optionsContainers[selectedIndex].classList.add("selected");
-      submitButton.classList.remove("disabled");
+    
+      if (selectedIndex !== null) {
+        selectedOptionIndex = selectedIndex;
+        optionsContainers[selectedIndex].classList.add("selected");
+        submitButton.classList.remove("disabled");
+      } else {
+        // User skipped the question, store an empty string
+        userAnswer[currentQuestionIndex] = "-";      }
     }
 
     // Clear Option Selection function
@@ -299,10 +288,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       const currentQuestion = questions[currentQuestionIndex];
       console.log("currentQuestions",currentQuestion);
       console.log("Right answer",currentQuestion.options[currentQuestion.answerIndex])
+      rightAnswer.push(currentQuestion.options[currentQuestion.answerIndex]); 
   
       if (currentQuestion && selectedOptionIndex !== null) {
         const selectedOption = optionsContainers[selectedOptionIndex];
         console.log("Your Answer :",selectedOption.textContent);
+        userAnswer[currentQuestionIndex] = selectedOption.textContent; 
         selectedOption.classList.remove("selected", "correct", "wrong");
 
         if (currentQuestion.answerIndex === selectedOptionIndex) {
@@ -339,19 +330,24 @@ document.addEventListener("DOMContentLoaded", async function () {
         updateQuestion();
       } else {
         localStorage.setItem("questions", JSON.stringify(question));
+        localStorage.setItem("userAnswer",JSON.stringify(userAnswer));
+        localStorage.setItem("rightAnswer",JSON.stringify(rightAnswer));
         localStorage.setItem("incorrectAnswer", incorrectAnswer);
         localStorage.setItem("correctAnswer", score);
+
+        console.log("RightAnswer :",rightAnswer);
+        console.log("UserAnswer",userAnswer)
         // ghtyjjydydty
         endQuiz();
       }
     });
 
     // End Quiz function
-    function endQuiz() {
-      
-      window.location.href = "../pages/result.html";
-      scoreElement.textContent = score;
-    }
+function endQuiz() {
+  submitResults();
+  window.location.href = "../pages/result.html";
+  scoreElement.textContent = score;
+}
 
     updateQuestion();
   }
@@ -535,5 +531,55 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
   startQuizIfReady();
-  
+async function submitResults() {
+  const resultData = {
+    userId: localStorage.getItem("userId"),
+    resultTitle: calculateResultTitle(score),
+    questions: question,
+    answers: userAnswer,
+    correctAnswers : rightAnswer,
+    totalScore: score,
+    correctCount: localStorage.getItem("correctAnswer") / 10,
+    incorrectCount: localStorage.getItem("incorrectAnswer") / 10
+
+  };
+  console.log(typeof parseInt(localStorage.getItem("correctAnswer") / 10))
+  localStorage.setItem("resultData", JSON.stringify(resultData));
+  const token = localStorage.getItem('token');
+  console.log(resultData);
+  try {
+    const response = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/results/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(resultData),
+    });
+
+    if (response.ok) {
+      console.log('Results submitted successfully');
+    } else {
+      console.error('Failed to submit results:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error submitting results:', error);
+  }
+}
+
+// Add a function to calculate result title based on the score
+function calculateResultTitle(score) {
+  if (score === 100) {
+    return 'perfect';
+  } else if (score >= 70) {
+    return 'good';
+  } else if (score >= 50) {
+    return 'pending';
+  } else if (score >= 30) {
+    return 'average';
+  } else {
+    return 'poor';
+  }
+}
+
 });
