@@ -87,7 +87,7 @@ async function fetchUserData() {
 
     const usernameElement = document.getElementById("username");
     usernameElement.textContent = `${data.username}`;
-    userImageElement.src = `https://variable-sculptress-6789-e41a.onrender.com/${image}`;
+    userImageElement.src = `https://variable-sculptress-6789-e41a.onrender.com/${data.image}`;
     localStorage.setItem("name", username);
     localStorage.setItem("points", data.totalScore);
   } catch (error) {
