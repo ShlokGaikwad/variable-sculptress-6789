@@ -345,7 +345,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // End Quiz function
 function endQuiz() {
   submitResults();
-  // window.location.href = "../pages/result.html";
+  window.location.href = "../pages/result.html";
   scoreElement.textContent = score;
 }
 
