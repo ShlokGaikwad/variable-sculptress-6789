@@ -1,4 +1,5 @@
 const url = "https://variable-sculptress-6789-e41a.onrender.com";
+const userImageElement = document.getElementById("user-image")
 const main = document.getElementById("lang-container");
 const open = document.querySelector(".logo-menu");
 const close = document.querySelector(".logo-close");
@@ -86,6 +87,7 @@ async function fetchUserData() {
 
     const usernameElement = document.getElementById("username");
     usernameElement.textContent = `${data.username}`;
+    userImageElement.src = `https://variable-sculptress-6789-e41a.onrender.com/${image}`;
     localStorage.setItem("name", username);
     localStorage.setItem("points", data.totalScore);
   } catch (error) {
