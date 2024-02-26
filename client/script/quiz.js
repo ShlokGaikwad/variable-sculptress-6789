@@ -345,7 +345,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // End Quiz function
 function endQuiz() {
   submitResults();
-  window.location.href = "../pages/result.html";
+  // window.location.href = "../pages/result.html";
   scoreElement.textContent = score;
 }
 
@@ -565,15 +565,15 @@ async function submitResults() {
   } catch (error) {
     console.error('Error submitting results:', error);
   }
-
+  const userId = localStorage.getItem('userId');
   try {
-    const userResponse = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/users/user/${userId}`, {
+    const userResponse = await fetch(`https://variable-sculptress-6789-e41a.onrender.com/users/${userId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${localStorage.getItem('token')}`,
       },
-      body: JSON.stringify({ totalScore: parseInt(localStorage.getItem("totalScoreOfUser")) + score }),
+      body: JSON.stringify({ totalScore: Number(localStorage.getItem("totalScoreOfUser")) + Number(score) }),
     });
 
     if (userResponse.ok) {
@@ -584,6 +584,7 @@ async function submitResults() {
   } catch (userError) {
     console.error('Error updating user totalScore:', userError);
   }
+  localStorage.setItem("totalScoreOfUser", Number(localStorage.getItem("totalScoreOfUser")) + Number(score)   );
 
 }
 
