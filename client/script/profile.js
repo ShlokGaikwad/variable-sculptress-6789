@@ -11,7 +11,6 @@ const rank = document.getElementById("rank");
 var a = document.createElement("a");
 a.href = "#";
 
-
 const url = "https://variable-sculptress-6789-e41a.onrender.com";
 
 username.innerHTML = localStorage.getItem("name");
@@ -57,13 +56,12 @@ const fetchData = async (endpoint) => {
   }
 };
 
-const fetchRank=()=>{
-    try {
-        
-    } catch (error) {
-        console.log(error);
-    }
-}
+const fetchRank = () => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 fetchData("users/user");
 
@@ -121,11 +119,11 @@ const appendLeaderboard = (data) => {
   mainLeaderboard.innerHTML = "";
   a.innerHTML = "See All Rankings";
   data.forEach((item, index) => {
-      mainLeaderboard.append(createLeaderboardCard(item, index));
-    });
+    mainLeaderboard.append(createLeaderboardCard(item, index));
+  });
 };
 /////////////////////////////badges rendering////////////
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const url = "https://variable-sculptress-6789-e41a.onrender.com";
 
   const userId = localStorage.getItem("userId");
@@ -133,16 +131,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const userData = await fetchUserData(userId);
 
   const initialScore = userData.totalScore;
-  const badgesArray = document.querySelectorAll('.badges .badge');
+  const badgesArray = document.querySelectorAll(" .badge ");
 
-  badgesArray.forEach(async badge => {
-    const badgeCover = badge.querySelector('.cover');
-    const requiredScore = getRequiredScore(badge); 
+  badgesArray.forEach(async (badge) => {
+    const badgeCover = badge.querySelector(".cover");
+    const requiredScore = getRequiredScore(badge);
     if (initialScore >= requiredScore) {
-      badgeCover.classList.remove('cover');
-    } else {
-      badgeCover.classList.add('cover');
+      badgeCover.classList.add('hid');
     }
+    // else {
+    //   badgeCover.classList.add('hid');
+    // }
   });
 });
 
@@ -157,28 +156,29 @@ async function fetchUserData(userId) {
 }
 
 function getRequiredScore(badgeElement) {
-  const badgeImage = badgeElement.querySelector('img');
+  const badgeImage = badgeElement.querySelector("img");
   const badgeType = badgeImage.alt;
 
   switch (badgeType) {
-    case 'Iron-1':
+    case "Iron-1":
       return 100;
-    case 'Bronze-1':
-      return 200; 
-    case 'Silver-1':
-      return 400; 
-    case 'Gold-1':
-      return 450; 
-    case 'Platinum-1':
-      return 1000; 
-    case 'Diamond-1':
-      return 2000; 
-    case 'Ascendant-1':
-      return 50000; 
-    case 'Radiant':
+    case "Bronze-1":
+      return 200;
+    case "Silver-1":
+      return 400;
+    case "Gold-1":
+      return 450;
+    case "Platinum-1":
+      return 1000;
+    case "Diamond-1":
+      return 2000;
+    case "Ascendant-1":
+      return 50000;
+    case "Immortal-1":
+      return 70000;
+    case "Radiant":
       return 98000;
     default:
-      return 0; 
+      return 0;
   }
 }
-
