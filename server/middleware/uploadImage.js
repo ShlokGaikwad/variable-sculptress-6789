@@ -9,6 +9,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const fileName = `${Date.now()}-${file.originalname}`;
+    console.log(`File name is : ${file.originalname}`);
     cb(null, fileName);
   },
 });
@@ -35,7 +36,8 @@ const uploadMiddleware = (imageKey) => {
 
       // Check if req.file exists before accessing its properties
       if (req.file) {
-        req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g, '/');
+        console.log("req.file",req.file);
+        req.imagePath = path.join('uploads', req.file.filename).replace(/\\/g,'/');
       }
 
       next();

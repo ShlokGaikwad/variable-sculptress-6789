@@ -268,18 +268,11 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.patch("/:id", uploadMiddleware("image"), async (req, res) => {
   const { id } = req.params;
+  const  {image }  = req.body;
+  console.log(`Image path is : ${req.imagePath} , id is : ${id} and the image is ${image}`)
   try {
-    const user = await UserModel.findByIdAndUpdate(
-      { _id: id },
-      { $set: { image: req.imagePath } },
-      { new: true } 
-    );
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.status(200).json({ message: "User updated successfully", user });
+    const user = await UserModel.findByIdAndUpdate(id, { image: req.imagePath });
+    res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
     res.status(400).json({ error });
   }
