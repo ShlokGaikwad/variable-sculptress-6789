@@ -253,8 +253,8 @@ userRouter.post("/login", async (req, res) => {
         res.cookie("token", token);
         const userId = user._id;
         res.cookie("userId", userId);
-
-        res.status(200).json({ msg: "Login Successfully", token, userId });
+        const { totalScore } = user;
+        res.status(200).json({ msg: "Login Successfully", token, userId , totalScore });
       } else {
         res.status(409).json({
           message: "Password incorrect! please enter correct password",
@@ -297,5 +297,7 @@ userRouter.get("/logout", async (req, res) => {
     res.status(400).json({ message: error });
   }
 });
+
+
 
 module.exports = userRouter;
