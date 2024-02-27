@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Quiz</title>
+    <link rel="stylesheet" href="../styles/style.css"> <!-- Add your stylesheet link -->
+</head>
+<body>
+    <div id="login-container">
+        <h1>Welcome, Username!</h1>
+        <button onclick="createRoom()">Create Room</button>
+        <button onclick="joinRoom()">Join Room</button>
+    </div>
+
+    <div id="room-creation-container" style="display: none;">
+        <h2>Create a Room</h2>
+        <input type="text" id="room-name" placeholder="Enter Room Name">
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div id="room-join-container" style="display: none;">
+        <h2>Join a Room</h2>
+        <input type="text" id="join-room-code" placeholder="Enter Room Code">
+        <button onclick="joinQuiz()">Join Quiz</button>
+    </div>
+
+    <div id="quiz-container" style="display: none;">
+        <!-- Add quiz elements here -->
+        <h2>Multiplayer Quiz</h2>
+        <div id="question-container">
+            <!-- Display current question -->
+        </div>
+        <div id="options-container">
+            <!-- Display answer options -->
+        </div>
+        <button onclick="submitAnswer()">Submit Answer</button>
+    </div>
+
+    <script src="../scripts/socket.io.js"></script> <!-- Include Socket.IO library -->
+    <script src="../scripts/multiplayer.js"></script> <!-- Add your multiplayer logic script -->
+</body>
+</html>
