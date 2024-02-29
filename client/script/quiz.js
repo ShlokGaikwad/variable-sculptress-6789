@@ -1,6 +1,17 @@
+
 const BASE_URL = 'http://localhost:3000';
 
 document.addEventListener("DOMContentLoaded", async function () {
+  let model = {
+    resultTitle : "quiz",
+    userId : localStorage.getItem("userId"),
+    questions : [],
+    answers : [] ,
+    correctAnswer :[],
+    totalScore : 0,
+    correctCount : 0,
+    incorrectCount : 0
+  }
 
   const codeContainer = document.getElementById("codeContainer");
   let question = [];
@@ -68,6 +79,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   nextButton.addEventListener("click", handleNextButtonClick);
 
   function handleNextButtonClick() {
+    
     clearOptionSelection();
     resetOptionsContainers();
     codeContainer.innerHTML = "";
@@ -96,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function endQuiz() {
     submitResults();
-    // window.location.href = "../pages/result.html";
+    window.location.href = "../pages/result.html";
     scoreElement.textContent = score;
   }
 
@@ -245,6 +257,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       totalScore: score,
       correctCount: localStorage.getItem("correctAnswer") / 10,
       incorrectCount: localStorage.getItem("incorrectAnswer") / 10,
+      languageName : localStorage.getItem("lang"),
     };
     console.log(typeof parseInt(localStorage.getItem("correctAnswer") / 10));
     localStorage.setItem("resultData", JSON.stringify(resultData));

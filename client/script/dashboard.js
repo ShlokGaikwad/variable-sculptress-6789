@@ -1,9 +1,11 @@
+const baseUrl = 'http://localhost:3000';
+
 const open = document.querySelector(".logo-menu");
 const close = document.querySelector(".logo-close");
 const menu = document.querySelector(".menu");
 const loginSignup = document.getElementById("resume-button-1");
 let proceedButton = document.getElementById("proceed-button");
-const username = document.getElementById("username")
+const username = document.getElementById("username");
 
 function toggleMenu() {
     open.classList.toggle("hid");
@@ -12,29 +14,28 @@ function toggleMenu() {
 }
 
 async function fetchUserData() {
-  try {
+    try {
+        const response = await fetch(`${baseUrl}/users/user/${userId}`);
+        const data = await response.json();
 
-      const response = await fetch(`http://localhost:3000/users/user/${userId}`); 
-      const data = await response.json();
+        const username = data.username;
+        const image = data.image;
 
-      const username = data.username;
-      const image = data.image; 
+        const usernameElement = document.getElementById('username');
+        const userImageElement = document.getElementById('user-image');
 
-      const usernameElement = document.getElementById('username');
-      const userImageElement = document.getElementById('user-image');
-
-      usernameElement.textContent = username;
-      userImageElement.src = `http://localhost:3000/${image}`;
-  } catch (error) {
-      console.error('Error fetching user data:', error);
-  }
+        usernameElement.textContent = username;
+        userImageElement.src = `${baseUrl}/${image}`;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
 }
+
 const userId = localStorage.getItem('userId');
 fetchUserData();
 
-
 function fetchData() {
-    fetch('http://localhost:3000/languages')
+    fetch(`${baseUrl}/languages`)
         .then(response => response.json())
         .then(data => {
             const langContainer = document.getElementById('lang-container');
@@ -42,24 +43,23 @@ function fetchData() {
             data.forEach(language => {
                 const langCard = document.createElement('div');
                 langCard.className = 'lang-card';
-                // console.log(language)
-                langCard.dataset.id=language._id
+                langCard.dataset.id = language._id;
 
-                langCard.addEventListener("click",()=>{
+                langCard.addEventListener("click", () => {
                     putLangIntoLocal(language.languageTitle);
-                    proceedButton.disabled=false;
+                    proceedButton.disabled = false;
                     proceedButton.classList.remove("disabled");
-                    let allCards= document.querySelectorAll(".lang-card");
+                    let allCards = document.querySelectorAll(".lang-card");
                     langCard.classList.add('selected');
-                    allCards.forEach((otherCard)=>{
-                        if(otherCard.dataset.id!=language._id){
+                    allCards.forEach((otherCard) => {
+                        if (otherCard.dataset.id != language._id) {
                             otherCard.classList.remove('selected');
                         }
-                    })
-                })
+                    });
+                });
 
                 const img = document.createElement('img');
-                img.src = `http://localhost:3000/${language.languageImage}`;
+                img.src = `${baseUrl}/${language.languageImage}`;
                 langCard.appendChild(img);
 
                 const p = document.createElement('p');
@@ -68,13 +68,12 @@ function fetchData() {
 
                 langContainer.appendChild(langCard);
             });
-
         })
         .catch(error => console.error('Error fetching data:', error));
 }
 
-function putLangIntoLocal(lang){
-    localStorage.setItem("lang",lang);
+function putLangIntoLocal(lang) {
+    localStorage.setItem("lang", lang);
 }
 
 open.addEventListener("click", () => {
@@ -86,18 +85,14 @@ close.addEventListener("click", () => {
 });
 
 proceedButton.addEventListener("click", () => {
-//   toggleMenu();
-    if(!proceedButton.classList.contains("disabled")){
-        window.location.href="../pages/quiz.html"
+    if (!proceedButton.classList.contains("disabled")) {
+        window.location.href = `quiz.html`;
     }
 });
-
-//iffe to disable the button on each refresh
 
 fetchData();
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to calculate relative time
     function timeAgo(date) {
         const currentDate = new Date();
         const previousDate = new Date(date);
@@ -118,51 +113,42 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Get user ID and token from local storage
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
-
-    // Get DOM elements
     const timeContainer = document.getElementById('timeContainer');
     const recentQuizElement = document.getElementById('recentquiz');
     const seeResultsButton = document.getElementById('see-results');
 
     if (userId && token) {
-        // Fetch user history data
-        fetch(`http://localhost:3000/history/user/${userId}`, {
+        fetch(`${baseUrl}/results/${userId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`,
             }
         })
-        .then(response => response.json())
-        .then(historyData => {
-            console.log('History Data:', historyData);
+            .then(response => response.json())
+            .then(historyData => {
+                console.log('History Data:', historyData);
 
-            if (historyData.length > 0) {
-                const latestHistory = historyData[historyData.length - 1];
-                
-                // Format and display the recent quiz date
-                const date = new Date(latestHistory.date);
-                const formattedDate = date.toLocaleDateString();
-                timeContainer.textContent = timeAgo(latestHistory.date);
+                if (historyData.length > 0) {
+                    const latestHistory = historyData[historyData.length - 1];
+                    const date = new Date(latestHistory.date);
+                    const language = latestHistory.languageName;
+                    const formattedDate = timeAgo(latestHistory.date);
+                    timeContainer.textContent = `${language} Quiz ${formattedDate}`
 
-                // Add event listener to see results button
-                seeResultsButton.addEventListener('click', function () {
-                    console.log('See Results button clicked');
-                    window.location.href = 'results.html';
-                });
-
-            } else {
-                console.log('No history data found for the user');
-                timeContainer.textContent = "No recent data found";
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching history data:', error);
-            // Add error handling logic
-        });
+                    seeResultsButton.addEventListener('click', function () {
+                        console.log('See Results button clicked');
+                        window.location.href = `${baseUrl}/pages/history.html`;
+                    });
+                } else {
+                    console.log('No history data found for the user');
+                    timeContainer.textContent = "No recent data found";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching history data:', error);
+            });
     } else {
         console.log('User ID or token not found in local storage');
-        // Add logic for when user ID or token is not found
     }
 });

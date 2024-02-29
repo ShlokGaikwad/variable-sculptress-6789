@@ -12,14 +12,8 @@ async function fetchData(endpoint, token) {
       return data;
     } catch (error) {
       console.error(`Error fetching data from ${endpoint}:`, error);
-      throw error; // Rethrow the error to handle it at the caller's level
+      throw error;
     }
-  }
-  
-  // Function to fetch histories
-  async function fetchHistories(userId, token) {
-    const endpoint = `http://localhost:3000/history/user/${userId}`;
-    return fetchData(endpoint, token);
   }
   
   // Function to fetch result details based on resultId
@@ -28,7 +22,7 @@ async function fetchData(endpoint, token) {
     return fetchData(endpoint, token);
   }
   
-  // Main function to orchestrate fetching and processing data
+  // Main function to fetching and processing data
   async function main() {
     try {
       let userId = localStorage.getItem("userId");

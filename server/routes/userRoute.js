@@ -268,10 +268,10 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.patch("/:id", uploadMiddleware("image"), async (req, res) => {
   const { id } = req.params;
-  const  {image }  = req.body;
+  const  {image , totalScore}  = req.body;
   console.log(`Image path is : ${req.imagePath} , id is : ${id} and the image is ${image}`)
   try {
-    const user = await UserModel.findByIdAndUpdate(id, { image: req.imagePath });
+    const user = await UserModel.findByIdAndUpdate(id, { image: req.imagePath , totalScore });
     res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
     res.status(400).json({ error });

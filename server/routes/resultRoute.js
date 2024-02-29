@@ -119,7 +119,7 @@ router.get('/', auth,access("Admin" , "User") , async (req, res) => {
  */
 router.post('/add', auth,access("Admin" , "User") , async (req, res) => {
   try {
-    const {questions, totalScore, correctCount, incorrectCount } = req.body;
+    const {questions, totalScore, correctCount, incorrectCount , languageName } = req.body;
     const userId = req.id; // From jwt auth middleware
     console.log(userId)
     console.log("sfgsf");
