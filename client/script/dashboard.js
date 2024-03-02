@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     seeResultsButton.addEventListener('click', function () {
                         console.log('See Results button clicked');
-                        window.location.href = `${baseUrl}/pages/history.html`;
+                        window.location.href = `history.html`;
                     });
                 } else {
                     console.log('No history data found for the user');
@@ -151,4 +151,8 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.log('User ID or token not found in local storage');
     }
+});
+
+document.getElementById('multiplayer-mode').addEventListener('click', function() {
+    window.location.href = 'multiplayer.html';
 });

@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.userId);
           localStorage.setItem('totalScoreOfUser', data.totalScore);
+          localStorage.setItem('name', data.username);
+          localStorage.setItem('userProfileImage', data.image);
           console.log(data.token)
           showMessage(messageWrapper, 'Login Successful', 'green');
           setTimeout(() => {

@@ -14,6 +14,7 @@ const logoutButton = document.getElementById("logout-button");
 const statsQuizCount = document.getElementById("stats-question-count");
 const totalQuizCount =document.getElementById("total-questions-count");
 const answeredQuizCount = document.getElementById("total-answered")
+const userProfileImage = document.getElementById("userProfileImage")
 let userData;
 let userQuiz;
 var a = document.createElement("a");
@@ -22,7 +23,9 @@ a.href = "#";
 const url = "http://localhost:3000";
 
 username.innerHTML = localStorage.getItem("name");
-point.innerHTML = localStorage.getItem("points");
+point.innerHTML = localStorage.getItem("totalScoreOfUser");
+userProfileImage.src = `${url}/${localStorage.getItem("userProfileImage")}`;
+
 
 stats.addEventListener("click", () => {
   leaderboard.classList.remove("selected");
@@ -56,6 +59,7 @@ backButton.addEventListener("click",()=>{
 })
 
 logoutButton.addEventListener("click",()=>{
+  localStorage.clear();
   window.location.href="../index.html"
 })
 
@@ -100,6 +104,14 @@ const fetchData = async (endpoint) => {
     console.log(error);
   }
 };
+
+function updateUsername(data) {
+  // Assuming data.username exists, update the username element
+  if (data.username) {
+    username.innerText = data.username;
+  }
+
+}
 
 const fetchQuiz =async () => {
   try{
@@ -244,3 +256,84 @@ function getRequiredScore(badgeElement) {
       return 0;
   }
 }
+
+const uploadModal = document.getElementById('uploadModal');
+const profilePicInput = document.getElementById('profilePicInput');
+const hiddenFileInput = document.getElementById('hiddenFileInput');
+
+function openModal() {
+  uploadModal.style.display = 'block';
+}
+
+// Function to close the modal
+function closeModal() {
+  uploadModal.style.display = 'none';
+}
+
+// Function to handle profile picture upload
+async function uploadProfilePicture() {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  const formData = new FormData();
+  formData.append('profilePic', profilePicInput.files[0]);
+
+  try {
+    const response = await fetch(`${url}/api/upload`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    // Check if the upload was successful and a path is returned
+    if (response.ok && data.filePath) {
+      // Now, update the user's profile picture path using the PATCH request
+      const updatedData = {
+        image: data.filePath,
+      };
+    
+      const patchResponse = await fetch(`${url}/users/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedData),
+      });
+    
+      const patchData = await patchResponse.json();
+    
+      const imagePath = patchData.user.image;
+    
+      if (imagePath !== undefined) {
+        const formattedImagePath = `${url}/${imagePath}`
+        userProfileImage.src = formattedImagePath;
+        localStorage.setItem('userProfileImage', imagePath);
+
+    
+        console.log('Response from PATCH endpoint:', patchData.message);
+    
+        console.log(patchData.message);
+    
+        closeModal();
+      } else {
+        console.error('Error: Image path not found in patchData');
+      }
+    } else {
+      console.error('Error uploading profile picture:', data.message);
+    }
+  } catch (error) {
+    console.error('Error uploading profile picture:', error);
+  }
+}
+
+// Event listener to open the modal when the user profile image is clicked
+userProfileImage.addEventListener('click', function () {
+  openModal();
+});
+
+userProfileImage.style.borderRadius = '100px';

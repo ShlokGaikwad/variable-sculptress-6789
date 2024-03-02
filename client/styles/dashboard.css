@@ -296,7 +296,26 @@ li{
     align-items: center;
     flex-wrap: wrap;
 }
-.lang-card{
+
+.lang-card {
+    position: relative;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: 100px;
+    filter: brightness(90%) saturate(80%) hue-rotate(250deg);
+}
+
+.lang-card:hover {
+    filter: grayscale(0%) hue-rotate(0deg); /* Remove filter on hover */
+}
+
+
+/* .lang-card{
     position: relative;
     margin-bottom: 20px;
     margin-right: 20px;
@@ -321,7 +340,7 @@ li{
 
 .lang-card:hover{
     filter: grayscale(0%);
-}
+} */
 
 .lang-card>img{
     height: 100px;
@@ -345,7 +364,7 @@ li{
     background-color: white;
     font-weight: 500;
     transition: all 0.3s ease-in-out;
-}
+} 
 
 .proceed-button:hover{
     scale: 1.05;

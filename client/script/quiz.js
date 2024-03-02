@@ -108,8 +108,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function endQuiz() {
     submitResults();
-    window.location.href = "../pages/result.html";
     scoreElement.textContent = score;
+    setTimeout(function () {
+      window.location.href = "../pages/result.html";
+    }, 500);   
   }
 
   function resetTimer() {

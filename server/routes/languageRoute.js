@@ -92,6 +92,24 @@ router.get("/:languageId", async (req, res) => {
   }
 });
 
+router.get('/filter/:languageTitle', async (req, res) => {
+  const { languageTitle } = req.params;
+
+  try {
+    const languages = await Language.find({ languageTitle });
+
+    if (!languages || languages.length === 0) {
+      return res.status(404).json({ error: 'No languages found' });
+    }
+
+    res.status(200).json(languages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 /**
  * @swagger
  * /languages/add:

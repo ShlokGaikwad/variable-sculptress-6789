@@ -1,56 +1,76 @@
-// Function to fetch data from a specified endpoint with a bearer token
-async function fetchData(endpoint, token) {
+const apiUrl = 'http://localhost:3000/results';
+const userId = localStorage.getItem("userId");
+const historyContainer = document.querySelector('.history-container');
+const token = localStorage.getItem('token');
+
+document.addEventListener('DOMContentLoaded', async function () {
     try {
-      const response = await fetch(endpoint, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // Add other headers if needed
-        },
-      });
-  
-      const data = await response.json();
-      return data;
+        const response = await fetch(`${apiUrl}/${userId}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+            await Promise.all(data.map(async (result) => {
+                try {
+          
+                    const languageResponse = await fetch(`http://localhost:3000/languages/filter/${encodeURIComponent(result.languageName)}`);
+                    const languageData = await languageResponse.json();
+
+                    console.log('Language Data:', languageData);
+
+                    const historyItem = document.createElement('div');
+                    historyItem.classList.add('history-item');
+
+                    const quizContainer = document.createElement('div');
+                    quizContainer.classList.add('quiz-cont');
+
+                    const img = document.createElement('img');
+                    img.src = `http://localhost:3000/${languageData[0].languageImage}`;
+                    img.alt = languageData[0].languageTitle;
+
+                    quizContainer.appendChild(img);
+
+                    const p = document.createElement('p');
+                    p.id = 'quiz-name';
+                    p.textContent = result.languageName || '';
+                    quizContainer.appendChild(p);
+
+                    historyItem.appendChild(quizContainer);
+
+                    const totalScore = document.createElement('div');
+                    totalScore.textContent = `Total Score : ${result.totalScore || 0}`;
+                    totalScore.classList.add('total-score');
+                    historyItem.appendChild(totalScore);
+
+                    const correctAnswer = document.createElement('div');
+                    correctAnswer.textContent = `Correct Answer : ${result.correctCount || 0}`;
+                    correctAnswer.classList.add('correct-answer');
+                    historyItem.appendChild(correctAnswer);
+
+                    const incorrectAnswer = document.createElement('div');
+                    incorrectAnswer.textContent = `Incorrect Answer : ${result.incorrectCount || 0}`;
+                    incorrectAnswer.classList.add('incorrect-answer');
+                    historyItem.appendChild(incorrectAnswer);
+
+                    // Add date div
+                    const dateDiv = document.createElement('div');
+                    dateDiv.textContent = `Date : ${new Date(result.date).toLocaleString()}`;
+                    dateDiv.classList.add('date');
+                    historyItem.appendChild(dateDiv);
+
+                    historyContainer.appendChild(historyItem);
+                } catch (error) {
+                    console.error('Error processing result:', error);
+                }
+            }));
+        } else {
+            console.error('Invalid data structure - expected an array.');
+        }
     } catch (error) {
-      console.error(`Error fetching data from ${endpoint}:`, error);
-      throw error;
+        console.error('Error fetching history data:', error);
     }
-  }
-  
-  // Function to fetch result details based on resultId
-  async function fetchResultDetails(resultId, token) {
-    const endpoint = `http://localhost:3000/results/${resultId}`;
-    return fetchData(endpoint, token);
-  }
-  
-  // Main function to fetching and processing data
-  async function main() {
-    try {
-      let userId = localStorage.getItem("userId");
-      let token = localStorage.getItem("token");
-      console.log(userId);
-  
-      if (!userId || !token) {
-        console.error('userId or token is not defined.');
-        return;
-      }
-  
-      // Fetch histories with bearer token
-      const histories = await fetchHistories(userId, token);
-      console.log('Histories:', histories);
-  
-      // Example: Fetch details for the first result in histories with bearer token
-      if (histories && histories.length > 0) {
-        const firstResultId = histories[0].resultId;
-        const resultDetails = await fetchResultDetails(firstResultId, token);
-        console.log('Result Details:', resultDetails);
-      } else {
-        console.log('No histories available.');
-      }
-    } catch (error) {
-      console.error('Error in main function:', error);
-    }
-  }
-  
-  // Call the main function
-  main();
-  
+});

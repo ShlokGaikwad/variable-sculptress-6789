@@ -1,43 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplayer Quiz</title>
-    <link rel="stylesheet" href="../styles/style.css"> <!-- Add your stylesheet link -->
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="../styles/quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+
+    <style>
+        /* Add your custom styles here if needed */
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="login-container">
-        <h1>Welcome, Username!</h1>
-        <button onclick="createRoom()">Create Room</button>
-        <button onclick="joinRoom()">Join Room</button>
-    </div>
-
-    <div id="room-creation-container" style="display: none;">
-        <h2>Create a Room</h2>
-        <input type="text" id="room-name" placeholder="Enter Room Name">
-        <button onclick="startQuiz()">Start Quiz</button>
-    </div>
-
-    <div id="room-join-container" style="display: none;">
-        <h2>Join a Room</h2>
-        <input type="text" id="join-room-code" placeholder="Enter Room Code">
-        <button onclick="joinQuiz()">Join Quiz</button>
-    </div>
-
-    <div id="quiz-container" style="display: none;">
-        <!-- Add quiz elements here -->
-        <h2>Multiplayer Quiz</h2>
-        <div id="question-container">
-            <!-- Display current question -->
+    <section class="room-setup" id="room-setup-section">
+        <h2>Join or Create a Room</h2>
+        <input type="text" id="username" placeholder="Enter your username">
+        <input type="text" id="roomName" placeholder="Enter room name">
+        <button id="joinRoomButton">Join Room</button>
+        <button id="createRoomButton">Create Room</button>
+    </section>
+    <section class="quiz" id="quiz-section">
+        <div class="top-part">
+            <div class="tile user-tile">
+                <span id="user-count">1</span><img src="../assets/images/avatar.png" />
+            </div>
+            <div class="tile score-tile"><img src="../assets/images/puzzle.png" /><span id="score">0</span></div>
         </div>
-        <div id="options-container">
-            <!-- Display answer options -->
+        <div class="bottom-part">
+            <div class="container"></div>
+            <div class="question-cont">
+                <h5> QUESTION <span id="question-count">1</span> OF 10 </h5>
+                <p id="question-text"></p>
+                <div id="codeContainer" class="hid"></div>
+                <div class="options" id="options-container1"></div>
+                <div class="options" id="options-container2"></div>
+                <div class="options" id="options-container3"></div>
+                <div class="options" id="options-container4"></div>
+            </div>
+            <div class="buttons">
+                <button class="submit-button disabled" id="submit-button">Submit</button>
+                <button class="next-button" id="next-button">Next</button>
+            </div>
+            <!-- Add a div to display other users' scores -->
+            <div id="other-users-scores"></div>
         </div>
-        <button onclick="submitAnswer()">Submit Answer</button>
-    </div>
-
-    <script src="../scripts/socket.io.js"></script> <!-- Include Socket.IO library -->
-    <script src="../scripts/multiplayer.js"></script> <!-- Add your multiplayer logic script -->
+    </section>
+    <!-- Include your multiplayer.js script at the end to ensure DOM elements are loaded -->
+    <script src="../script/multiplayer.js"></script>
+    <!-- Prism script and language components for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-java.min.js"></script>
 </body>
+
 </html>

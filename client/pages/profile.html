@@ -7,8 +7,62 @@
     <title>Document</title>
     <link rel="stylesheet" href="../styles/profile.css">
 </head>
+<style>
+    #uploadModal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 400px;
+  background-color: #e6e6fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.modal-content {
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#profilePicInput {
+  margin: 15px 0;
+}
+
+button {
+  background-color: #9370db; 
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #6a5acd; 
+}
+</style>
 <body>
+    <!-- Add this updated modal structure to your HTML file -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h2>Upload Profile Picture</h2>
+          <input type="file" id="profilePicInput" accept="image/*">
+          <button onclick="uploadProfilePicture()">Upload</button>
+        </div>
+      </div>
+  
     <section class="top-section">
         <img id="back-button" src="../assets/images/arrow-left-white.png" alt="back-button">
         <h1>Profile</h1>
@@ -16,7 +70,8 @@
         <!-- <img src="../assets/images/setting-white.png" alt="setting"> -->
     </section>
     <section class="bottom-section">
-        <img src="../assets/images/boy.png" alt="">
+        <input type="file" id="hiddenFileInput" style="display: none">
+        <img id="userProfileImage" alt="User Profile Image"> 
         <h1 id="username">Yuvraj Singh</h1>
         <div class="user-info">
             <div>
