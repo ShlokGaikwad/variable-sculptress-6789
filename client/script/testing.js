@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const socket = io("https://variable-sculptress-6789-e41a.onrender.com", {
+  const socket = io("http://localhost:3000", {
     transports: ["websocket"],
   });
   const backButton =  document.getElementById("back-button");
   backButton.addEventListener("click",()=>{
       window.history.back();
   })
+
+  // https://variable-sculptress-6789-e41a.onrender.com
 
   const roomSetupSection = document.getElementById("room-setup-section");
   const quizSection = document.getElementById("quiz-section");
@@ -14,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const joinRoomButton = document.getElementById("joinRoomButton");
   const createRoomButton = document.getElementById("createRoomButton");
   const userCountElement = document.getElementById("user-count");
-  const scoreElement = document.getElementById("score");
   const questionCountElement = document.getElementById("question-count");
   const questionTextElement = document.getElementById("question-text");
   const codeContainer = document.getElementById("codeContainer");
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentUser = {};
   let quizQuestions = [];
   let roomName;
+  let count = 1;
 
   joinRoomButton.addEventListener("click", () => {
     const username = usernameInput.value;
@@ -81,12 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
     disableButton(nextButton);
   });
 
-  // socket.on("answerResult", ({ correct, userScore }) => {
-  //   displayAnswerResult(correct, userScore);
-  // });
+  socket.on("gameResult", ({ message }) => {
+    // Display the victory or loss message to the user
+    console.log(message);
+    // You can use this message to update your UI or show a modal
+  });
 
-  socket.on("gameOver", () => {
-    displayGameOver();
+  socket.on("gameOver", ({ finalScores }) => {
+    displayGameOver(finalScores);
   });
 
   function hideRoomSetup() {
@@ -103,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function displayQuestion(question) {
-    questionCountElement.textContent = quizQuestions.length;
+    questionCountElement.textContent = count++;
     questionTextElement.textContent = question.description;
 
     if (question.code) {
@@ -162,19 +166,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function displayAnswerResult(correct, userScore) {
-    if (correct) {
-      showMessage("Correct!", "green");
-    } else {
-      showMessage("Incorrect", "red");
-    }
-    currentUser.score = userScore;
-    scoreElement.textContent = userScore;
-    enableButton(nextButton);
-  }
-
-  function displayGameOver() {
-    showMessage("Game Over", "blue");
+  function displayGameOver(finalScores) {
+    const winner = finalScores[0].isWinner ? finalScores[0].username : null;
+    const message = winner ? `${winner} wins! 🎉` : "It's a tie!";
+    showMessage(message, "blue");
     disableOptions();
     disableButton(submitButton);
     disableButton(nextButton);

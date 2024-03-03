@@ -13,7 +13,6 @@ const languageRoutes = require("./routes/languageRoute");
 const getImage = require("./routes/getImageRoute");
 const uploadRoute = require("./routes/upload");
 const recordingRoutes = require("./routes/recordingRoutes");
-
 const { getQuizQuestions } = require("./quizUtils");
 require("dotenv").config();
 
@@ -21,27 +20,13 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-// {
-//   cors: {
-//     origin: "https://variable-sculptress-6789-e41a.onrender.com",
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   },
-// }
-
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  })
-);
-
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json(), cookieParser());
 
 const rooms = {};
 const users = {};
-
 const quizQuestions = [];
+let currentQuestionIndex = 0;
 
 async function initializeQuizQuestions() {
   try {
@@ -51,7 +36,6 @@ async function initializeQuizQuestions() {
     console.error("Error fetching quiz questions:", error);
   }
 }
-let currentQuestionIndex = 0; // Initialize the index to the first question
 
 initializeQuizQuestions();
 
@@ -59,97 +43,113 @@ io.on("connection", (socket) => {
   console.log("A user connected");
 
   socket.on("joinRoom", ({ username, roomName }) => {
-    console.log("line 58", roomName);
     socket.join(roomName);
-
     users[socket.id] = { username, roomName, score: 0 };
-
     updateRoomUserCount(roomName);
-    console.log("log", getUsersInRoom(roomName).length);
-    if (getUsersInRoom(roomName).length === 2) {
-      const firstQuestion = quizQuestions[0];
-      console.log("Emitting startQuiz event:", firstQuestion);
 
-      io.to(roomName).emit("startQuiz", firstQuestion);
+    if (getUsersInRoom(roomName).length === 2) {
+      startQuiz(roomName);
     }
   });
 
   socket.on("createRoom", ({ username, roomName }) => {
     socket.join(roomName);
-
     users[socket.id] = { username, roomName, score: 0 };
-
     updateRoomUserCount(roomName);
   });
 
   socket.on("submitAnswer", ({ roomName, answer }) => {
     const user = users[socket.id];
-    console.log("lione 84", roomName);
-
+  
     if (user) {
-      const currentQuestion = quizQuestions[currentQuestionIndex];
-
-      console.log("User:", user);
-      if (answer === currentQuestion.answerIndex) {
-        user.score += 1;
-      }
-
-      console.log("User Score:", user.score);
-
-      io.to(roomName).emit("answerResult", {
-        correct: answer === currentQuestion.answerIndex,
-        userScore: user.score,
-      });
-
-      if (
-        currentQuestionIndex + 1 < quizQuestions.length &&
-        currentQuestionIndex + 1 < 10
-      ) {
-        currentQuestionIndex += 1;
-        console.log("Moving to Next Question. Index:", currentQuestionIndex);
-
-        const nextQuestion = quizQuestions[currentQuestionIndex];
-
-        socket.emit("question", nextQuestion);
-        console.log(
-          "Next question emitted to:",
-          socket.id,
-          quizQuestions.length
-        );
-        // socket.emit("question",nextQuestion);
-        console.log("event triggered", roomName);
-      } else {
-        console.log("Game Over");
-        io.to(roomName).emit("gameOver");
-      }
+      handleAnswer(socket, user, roomName, answer);
     } else {
       console.error("User not found:", socket.id);
     }
   });
 
   socket.on("disconnect", () => {
-    const user = users[socket.id];
-
-    if (user) {
-      const roomName = user.roomName;
-      delete users[socket.id];
-      updateRoomUserCount(roomName);
-    }
-
-    console.log("A user disconnected");
+    handleDisconnect(socket.id);
   });
 });
+
+function startQuiz(roomName) {
+  const firstQuestion = quizQuestions[0];
+  io.to(roomName).emit("startQuiz", firstQuestion);
+}
+
+function handleAnswer(socket, user, roomName, answer) {
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+
+  if (answer === currentQuestion.answerIndex) {
+    user.score += 1;
+  }
+
+  socket.emit("answerResult", {
+    correct: answer === currentQuestion.answerIndex,
+    userScore: user.score,
+  });
+
+  if (currentQuestionIndex + 1 < quizQuestions.length) {
+    currentQuestionIndex += 1;
+    const nextQuestion = quizQuestions[currentQuestionIndex];
+
+    socket.emit("question", nextQuestion); // Emit only to the socket that submitted the answer
+
+    if (currentQuestionIndex === quizQuestions.length - 1) {
+      endQuiz(io, roomName);
+    }
+  } else {
+    endQuiz(io, roomName);
+  }
+}
+
+function endQuiz(io, roomName) {
+  const finalScores = calculateFinalScores(roomName);
+  io.to(roomName).emit("gameOver", { finalScores });
+
+  // Notify users individually about the game result
+  finalScores.forEach((user) => {
+    const message = user.isWinner ? "Congratulations! You won!" : "Oops! You lost!";
+    io.to(user.socketId).emit("gameResult", { message, score: user.score });
+  });
+
+  // Reset the quiz state
+  currentQuestionIndex = 0;
+}
+
+function handleDisconnect(socketId) {
+  const user = users[socketId];
+
+  if (user) {
+    const roomName = user.roomName;
+    delete users[socketId];
+    updateRoomUserCount(roomName);
+  }
+
+  console.log("A user disconnected");
+}
 
 function updateRoomUserCount(roomName) {
   io.to(roomName).emit("updateUserCount", getUsersInRoom(roomName).length);
 }
 
 function getUsersInRoom(roomName) {
-  console.log(
-    "no of people in room",
-    Object.values(users).filter((user) => user.roomName === roomName)
-  );
   return Object.values(users).filter((user) => user.roomName === roomName);
+}
+
+function calculateFinalScores(roomName) {
+  const usersInRoom = getUsersInRoom(roomName);
+  const sortedUsers = usersInRoom.sort((a, b) => b.score - a.score);
+
+  const finalScores = sortedUsers.map((user, index) => ({
+    username: user.username,
+    score: user.score,
+    isWinner: index === 0,
+    socketId: user.socketId, // Include the socketId in the finalScores
+  }));
+
+  return finalScores;
 }
 
 app.use("/api", recordingRoutes);
