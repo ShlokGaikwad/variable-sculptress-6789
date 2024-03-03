@@ -185,10 +185,16 @@ li{
     margin-right: 20px;
 }
 
+.recent-cont>div>p{
+    margin-top: 10px;
+    font-size:14px;
+    color: var(--grey-one);
+}
+
 #see-results{
     padding: 10px;
     border-radius: 200px;
-    border: 1px solid var(--royal-violet);
+    border: 3px solid var(--royal-violet);
     background: var(--royal-violet);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -238,7 +244,7 @@ li{
     letter-spacing: 0.7px;
 }
 
-.multi>button{
+.multi>a>button{
     margin-top: 20px;
     padding: 10px;
     border-radius: 20px;

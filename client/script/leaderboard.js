@@ -1,6 +1,12 @@
 const url = "https://variable-sculptress-6789-e41a.onrender.com";
 const main = document.getElementById("leaderboard");
 const mainLeaderboard = document.getElementById("leader-container");
+const backButton = document.getElementById("back-button");
+
+backButton.addEventListener("click",()=>{
+  window.history.back();
+})
+
 const fetchData = async () => {
   try {
     let res = await fetch(`${url}/users/user?sort=totalScore&order=desc`);
@@ -59,6 +65,10 @@ const createLeaderboardCard = (item, index) => {
     leaderCard.append(medal);
   } else if (index + 1 === 3) {
     medal.src = "../assets/medals/bronze-medal.png";
+    leaderCard.append(medal);
+  }
+  else{
+    medal.src = "../assets/medals/normal-medal.png";
     leaderCard.append(medal);
   }
 
