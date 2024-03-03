@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
     disableButton(nextButton);
   });
 
-  socket.on("answerResult", ({ correct, userScore }) => {
-    displayAnswerResult(correct, userScore);
-  });
+  // socket.on("answerResult", ({ correct, userScore }) => {
+  //   displayAnswerResult(correct, userScore);
+  // });
 
   socket.on("gameOver", () => {
     displayGameOver();
