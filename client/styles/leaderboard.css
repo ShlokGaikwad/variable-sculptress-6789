@@ -45,6 +45,7 @@ body{
     align-items: center;
     flex-direction: column;
     min-height: fit-content;
+    position: relative;
 }
 
 .leaderboard>h1{
@@ -66,6 +67,7 @@ body{
     background-color: white;
     min-width: 600px;
     transition: all 0.2s ease;
+    flex-wrap: wrap;
 }
 
 .leader-card:hover{
@@ -100,6 +102,14 @@ body{
     font-size: 16px;
 }
 
+.back-button{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 50px;
+    cursor: pointer;
+}
+
 @media (max-width:950px){
     /* .leaderboard{
         width: 100%;
@@ -109,6 +119,7 @@ body{
   @media (max-width:650px){
     .leader-card{
       min-width:unset ;
+      padding: 10px;
     }
     .leader-details>p{
         font-size: unset;

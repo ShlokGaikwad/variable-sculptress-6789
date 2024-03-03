@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     const timeContainer = document.getElementById('timeContainer');
-    const recentQuizElement = document.getElementById('recentquiz');
+    const recentQuiz = document.getElementById('recentquiz');
     const seeResultsButton = document.getElementById('see-results');
 
     if (userId && token) {
@@ -134,7 +134,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     const date = new Date(latestHistory.date);
                     const language = latestHistory.languageName;
                     const formattedDate = timeAgo(latestHistory.date);
-                    timeContainer.textContent = `${language} Quiz ${formattedDate}`
+                    recentQuiz.textContent=`${language} Quiz`
+                    timeContainer.textContent = `${formattedDate}`
 
                     seeResultsButton.addEventListener('click', function () {
                         console.log('See Results button clicked');

@@ -201,6 +201,7 @@ body.dark .nav-links li a:hover .link-name {
   width: 40px;
   border-radius: 25px;
   background-color: var(--toggle-color);
+  display: hidden;
 }
 .switch:before {
   content: "";

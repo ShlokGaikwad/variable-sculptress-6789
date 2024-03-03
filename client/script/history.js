@@ -1,4 +1,4 @@
-const apiUrl = 'https://variable-sculptress-6789-e41a.onrender.com/results';
+const apiUrl = 'https://variable-sculptress-6789-e41a.onrender.com';
 const userId = localStorage.getItem("userId");
 const historyContainer = document.querySelector('.history-container');
 const token = localStorage.getItem('token');
@@ -10,19 +10,19 @@ backButton.addEventListener("click",()=>{
 
 document.addEventListener('DOMContentLoaded', async function () {
     try {
-        const response = await fetch(`${apiUrl}/${userId}`, {
+        const response = await fetch(`${apiUrl}/results/${userId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`,
             }
         });
 
         const data = await response.json();
-
+        console.log(data);
         if (Array.isArray(data)) {
             await Promise.all(data.map(async (result) => {
                 try {
           
-                    const languageResponse = await fetch(`http://localhost:3000/languages/filter/${encodeURIComponent(result.languageName)}`);
+                    const languageResponse = await fetch(`${apiUrl}/languages/filter/${encodeURIComponent(result.languageName)}`);
                     const languageData = await languageResponse.json();
 
                     console.log('Language Data:', languageData);
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     quizContainer.classList.add('quiz-cont');
 
                     const img = document.createElement('img');
-                    img.src = `http://localhost:3000/${languageData[0].languageImage}`;
+                    img.src = `${apiUrl}/${languageData[0].languageImage}`;
                     img.alt = languageData[0].languageTitle;
 
                     quizContainer.appendChild(img);
