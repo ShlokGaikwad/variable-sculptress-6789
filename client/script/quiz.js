@@ -422,6 +422,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       recordingPath: resultDataz.recordingPath,
     };
     console.log(resultData);
+    localStorage.setItem("resultData", JSON.stringify(resultData));
 
     const token = localStorage.getItem("token");
     try {
