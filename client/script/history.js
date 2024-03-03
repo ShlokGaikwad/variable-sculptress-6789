@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/results';
+const apiUrl = 'https://variable-sculptress-6789-e41a.onrender.com/results';
 const userId = localStorage.getItem("userId");
 const historyContainer = document.querySelector('.history-container');
 const token = localStorage.getItem('token');

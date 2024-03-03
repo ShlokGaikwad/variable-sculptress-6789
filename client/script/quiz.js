@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://variable-sculptress-6789-e41a.onrender.com";
 
 document.addEventListener("DOMContentLoaded", async function () {
   let model = {
@@ -450,7 +450,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
       const userResponse = await fetch(
-        `http://localhost:3000/users/${userId}`,
+        `https://variable-sculptress-6789-e41a.onrender.com/users/${userId}`,
         {
           method: "PATCH",
           headers: {

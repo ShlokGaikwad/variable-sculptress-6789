@@ -21,7 +21,7 @@
   const server = http.createServer(app);
   const io = socketIO(server, {
     cors: {
-      origin: "http://localhost:5550",
+      origin: "https://variable-sculptress-6789-e41a.onrender.com",
       methods: ["GET", "POST"],
       credentials: true
     }

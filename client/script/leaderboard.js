@@ -3,9 +3,9 @@ const main = document.getElementById("leaderboard");
 const mainLeaderboard = document.getElementById("leader-container");
 const fetchData = async () => {
   try {
-    let res = await fetch(`http://localhost:3000/users/user?sort=totalScore&order=desc`);
+    let res = await fetch(`${url}/users/user?sort=totalScore&order=desc`);
     let data = await res.json();
-    appendLeaderboard(data)
+    appendLeaderboard(data);
     console.log(data);
     // appendScore(data);
   } catch (error) {
@@ -70,7 +70,7 @@ const appendLeaderboard = (data) => {
   // a.innerHTML = "See All Rankings";
   data.forEach((item, index) => {
     // if(index<3){
-      mainLeaderboard.append(createLeaderboardCard(item, index));
+    mainLeaderboard.append(createLeaderboardCard(item, index));
     // }
   });
 };
@@ -132,8 +132,8 @@ close.addEventListener("click", () => {
 });
 
 proceedButton.addEventListener("click", () => {
-//   toggleMenu();
-  if(!proceedButton.classList.contains("disabled")){
-      window.location.href="../pages/quiz.html"
+  //   toggleMenu();
+  if (!proceedButton.classList.contains("disabled")) {
+    window.location.href = "../pages/quiz.html";
   }
 });
