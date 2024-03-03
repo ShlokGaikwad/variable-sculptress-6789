@@ -1,17 +1,16 @@
-
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = "http://localhost:3000";
 
 document.addEventListener("DOMContentLoaded", async function () {
   let model = {
-    resultTitle : "quiz",
-    userId : localStorage.getItem("userId"),
-    questions : [],
-    answers : [] ,
-    correctAnswer :[],
-    totalScore : 0,
-    correctCount : 0,
-    incorrectCount : 0
-  }
+    resultTitle: "quiz",
+    userId: localStorage.getItem("userId"),
+    questions: [],
+    answers: [],
+    correctAnswer: [],
+    totalScore: 0,
+    correctCount: 0,
+    incorrectCount: 0,
+  };
 
   let resultData = {
     userId: localStorage.getItem("userId"),
@@ -22,9 +21,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     totalScore: 0,
     correctCount: 0,
     incorrectCount: 0,
-    recordingPath: null // Initialize recordingPath to null
+    recordingPath: null, // Initialize recordingPath to null
   };
-  
+
   const codeContainer = document.getElementById("codeContainer");
   let question = [];
   let currentQuestionIndex = 0;
@@ -91,7 +90,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   nextButton.addEventListener("click", handleNextButtonClick);
 
   function handleNextButtonClick() {
-    
     clearOptionSelection();
     resetOptionsContainers();
     codeContainer.innerHTML = "";
@@ -102,9 +100,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (currentQuestionIndex < Math.min(10, questions.length)) {
       updateQuestion();
     } else {
-
-    saveQuizResults();
-    endQuiz();
+      saveQuizResults();
+      endQuiz();
     }
   }
   function updateProgressBar() {
@@ -121,41 +118,41 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function stopRecording() {
     try {
-      console.log('Stopping recording...');
-      const mediaRecorderJSON = localStorage.getItem('mediaRecorder');
-      
+      console.log("Stopping recording...");
+      const mediaRecorderJSON = localStorage.getItem("mediaRecorder");
+
       if (mediaRecorderJSON) {
         const mediaRecorderData = JSON.parse(mediaRecorderJSON);
-        
+
         if (mediaRecorderData) {
           const mediaRecorder = new MediaRecorder(new MediaStream());
           Object.assign(mediaRecorder, mediaRecorderData);
-  
-          if (mediaRecorder.state !== 'inactive') {
+
+          if (mediaRecorder.state !== "inactive") {
             mediaRecorder.stop();
-            console.log('Recording stopped.');
+            console.log("Recording stopped.");
           } else {
-            console.warn('MediaRecorder is already in an inactive state.');
+            console.warn("MediaRecorder is already in an inactive state.");
           }
         } else {
-          console.warn('Failed to parse MediaRecorder data from localStorage.');
+          console.warn("Failed to parse MediaRecorder data from localStorage.");
         }
       } else {
-        console.warn('No MediaRecorder data found in localStorage.');
+        console.warn("No MediaRecorder data found in localStorage.");
       }
-  
-      localStorage.removeItem('mediaRecorder');
+
+      localStorage.removeItem("mediaRecorder");
     } catch (error) {
-      console.error('Error stopping recording:', error);
+      console.error("Error stopping recording:", error);
     }
   }
-  
+
   function endQuiz() {
     stopRecording();
     scoreElement.textContent = score;
-    // setTimeout(function () {
-    //   window.location.href = "../pages/result.html";
-    // }, 500);
+    setTimeout(function () {
+      window.location.href = "../pages/result.html";
+    }, 500);
   }
 
   function resetTimer() {
@@ -189,7 +186,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const preElement = document.createElement("pre");
     const codeElement = document.createElement("code");
     // const languageClass = `language-${language.toLowerCase()}`;
-    const languageClass = `language-java`
+    const languageClass = `language-java`;
 
     codeElement.className = languageClass;
     codeElement.textContent = code;
@@ -250,11 +247,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.log("isScreenShareReady:", isScreenShareReady);
 
       if (isScreenShareReady) {
-        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+        });
         const mediaRecord = new MediaRecorder(stream);
         mediaRecorder = mediaRecord;
         const recordedChunks = [];
-        localStorage.setItem('mediaRecorder', JSON.stringify(mediaRecord));
+        localStorage.setItem("mediaRecorder", JSON.stringify(mediaRecord));
         console.log(mediaRecord);
 
         mediaRecord.ondataavailable = (event) => {
@@ -264,12 +263,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         };
 
         mediaRecord.onstop = () => {
-          const recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
+          const recordedBlob = new Blob(recordedChunks, { type: "video/webm" });
           postRecordingToServer(recordedBlob, (recordingPath) => {
             resultData.recordingPath = recordingPath;
             submitResults(resultData);
           });
-
         };
 
         mediaRecord.start();
@@ -282,71 +280,77 @@ document.addEventListener("DOMContentLoaded", async function () {
         await update();
         console.log("Update successful.");
       } else {
-        alert("Screen share canceled. Please reload the page when you are ready.");
+        alert(
+          "Screen share canceled. Please reload the page when you are ready."
+        );
         location.reload();
       }
     } catch (error) {
-      console.error('Error starting recording:', error);
-      alert("Error starting recording. Please allow access and reload the page to start the quiz.");
+      console.error("Error starting recording:", error);
+      alert(
+        "Error starting recording. Please allow access and reload the page to start the quiz."
+      );
       location.reload();
     }
   }
 
-async function checkScreenShareReadiness() {
-  console.log("Entering checkScreenShareReadiness");
-  return new Promise(function (resolve) {
-    try {
-      const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
+  async function checkScreenShareReadiness() {
+    console.log("Entering checkScreenShareReadiness");
+    return new Promise(function (resolve) {
+      try {
+        const isReady = confirm(
+          "Are you ready to share your screen? Click OK when ready."
+        );
 
-      if (isReady || isReady === undefined) {
-        console.log("Resolved with true in checkScreenShareReadiness");
-        resolve(true);
-      } else {
-        console.log("Resolved with false in checkScreenShareReadiness");
+        if (isReady || isReady === undefined) {
+          console.log("Resolved with true in checkScreenShareReadiness");
+          resolve(true);
+        } else {
+          console.log("Resolved with false in checkScreenShareReadiness");
+          resolve(false);
+        }
+      } catch (error) {
+        console.error("Error in checkScreenShareReadiness:", error);
+        console.log(
+          "Resolved with false in checkScreenShareReadiness (error case)"
+        );
         resolve(false);
       }
-    } catch (error) {
-      console.error("Error in checkScreenShareReadiness:", error);
-      console.log("Resolved with false in checkScreenShareReadiness (error case)");
-      resolve(false);
-    }
-  });
-}
+    });
+  }
 
-  
   function stopRecording() {
-
     console.log(mediaRecorder);
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
       mediaRecorder.stop();
-      console.log('Recording stopped.');
+      console.log("Recording stopped.");
     }
-    localStorage.removeItem('mediaRecorder');
+    localStorage.removeItem("mediaRecorder");
   }
   let recordPath;
 
   async function postRecordingToServer(blob, callback) {
     try {
       const formData = new FormData();
-      formData.append('recording', blob, 'quiz_recording.webm');
+      formData.append("recording", blob, "quiz_recording.webm");
       const response = await fetch(`${BASE_URL}/api/save-recording`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
         recordPath = data.recordingPath;
-        console.log('Recording uploaded:', data);
+        console.log("Recording uploaded:", data);
 
-        if (typeof callback === 'function') {
+        if (typeof callback === "function") {
           callback(recordPath);
         }
       } else {
-        console.error('Failed to upload recording:', response.statusText);
+        console.error("Failed to upload recording:", response.statusText);
       }
     } catch (error) {
-      console.error('Error uploading recording:', error);
+      console.error("Error uploading recording:", error);
     }
   }
 
@@ -414,56 +418,66 @@ async function checkScreenShareReadiness() {
       totalScore: score,
       correctCount: localStorage.getItem("correctAnswer") / 10,
       incorrectCount: localStorage.getItem("incorrectAnswer") / 10,
-      languageName : localStorage.getItem("lang"),
+      languageName: localStorage.getItem("lang"),
       recordingPath: resultDataz.recordingPath,
     };
     console.log(resultData);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
       const response = await fetch(`${BASE_URL}/results/add`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(resultData),
       });
 
       if (response.ok) {
-        console.log('Results submitted successfully');
+        console.log("Results submitted successfully");
       } else {
-        console.error('Failed to submit results:', response.statusText);
+        console.error("Failed to submit results:", response.statusText);
       }
     } catch (error) {
-      console.error('Error submitting results:', error);
+      console.error("Error submitting results:", error);
     }
 
-    const userId = localStorage.getItem('userId');
-    const tot = Number(localStorage.getItem("totalScoreOfUser")) + Number(score);
+    const userId = localStorage.getItem("userId");
+    const tot =
+      Number(localStorage.getItem("totalScoreOfUser")) + Number(score);
     console.log(tot);
 
     try {
-      const userResponse = await fetch(`http://localhost:3000/users/${userId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({ totalScore: tot }),
-      });
+      const userResponse = await fetch(
+        `http://localhost:3000/users/${userId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ totalScore: tot }),
+        }
+      );
 
       if (userResponse.ok) {
-        console.log('User totalScore updated successfully');
+        console.log("User totalScore updated successfully");
       } else {
-        console.error('Failed to update user totalScore:', userResponse.statusText);
+        console.error(
+          "Failed to update user totalScore:",
+          userResponse.statusText
+        );
       }
     } catch (userError) {
-      console.error('Error updating user totalScore:', userError);
+      console.error("Error updating user totalScore:", userError);
     }
 
-    localStorage.setItem("totalScoreOfUser", Number(localStorage.getItem("totalScoreOfUser")) + Number(score));
-  } 
+    localStorage.setItem(
+      "totalScoreOfUser",
+      Number(localStorage.getItem("totalScoreOfUser")) + Number(score)
+    );
+  }
 
   function saveQuizResults() {
     localStorage.setItem("questions", JSON.stringify(question));
@@ -499,8 +513,10 @@ async function checkScreenShareReadiness() {
     console.log("Entering askForScreenShareReady");
     return new Promise(function (resolve) {
       try {
-        const isReady = confirm("Are you ready to share your screen? Click OK when ready.");
-  
+        const isReady = confirm(
+          "Are you ready to share your screen? Click OK when ready."
+        );
+
         if (isReady || isReady === undefined) {
           console.log("Resolved with true in askForScreenShareReady");
           resolve(true);
@@ -510,12 +526,14 @@ async function checkScreenShareReadiness() {
         }
       } catch (error) {
         console.error("Error in askForScreenShareReady:", error);
-        console.log("Resolved with false in askForScreenShareReady (error case)");
+        console.log(
+          "Resolved with false in askForScreenShareReady (error case)"
+        );
         resolve(false);
       }
     });
   }
-  
+
   function accessCamera() {
     return new Promise(function (resolve, reject) {
       navigator.mediaDevices
@@ -524,13 +542,12 @@ async function checkScreenShareReadiness() {
           const videoElement = document.createElement("video");
           videoElement.srcObject = stream;
           videoElement.play();
-          
+
           // Append the video element to the video-container
           const videoContainer = document.getElementById("video-container");
           videoContainer.appendChild(videoElement);
           makeDraggable(videoContainer);
 
-  
           resolve();
         })
         .catch(function (error) {
@@ -539,7 +556,6 @@ async function checkScreenShareReadiness() {
         });
     });
   }
-  
 
   // Function to access screen share
   function accessScreenShare() {
@@ -556,38 +572,36 @@ async function checkScreenShareReadiness() {
         });
     });
   }
-  
+
   if (
     navigator.mediaDevices &&
     navigator.mediaDevices.getUserMedia &&
     navigator.mediaDevices.getDisplayMedia
   ) {
     // Ask for screen share readiness
-    
   }
   // Check if getUserMedia and screen sharing are supported
 
-  
   // Make Draggable function
   function makeDraggable(element) {
     let isDragging = false;
     let offsetX, offsetY;
-  
+
     element.classList.add("draggable");
-  
+
     element.addEventListener("mousedown", function (e) {
       isDragging = true;
       offsetX = e.clientX - element.getBoundingClientRect().left;
       offsetY = e.clientY - element.getBoundingClientRect().top;
     });
-  
+
     document.addEventListener("mousemove", function (e) {
       if (isDragging) {
         element.style.left = e.clientX - offsetX + "px";
         element.style.top = e.clientY - offsetY + "px";
       }
     });
-  
+
     document.addEventListener("mouseup", function () {
       isDragging = false;
     });
