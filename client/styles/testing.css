@@ -55,6 +55,7 @@ body{
     padding:10px;
     border-radius: 10px;
     margin-right: 10px;
+    margin-bottom: 20px;
 }
 
 .room-setup>button{
@@ -67,6 +68,7 @@ body{
     font-weight: 600;
     cursor: pointer;
     transition : all 0.2s ease;
+    margin-bottom: 20px;
 }
 
 .room-setup>button:hover{
