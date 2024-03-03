@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const socket = io("http://localhost:3000", {
+  const socket = io("https://variable-sculptress-6789-e41a.onrender.com", {
     transports: ["websocket"],
   });
   const backButton =  document.getElementById("back-button");

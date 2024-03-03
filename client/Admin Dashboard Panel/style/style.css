@@ -502,3 +502,79 @@ nav.close ~ .dashboard .top {
     width: 100%;
   }
 }
+
+
+
+
+/* ////////////////////////history css copy paste ////////////////// */
+
+
+
+.hid{
+  display: none;
+}
+
+.history{
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin-top: 100px;
+  border-radius: 30px 20px 0px 0px;
+  background-color: white;
+  height: 100%;
+}
+
+.history>h1{
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.history-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%; 
+}
+
+.history-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 20px;
+  background-color: white;
+  width: 80%;
+  font-size: 20px;
+  color: var(--grey-two);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.history-item>div>span{
+  color: var(--grey-one);
+}
+
+.history-item:hover{
+  scale:1.05;
+}
+
+.quiz-cont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: var(--grey-one);
+}
+
+.quiz-cont>img{
+  height: 50px;
+}
+

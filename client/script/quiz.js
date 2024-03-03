@@ -1,4 +1,4 @@
-const BASE_URL = "https://variable-sculptress-6789-e41a.onrender.com";
+const BASE_URL = "http://localhost:3000";
 
 document.addEventListener("DOMContentLoaded", async function () {
   let model = {
