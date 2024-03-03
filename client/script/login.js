@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password: password,
     };
 
-    fetch('https://variable-sculptress-6789-e41a.onrender.com/users/login', {
+    fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.userId);
           localStorage.setItem('totalScoreOfUser', data.totalScore);
+          localStorage.setItem('name', data.username);
+          localStorage.setItem('userProfileImage', data.image);
           console.log(data.token)
           showMessage(messageWrapper, 'Login Successful', 'green');
           setTimeout(() => {
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // }
   
     try {
-      const response = await fetch('https://variable-sculptress-6789-e41a.onrender.com/users/signup', {
+      const response = await fetch('http://localhost:3000/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

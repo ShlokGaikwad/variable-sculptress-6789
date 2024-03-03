@@ -1,3 +1,5 @@
+const url = "http://localhost:3000";
+
 const open = document.querySelector(".logo-menu");
 const close = document.querySelector(".logo-close");
 const menu = document.querySelector(".menu");
@@ -14,6 +16,7 @@ close.addEventListener("click", () => {
   menu.classList.toggle("hid");
   open.classList.toggle("hid");
 });
+
 
 loginSignup.addEventListener("click", () => {
   window.location.href = "./pages/login.html";
