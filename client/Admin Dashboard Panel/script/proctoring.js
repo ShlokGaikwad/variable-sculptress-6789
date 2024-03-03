@@ -2,6 +2,7 @@ const apiUrl = 'https://variable-sculptress-6789-e41a.onrender.com';
 const userId = localStorage.getItem("userId");
 const historyContainer = document.querySelector('.history-container');
 const token = localStorage.getItem('token');
+const dashCont = document.getElementById('dash-cont')
 let users;
 
 async function fetchUsers(){
@@ -10,10 +11,11 @@ async function fetchUsers(){
         const data= await res.json();
         users=data;
         users.forEach((obj)=>{
-            console.log(obj._id);
-            fetchResults(obj._id);
+            // console.log(obj._id);
+            dashCont.innerHTML=""
+            fetchResults(obj._id,obj.username);
         })
-        // console.log(data);
+        console.log(data);
     }
     catch(err){
         console.log(err);
@@ -23,7 +25,7 @@ async function fetchUsers(){
 fetchUsers();
 
 
-async function fetchResults(id){
+async function fetchResults(id,username){
     try{
         const res = await fetch(`${apiUrl}/results/${id}`,{
             headers:{
@@ -31,12 +33,78 @@ async function fetchResults(id){
             }
         });
         const data= await res.json();
-        console.log(id);
+        data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        appendToDom(data,username)
         console.log(data);
     }
     catch(err){
         console.log(err);
     }
+}
+
+function appendToDom(data,username){
+    const userCont = document.createElement("div")
+    userCont.className="user-cont"
+    const userName = document.createElement("h1");
+    userName.innerText=`${username}'s video`
+    const historyContainer = document.createElement("div");
+    historyContainer.className="history-container"
+    data.forEach((item)=>{
+        historyContainer.append(createCard(item))
+    })
+    userCont.append(userName,historyContainer)
+    dashCont.append(userCont)
+}
+
+function createCard(data){
+    const historyItem = document.createElement("div");
+    historyItem.className="history-item"
+   
+    const quizCont = document.createElement("div")
+    quizCont.className="quiz-cont"
+
+    // const quizContImg = document.createElement("img")
+    // quizContImg.src=`${apiUrl}`
+
+    const quizContName = document.createElement("p")
+    quizContName.innerText=data.languageName
+
+    const totalScore = document.createElement("div")
+    totalScore.innerText="Total Score : "
+
+    const totalScoreSpan = document.createElement("span")
+    totalScoreSpan.innerText=data.totalScore
+    totalScoreSpan.className="total-score"
+
+    const correctScore = document.createElement("div")
+    correctScore.innerText="Correct Answer : "
+
+    const correctScoreSpan = document.createElement("span")
+    correctScoreSpan.innerText=data.correctCount
+    correctScoreSpan.className="correct-answer"
+
+    const incorrectScore = document.createElement("div")
+    incorrectScore.innerText="Incorrect Answer : "
+
+    const incorrectScoreSpan = document.createElement("span")
+    incorrectScoreSpan.innerText=data.incorrectCount
+    incorrectScoreSpan.className="incorrect-answer"
+
+    const procVideo = document.createElement("video")
+    procVideo.className="hid"
+    procVideo.src=`../../../server${data.recordingPath}`
+    procVideo.controls=true
+
+    historyItem.addEventListener("click",()=>{
+      procVideo.classList.toggle("hid")  
+    })
+
+    historyItem.append(quizCont,totalScore,correctScore,incorrectScore,procVideo)
+    quizCont.append(quizContName)
+    totalScore.append(totalScoreSpan);
+    correctScore.append(correctScoreSpan)
+    incorrectScore.append(incorrectScoreSpan)
+    return historyItem
 }
 
 // document.addEventListener('DOMContentLoaded', async function () {
