@@ -150,9 +150,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   function endQuiz() {
     stopRecording();
     scoreElement.textContent = score;
-    setTimeout(function () {
-      window.location.href = "../pages/result.html";
-    }, 500);
+    
   }
 
   function resetTimer() {
@@ -440,6 +438,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       } else {
         console.error("Failed to submit results:", response.statusText);
       }
+      setTimeout(function () {
+        window.location.href = "../pages/result.html";
+      }, 500);
     } catch (error) {
       console.error("Error submitting results:", error);
     }
