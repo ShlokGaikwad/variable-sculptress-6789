@@ -42,18 +42,18 @@ const access = require("../middleware/access.middleware");
  *             example:
  *               msg: Internal Server Error
  */
-router.get('/:userId', auth, access("Admin" , "User") ,async (req, res) => {
+
+router.get('/:userId' ,async (req, res) => {
   try {
-    const userId = req.id;
+    const userId = req.params;
     console.log(userId)
-    const results = await Result.find({ userId });
+    const results = await Result.find( userId );
     res.status(200).json(results);
   } catch (error) {
     console.error(error);
     res.status(500).json({ msg: 'Server Error' });
   }
 });
-
 
 /**
  * @swagger
@@ -78,15 +78,15 @@ router.get('/:userId', auth, access("Admin" , "User") ,async (req, res) => {
  *             example:
  *               msg: Internal Server Error
  */
-router.get('/', auth,access("Admin" , "User") , async (req, res) => {
-    try {
-      const results = await Result.find({ });
-      res.status(200).json(results);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ msg: 'Server Error' });
-    }
-  });
+// router.get('/', auth,access("Admin" , "User") , async (req, res) => {
+//     try {
+//       const results = await Result.find({ });
+//       res.status(200).json(results);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ msg: 'Server Error' });
+//     }
+//   });
 
 // Route to add result
 
