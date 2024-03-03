@@ -67,6 +67,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                     dateDiv.classList.add('date');
                     historyItem.appendChild(dateDiv);
 
+                    historyItem.addEventListener('click', () => {
+                        localStorage.setItem('resultData', JSON.stringify(result));
+                        console.log(localStorage.getItem('resultData'));
+                        window.location.href = 'review.html';
+                    });
+
                     historyContainer.appendChild(historyItem);
                 } catch (error) {
                     console.error('Error processing result:', error);

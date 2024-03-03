@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const correctCount = resultData.correctCount;
 
         const quizName = document.getElementById("quiz-name");
-        quizName.innerText=localStorage.getItem("lang");
+        quizName.innerText= resultData.languageName;
 
         // Update the correct-answer-count element
         const correctAnswerCountElement = document.getElementById("correct-answer-count");
