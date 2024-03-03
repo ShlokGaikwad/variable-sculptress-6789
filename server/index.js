@@ -96,15 +96,12 @@ io.on("connection", (socket) => {
 
       console.log("User Score:", user.score);
 
-      io.to(roomName).emit("answerResult", {
+      socket.emit("answerResult", {
         correct: answer === currentQuestion.answerIndex,
         userScore: user.score,
       });
 
-      if (
-        currentQuestionIndex + 1 < quizQuestions.length &&
-        currentQuestionIndex + 1 < 10
-      ) {
+      if (currentQuestionIndex + 1 < quizQuestions.length - 8) {
         currentQuestionIndex += 1;
         console.log("Moving to Next Question. Index:", currentQuestionIndex);
 
@@ -116,11 +113,16 @@ io.on("connection", (socket) => {
           socket.id,
           quizQuestions.length
         );
+        if (currentQuestionIndex === quizQuestions.length - 9) {
+          // Notify both players that the quiz is over
+          io.to(roomName).emit("quizOver");
+      }
         // socket.emit("question",nextQuestion);
         console.log("event triggered", roomName);
       } else {
+        console.log("Next question emitted to:");
         console.log("Game Over");
-        io.to(roomName).emit("gameOver");
+        socket.emit("gameOver");
       }
     } else {
       console.error("User not found:", socket.id);

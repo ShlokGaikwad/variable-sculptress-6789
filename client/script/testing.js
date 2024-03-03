@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const socket = io("https://variable-sculptress-6789-e41a.onrender.com", {
+  const socket = io("http://localhost:3000", {
     transports: ["websocket"],
   });
+
+  // https://variable-sculptress-6789-e41a.onrender.com
 
   const roomSetupSection = document.getElementById("room-setup-section");
   const quizSection = document.getElementById("quiz-section");
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentUser = {};
   let quizQuestions = [];
   let roomName;
+  let count = 1;
 
   joinRoomButton.addEventListener("click", () => {
     const username = usernameInput.value;
@@ -77,9 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
     disableButton(nextButton);
   });
 
-  // socket.on("answerResult", ({ correct, userScore }) => {
-  //   displayAnswerResult(correct, userScore);
-  // });
+  socket.on("answerResult", ({ correct, userScore }) => {
+    // displayAnswerResult(correct, userScore);
+  });
 
   socket.on("gameOver", () => {
     displayGameOver();
@@ -99,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function displayQuestion(question) {
-    questionCountElement.textContent = quizQuestions.length;
+    questionCountElement.textContent = count++;
     questionTextElement.textContent = question.description;
 
     if (question.code) {
