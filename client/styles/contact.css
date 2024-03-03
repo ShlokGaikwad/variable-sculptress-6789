@@ -257,20 +257,12 @@ li {
   }
 
   /* =====footer start===== */
-  .footer-bg-one {
-    display: none;
-  }
-
-  .footer-bg-two {
-    display: none;
-  }
-
   /* =====footer end===== */
 }
 
 /* ============================================================================= */
 #contact {
-  background-color: #c4d0fb;
+  /* background-color: #c4d0fb; */
   padding: 8% 4.5%;
   height: 100%;
 }
@@ -366,6 +358,7 @@ li {
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .touch>h3 {

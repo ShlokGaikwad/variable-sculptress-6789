@@ -25,8 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
         correctAnswerCount2Element.textContent = correctCount;
   
         const questionsDiv = document.getElementById("questions-div");
-  
-        for (let i = 0; i < resultData.questions.length; i++) {
+        const maxResultsToShow = 10;  // Set the maximum number of results to display
+
+        for (let i = 0; i < Math.min(resultData.questions.length, maxResultsToShow); i++) {
           const cardContainer = document.createElement("div");
           cardContainer.classList.add("question-set");
   
