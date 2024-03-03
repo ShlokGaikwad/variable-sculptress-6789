@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--=== Coding by CodingLab | www.codinglabweb.com === -->
 <html lang="en">
 
 <head>
@@ -9,7 +8,9 @@
 
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="../style/style.css">
-    <link rel="stylesheet" href="../style/question.css">
+    <link rel="stylesheet" href="../style/proctoring.css">
+
+
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
@@ -28,15 +29,15 @@
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="index.html">
+                <li><a href="./index.html">
                         <i class="uil uil-estate"></i>
                         <span class="link-name">Dashboard</span>
                     </a></li>
-                    <li><a href="./analytics.html">
+                <li><a href="./analytics.html">
                         <i class="uil uil-chart"></i>
                         <span class="link-name">Analytics</span>
                     </a></li>
-                <li><a href="./proctoring.html">
+                <li><a href="#">
                         <i class="uil uil-eye"></i>
                         <span class="link-name">Proctoring</span>
                     </a></li>
@@ -44,6 +45,7 @@
                         <i class="uil uil-x-add"></i>
                         <span class="link-name">Add Questions</span>
                     </a></li>
+                
             </ul>
 
             <ul class="logout-mode">
@@ -66,54 +68,52 @@
         </div>
     </nav>
 
+
     <section class="dashboard">
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
-
-            <!-- <div class="search-box">
-                <i class="uil uil-search"></i>
-                <input type="text" placeholder="Search here...">
-            </div> -->
-
-            <img src="../images/profile.jpg" alt="">
         </div>
 
-        <div class="dash-content">
-            <div class="overview">
-                <div class="title">
-                    <i class="uil uil-tachometer-fast-alt"></i>
-                    <span class="text">Dashboard</span>
-                </div>
-
-                <div class="boxes">
-                    <div class="box box1">
-                        <i class="uil uil-file-check"></i>
-                        <span class="text">Total Questions</span>
-                        <span id="total-question" class="number">50,120</span>
+        <div id="dash-cont" class="dash-content">
+            <div class="user-cont">
+                <h1 id="username">Shlok's recording</h1>
+                <div class="history-container">
+                    <div class="history-item">
+                      <div class="quiz-cont">
+                        <img src="../../assets/images/1708689487281-java.png" alt="java">
+                        <p id="quiz-name"> </p>
+                      </div>
+                      <div>Total Score : <span class="total-score">20</span></div>
+                      <div>Correct Answer : <span class="correct-answer">20</span></div>
+                      <div>Incorrect Answer : <span class="incorrect-answer">20</span></div>
+                      <video src="../../../server/recordings/recording_1709478471845.webm" controls/>
                     </div>
-                    <div class="box box2">
-                        <i class="uil uil-user"></i>
-                        <span class="text">Total Users</span>
-                        <span class="number">20,120</span>
+                    <div class="history-item">
+                      <div class="quiz-cont">
+                        <img src="../../assets/images/1708689487281-java.png" alt="java">
+                        <p id="quiz-name"> Java</p>
+                      </div>
+                      <div>Total Score : <span class="total-score">20</span></div>
+                      <div>Correct Answer : <span class="correct-answer">20</span></div>
+                      <div>Incorrect Answer : <span class="incorrect-answer">20</span></div>
                     </div>
-                    <div class="box box3">
-                        <i class="uil uil-play"></i>
-                        <span class="text">Total Quiz Played</span>
-                        <span class="number">10,120</span>
+                    <div class="history-item">
+                      <div class="quiz-cont">
+                        <img src="../../assets/images/1708689487281-java.png" alt="java">
+                        <p id="quiz-name"> Java</p>
+                      </div>
+                      <div>Total Score : <span class="total-score">20</span></div>
+                      <div>Correct Answer : <span class="correct-answer">20</span></div>
+                      <div>Incorrect Answer : <span class="incorrect-answer">20</span></div>
                     </div>
                 </div>
             </div>
-
-            <div class="activity">
-                <div class="title">
-                    <i class="uil uil-clock-three"></i>
-                    <span class="text">Recent quiz</span>
-                </div>
-
         </div>
     </section>
 
     <script src="../script/script.js"></script>
+    <script src="../script/proctoring.js"></script>
+
 </body>
 
 </html>

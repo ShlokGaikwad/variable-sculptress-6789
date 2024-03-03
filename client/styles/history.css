@@ -41,6 +41,10 @@ body{
   cursor: pointer;
 }
 
+.hid{
+  display: none;
+}
+
 .history{
   padding: 5%;
   display: flex;
