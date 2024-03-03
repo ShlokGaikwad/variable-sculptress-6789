@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://variable-sculptress-6789-e41a.onrender.com';
 
 const open = document.querySelector(".logo-menu");
 const close = document.querySelector(".logo-close");

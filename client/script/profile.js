@@ -20,7 +20,7 @@ let userQuiz;
 var a = document.createElement("a");
 a.href = "#";
 
-const url = "http://localhost:3000";
+const url = "https://variable-sculptress-6789-e41a.onrender.com";
 
 username.innerHTML = localStorage.getItem("name");
 point.innerHTML = localStorage.getItem("totalScoreOfUser");
@@ -198,7 +198,7 @@ const appendLeaderboard = (data) => {
 };
 /////////////////////////////badges rendering////////////
 document.addEventListener("DOMContentLoaded", async () => {
-  const url = "http://localhost:3000";
+  const url = "https://variable-sculptress-6789-e41a.onrender.com";
 
   const userId = localStorage.getItem("userId");
 
