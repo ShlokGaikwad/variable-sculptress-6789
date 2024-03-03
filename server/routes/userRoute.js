@@ -253,8 +253,8 @@ userRouter.post("/login", async (req, res) => {
         res.cookie("token", token);
         const userId = user._id;
         res.cookie("userId", userId);
-        const { totalScore } = user;
-        res.status(200).json({ msg: "Login Successfully", token, userId , totalScore });
+        const { totalScore , username, image } = user;
+        res.status(200).json({ msg: "Login Successfully", token, userId , totalScore , username, image});
       } else {
         res.status(409).json({
           message: "Password incorrect! please enter correct password",
@@ -266,15 +266,21 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
-userRouter.patch("/:id", uploadMiddleware("image"), async (req, res) => {
+userRouter.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const  {image }  = req.body;
-  console.log(`Image path is : ${req.imagePath} , id is : ${id} and the image is ${image}`)
+  const { image, totalScore } = req.body;
+
   try {
-    const user = await UserModel.findByIdAndUpdate(id, { image: req.imagePath });
-    res.status(200).json({ message: "User updated successfully" });
+    const user = await UserModel.findByIdAndUpdate(id, { image, totalScore });
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
-    res.status(400).json({ error });
+    console.error(error);
+    res.status(400).json({ error: error.message || "Failed to update user" });
   }
 });
 

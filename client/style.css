@@ -33,6 +33,7 @@ li{
     width: 100%;
     background-color:var(--royal-violet);
     z-index: 10;
+    border-top: 1px solid var(--grey-three);
 }
 
 #nav-menu{
@@ -103,6 +104,12 @@ li{
     text-decoration: none;
     color: white;
     font-size: 16px;
+}
+
+.login-signup>a>img{
+    border-radius: 100%;
+    height: 40px;
+    margin-right: 10px;
 }
 
 .logo-menu{
@@ -203,6 +210,8 @@ li{
     justify-content: space-between;
     gap: 20px;
     flex-wrap: wrap;
+    overflow: hidden;
+    border-top: 1px solid var(--grey-three);
 }
 
 .touch>h3{
@@ -317,7 +326,7 @@ li{
         left: -25%;
     }
     100% {
-        left: 80%;
+        left: 100%;
     }
 }
 
@@ -326,7 +335,7 @@ li{
         left: -25%;
     }
     100% {
-        left: 80%;
+        left: 100%;
 }
 }
 
@@ -335,7 +344,7 @@ li{
         left: -25%;
     }
     100% {
-        left: 80%;
+        left: 100%;
     }
 }
 
@@ -401,15 +410,5 @@ li{
     .hero-img{
         display: none;
     }
-
-    /* =====footer start===== */
-    .footer-bg-one {
-        display:none;
-    }
-
-    .footer-bg-two {
-       display: none;
-    }
-
-    /* =====footer end===== */
 }
+

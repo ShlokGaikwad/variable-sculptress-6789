@@ -1,4 +1,4 @@
-const url = "https://variable-sculptress-6789-e41a.onrender.com";
+const url = "http://localhost:3000";
 const correctAnswer = document.getElementById("correct-answer");
 const unanswered = document.getElementById("unanswered");
 const incorrectAnswer = document.getElementById("incorrect-answer");
@@ -32,5 +32,8 @@ function calculateResultTitle(score) {
     return "Nice Try!";
   } else if (score <= 30) {
     return "Poor, Try Again!";
+  }
+  else{
+    return "Surprised?";
   }
 }
