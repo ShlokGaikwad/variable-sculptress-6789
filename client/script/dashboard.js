@@ -25,7 +25,12 @@ async function fetchUserData() {
         const userImageElement = document.getElementById('user-image');
 
         usernameElement.textContent = username;
-        userImageElement.src = `${baseUrl}/${image}`;
+        if(image){
+            userImageElement.src = `${baseUrl}/${image}`;   
+        }
+        else{
+            userImageElement.src = `../assets/images/boy.png}`;
+        }
     } catch (error) {
         console.error('Error fetching user data:', error);
     }

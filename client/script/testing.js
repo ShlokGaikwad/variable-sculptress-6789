@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const socket = io("http://localhost:3000", {
     transports: ["websocket"],
   });
+  const backButton =  document.getElementById("back-button");
+  backButton.addEventListener("click",()=>{
+      window.history.back();
+  })
 
   // https://variable-sculptress-6789-e41a.onrender.com
 

@@ -24,7 +24,7 @@ const url = "https://variable-sculptress-6789-e41a.onrender.com";
 
 username.innerHTML = localStorage.getItem("name");
 point.innerHTML = localStorage.getItem("totalScoreOfUser");
-userProfileImage.src = `${url}/${localStorage.getItem("userProfileImage")}`;
+userProfileImage.src = `${url}/${localStorage.getItem("userProfileImage")||"../assets/images/boy.png"}`;
 
 
 stats.addEventListener("click", () => {
