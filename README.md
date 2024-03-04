@@ -1,6 +1,10 @@
 # Project Title : Queezo Coding App
 
+![Screenshot 2024-03-04 135615](https://github.com/ShlokGaikwad/variable-sculptress-6789/assets/99670746/1f291d9c-47ba-4992-b74f-238ccfa70a1e)
 ![Project Logo](client/assets/images/login.png)
+![Screenshot 2024-03-04 175043](https://github.com/ShlokGaikwad/variable-sculptress-6789/assets/99670746/ec2b3ec7-a6f7-49b7-81a7-55745b52b4e1)
+![Screenshot 2024-03-04 175109](https://github.com/ShlokGaikwad/variable-sculptress-6789/assets/99670746/5ca44227-5fd6-4d48-a00b-b994d290d104)
+
 
 ## Introduction
 This project is a comprehensive quiz application designed to provide users with an engaging platform to test their knowledge across various subjects. It encompasses features for user authentication, quiz creation, management, and taking, as well as result tracking and performance analysis.
