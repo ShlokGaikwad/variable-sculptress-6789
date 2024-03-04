@@ -14,8 +14,8 @@ router.post('/save-recording', upload.single('recording'), (req, res) => {
     if (!recording) {
       return res.status(400).json({ error: 'No recording file provided' });
     }
-
-    const filePath = path.join(__dirname, '..', 'recordings', `recording_${Date.now()}.webm`);
+    const fileName = `recording_${Date.now()}.webm`;
+    const filePath = path.join(__dirname, '..', 'recordings',fileName );
     const fs = require('fs');
 
     fs.writeFile(filePath, recording.buffer, (err) => {
@@ -27,7 +27,8 @@ router.post('/save-recording', upload.single('recording'), (req, res) => {
       console.log('Recording saved successfully');
 
       // Modify the response to include the file path or identifier
-      const recordingPath = `/recordings/recording_${Date.now()}.webm`;
+      // const recordingPath = `/recordings/recording_${Date.now()}.webm`;
+      const recordingPath = `recordings/${fileName}`;
       res.status(200).json({ success: true, recordingPath });
     });
   } catch (error) {

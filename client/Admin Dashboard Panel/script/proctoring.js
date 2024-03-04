@@ -92,7 +92,7 @@ function createCard(data){
 
     const procVideo = document.createElement("video")
     procVideo.className="hid"
-    procVideo.src=`../../../server${data.recordingPath}`
+    procVideo.src=`../../../server/${data.recordingPath}`
     procVideo.controls=true
 
     historyItem.addEventListener("click",()=>{
