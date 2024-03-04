@@ -1,7 +1,7 @@
 # Project Title : Queezo Coding App
 
-![Project Logo](client/assets/images/login.png)
 ![Screenshot 2024-03-04 135615](https://github.com/ShlokGaikwad/variable-sculptress-6789/assets/99670746/1f291d9c-47ba-4992-b74f-238ccfa70a1e)
+![Project Logo](client/assets/images/login.png)
 ![Screenshot 2024-03-04 175043](https://github.com/ShlokGaikwad/variable-sculptress-6789/assets/99670746/ec2b3ec7-a6f7-49b7-81a7-55745b52b4e1)
 ![Screenshot 2024-03-04 175109](https://github.com/ShlokGaikwad/variable-sculptress-6789/assets/99670746/5ca44227-5fd6-4d48-a00b-b994d290d104)
 
