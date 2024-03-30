@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://variable-sculptress-6789-e41a.onrender.com";
 
 document.addEventListener("DOMContentLoaded", async function () {
   let model = {
@@ -150,7 +150,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   function endQuiz() {
     stopRecording();
     scoreElement.textContent = score;
-    
   }
 
   function resetTimer() {
